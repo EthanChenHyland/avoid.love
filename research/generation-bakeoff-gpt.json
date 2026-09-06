@@ -1,0 +1,27 @@
+{
+  "name": "bakeoff-gpt",
+  "model": "openai/gpt-image-2",
+  "prompt": "Cinematic editorial still life of two half-finished coffees on a small late-night cafe table, rain-covered window, warm tungsten lamp light, intimate romantic memory, subtle 35mm film grain, muted deep red and cream palette, no people, no text. A small red poppy leans from a single glass bud vase. Off-center composition, 50mm lens at table height, optically credible shallow depth of field, tactile scratched table, emotionally specific rather than staged advertising. Widescreen cinema frame.",
+  "seconds": 79.3,
+  "usage": {
+    "prompt_tokens": 109,
+    "completion_tokens": 4312,
+    "total_tokens": 4421,
+    "cost": 0.129905,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.129905,
+      "upstream_inference_prompt_cost": 0.000545,
+      "upstream_inference_completions_cost": 0.12936
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 4312
+    }
+  },
+  "bytes": 1782225,
+  "status": "generated"
+}

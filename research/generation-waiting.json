@@ -1,0 +1,27 @@
+{
+  "name": "waiting",
+  "model": "openai/gpt-image-2",
+  "prompt": "Original cinematic editorial photograph for a love story, matching the supplied image photographic language. Fine 35mm grain, tactile real materials, restrained halation, deep shadows with visible detail, 50mm lens, no people, no text or logos. Scarlet red poppy is the recurring romantic keepsake. A quiet young persons bedroom at 1am in blue rain light. A large rain-covered window fills right two-thirds showing out-of-focus city lights. Near right lower corner is a small wooden bedside table with two glasses of water, a face-down dark phone, one folded cream note with a red dried poppy resting on it. A small amber lamp glows at far right, a sliver of rumpled ivory bedsheet. LEFT third near-black blue wall negative space. Emotion of waiting for someone, cinematic and intimate.",
+  "seconds": 69.8,
+  "usage": {
+    "prompt_tokens": 1467,
+    "completion_tokens": 4312,
+    "total_tokens": 5779,
+    "cost": 0.140583,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.140583,
+      "upstream_inference_prompt_cost": 0.011223,
+      "upstream_inference_completions_cost": 0.12936
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 4312
+    }
+  },
+  "bytes": 2154744,
+  "status": "generated"
+}

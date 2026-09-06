@@ -1,0 +1,16 @@
+{
+  "transition": {
+    "count": 121,
+    "fps": 15,
+    "desktop": "/frames/petal-transition/desktop",
+    "mobile": "/frames/petal-transition/mobile",
+    "video": "/films/petal-transition.mp4"
+  },
+  "opening": {
+    "count": 91,
+    "fps": 15,
+    "desktop": "/frames/poppy-film/desktop",
+    "mobile": "/frames/poppy-film/mobile",
+    "video": "/films/poppy-film.mp4"
+  }
+}

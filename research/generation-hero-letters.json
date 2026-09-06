@@ -1,0 +1,27 @@
+{
+  "name": "hero-letters",
+  "model": "openai/gpt-image-2",
+  "prompt": "Original fine-art editorial photograph for an intimate cinematic love story. Photoreal materials, subtle 35mm negative grain, restrained halation, deep shadows with detail, no people, no words, no logos, no heart icons. Widescreen 16:9. A modest empty bedroom at late afternoon, a real tall window on far right, faded midnight-blue walls, one small wooden chair. Several enormous ivory folded love letters float slowly through the room at impossible architectural scale: one close foreground folded sheet at right, two smaller sheets deep in room, a scarlet silk ribbon curls between them and a red poppy rests on the chair. Soft peach sunlight from right, dramatic long shadows, negative space on left. Letters are blank with tactile folds and slight translucency, physically credible perspective, nostalgic yet youthful, editorial surrealism, not fantasy illustration, not particles.",
+  "seconds": 74.0,
+  "usage": {
+    "prompt_tokens": 180,
+    "completion_tokens": 4312,
+    "total_tokens": 4492,
+    "cost": 0.13026,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.13026,
+      "upstream_inference_prompt_cost": 0.0009,
+      "upstream_inference_completions_cost": 0.12936
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 4312
+    }
+  },
+  "bytes": 1742773,
+  "status": "generated"
+}

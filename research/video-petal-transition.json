@@ -1,0 +1,26 @@
+{
+  "job": {
+    "name": "petal-transition",
+    "model": "bytedance/seedance-2.0",
+    "duration": 8,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "generate_audio": false,
+    "first": "hero-poppy.png",
+    "last": "hero-cafe.png",
+    "prompt": "A single seamless cinematic dream transition between the two reference frames. Begin on the huge red poppy in the meadow at dusk. Camera pushes INTO a translucent red petal until red silk-like petal texture fills the entire screen. Travel through soft scarlet darkness. Then pull back from a small red poppy in a glass vase to reveal the intimate rainy cafe table with two used coffee cups shown in the final frame. The red flower is the connection between worlds. Smooth slow film camera, credible materials, no people, no text, no flash, no abrupt dissolve. Final two seconds hold gently on the rainy cafe while drops slide on the glass."
+  },
+  "result": {
+    "id": "CdvKOKaHAzGIrjufK8o9",
+    "generation_id": "gen-vid-1788732697-WzkyaMeiyISiQd5DvO8X",
+    "polling_url": "https://openrouter.ai/api/v1/videos/CdvKOKaHAzGIrjufK8o9",
+    "status": "completed",
+    "unsigned_urls": [
+      "https://openrouter.ai/api/v1/videos/CdvKOKaHAzGIrjufK8o9/content?index=0"
+    ],
+    "usage": {
+      "cost": 1.2159,
+      "is_byok": false
+    }
+  }
+}

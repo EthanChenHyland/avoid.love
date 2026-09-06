@@ -1,0 +1,27 @@
+{
+  "name": "hero-cafe",
+  "model": "openai/gpt-image-2",
+  "prompt": "Original fine-art editorial photograph for an intimate cinematic love story. Photoreal materials, subtle 35mm negative grain, restrained halation, deep shadows with detail, no people, no words, no logos, no heart icons. Widescreen 16:9. Use reference for photographic language and palette. An intimate late-night cafe after a long date, a round weathered table in lower RIGHT of frame with exactly two half-finished ceramic coffee cups, one cream and one oxblood, and a slender glass vase holding one red poppy with a bowed stem. Behind it a rain-covered window with distant blurred streetlight. A dark burgundy empty chair and near-black wall occupy LEFT third, providing dark negative space. Table and cups only in right half. Shot from seated eye level, 50mm lens. Cooler blue reflections in glass, warm amber rim light, keep lamp out of frame. Quiet, cinematic, real, not overly styled.",
+  "seconds": 67.5,
+  "usage": {
+    "prompt_tokens": 1493,
+    "completion_tokens": 4312,
+    "total_tokens": 5805,
+    "cost": 0.140713,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.140713,
+      "upstream_inference_prompt_cost": 0.011353,
+      "upstream_inference_completions_cost": 0.12936
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 4312
+    }
+  },
+  "bytes": 2150452,
+  "status": "generated"
+}

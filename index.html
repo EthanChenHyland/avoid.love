@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#172629">
+<title>avoid.love — You weren't looking.</title>
+<meta name="description" content="A cinematic love story about the things you kept, the words you almost said, and the person you couldn't forget.">
+<link rel="canonical" href="https://avoid.love/">
+<meta property="og:type" content="website"><meta property="og:title" content="avoid.love — You weren't looking."><meta property="og:description" content="A love story. You already know who it's about."><meta property="og:url" content="https://avoid.love/"><meta property="og:image" content="https://avoid.love/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="/fonts/bodoni.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/art/hero-poppy.webp" as="image" media="(min-width: 701px)">
+<link rel="preload" href="/art/hero-poppy-mobile.webp" as="image" media="(max-width: 700px)">
+<link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+<a class="skip" href="#reading">Read the story</a>
+<header class="masthead"><a class="brand" href="#before" aria-label="avoid.love, beginning">avoid<span>.love</span></a><span class="mast-caption">a story you already know</span><button id="chapters-toggle" aria-controls="chapters" aria-expanded="false">The story <span aria-hidden="true">↗</span></button></header>
+<nav id="chapters" aria-label="Story chapters" hidden><button id="chapters-close" aria-label="Close chapters">Close ×</button><a href="#before">Before</a><a href="#notice">The other chair</a><button id="still-toggle" aria-pressed="false">Still-frame mode</button></nav>
+<main id="film" aria-label="A love story">
+<div class="stage" aria-hidden="true">
+ <picture id="poster"><source media="(max-width:700px)" srcset="/art/hero-poppy-mobile.webp"><img src="/art/hero-poppy.webp" alt="" fetchpriority="high"></picture>
+ <canvas id="world"></canvas>
+ <div id="opening" class="shot-copy opening"><p class="prelude">so much for avoiding</p><div class="love">love</div></div>
+ <img id="foreground" src="/art/poppy-foreground.webp" alt="">
+ <div id="opening-foot" class="opening-foot"><p>You weren't looking.<br>Then there was them.</p><span>Some things happen anyway.</span></div>
+ <div id="notice-copy" class="shot-copy notice-copy"><p class="chapter-kicker">The other chair</p><h2>One more<br><em>coffee.</em></h2><p class="under">Neither of you wanted to leave.</p></div>
+ <div id="bridge-copy" class="bridge-copy">oh.</div>
+ <div id="late-copy" class="late-copy">You forgot what time it was.</div>
+</div>
+<div class="scroll-track"><article id="before" class="beat"><h1>Avoid love. You weren't looking. Then there was them.</h1><p>A scarlet poppy moves in the evening air. Some things happen anyway.</p></article><article id="notice" class="beat"><h2>One more coffee.</h2><p>Neither of you wanted to leave. You forgot what time it was.</p></article></div>
+</main>
+<footer class="film-footer"><span id="chapter-label">Before</span><button id="next-beat" aria-label="Continue the story">Scroll a little closer <span aria-hidden="true">↓</span></button><span class="progress-rail" aria-hidden="true"><i id="progress-fill"></i></span></footer>
+<div id="reading" class="reading"><h2>A story you already know.</h2><p>You weren't looking. Then there was them.</p><p>One more coffee. Neither of you wanted to leave. You forgot what time it was.</p><a href="#before">Back to the beginning ↑</a></div>
+<script type="module" src="/src/main.mjs"></script>
+</body></html>

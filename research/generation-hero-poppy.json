@@ -1,0 +1,27 @@
+{
+  "name": "hero-poppy",
+  "model": "openai/gpt-image-2",
+  "prompt": "Original fine-art editorial photograph for an intimate cinematic love story. Photoreal materials, subtle 35mm negative grain, restrained halation, deep shadows with detail, no people, no words, no logos, no heart icons. Widescreen 16:9. Extreme macro of ONE immense scarlet red poppy on a slender curved stem in a real windswept meadow at blue hour. The bloom is on the RIGHT, occupies the right 55 percent of the frame, its top at 15 percent, center at 45 percent height; huge paper-thin wrinkled vermilion petals, black stamen center just visible, amber sun transmitted through petal edges. Entire LEFT half is softly out of focus deep blue-green dusk sky and dark meadow with distant mountains, clear negative space. Flower petals must be intensely tactile and sculptural like folds of silk. Shot with 100mm macro lens, actual landscape background not a studio gradient. Low horizon, emotionally arresting, melancholy, high-end magazine cover quality. Petals cropped slightly at right edge, stem reaches bottom.",
+  "seconds": 72.9,
+  "usage": {
+    "prompt_tokens": 225,
+    "completion_tokens": 4312,
+    "total_tokens": 4537,
+    "cost": 0.130485,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.130485,
+      "upstream_inference_prompt_cost": 0.001125,
+      "upstream_inference_completions_cost": 0.12936
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 4312
+    }
+  },
+  "bytes": 1819896,
+  "status": "generated"
+}

@@ -1,0 +1,11 @@
+{
+  "machine": "Ethans-M1-Max.local",
+  "home": "/Users/ethanbchen",
+  "project": "/Users/ethanbchen/VSCode/avoid-love-v4",
+  "bridge": "Native3 present in registry, connector requires unavailable turn token; using direct local Codex exec on verified host. Native2 never used.",
+  "backups": {
+    "avoid-love": "## main\n",
+    "avoid-love-v2": "## main\n",
+    "avoid-love-v3": "## main\n M scripts/generate_openrouter_assets.py\n M src/app/globals.css\n M src/app/layout.tsx\n M src/app/page.tsx\n D src/components/AttachmentScreening.tsx\n?? public/art/motif-cutout.png\n?? public/art/motif-gpt-image-1.png\n?? public/art/motif-key-gpt-image-1.png\n?? public/art/unsent-gpt-image-1.png\n?? src/app/story.css\n?? src/components/story/\n"
+  }
+}

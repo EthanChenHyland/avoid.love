@@ -1,0 +1,82 @@
+[
+  {
+    "name": "little-things",
+    "model": "openai/gpt-image-2",
+    "prompt": "Original cinematic editorial photograph for a love story, matching the supplied image photographic language. Fine 35mm grain, tactile real materials, restrained halation, deep shadows with visible detail, 50mm lens, no people, no text or logos. Scarlet red poppy is the recurring romantic keepsake. Overhead close view of a scratched oxblood lacquered cafe table, two overlapping used cream coffee cups on the far upper right, a small crumpled plain receipt with no legible print, a folded cream napkin, and one scarlet poppy laid diagonally across the right half. Lower LEFT third is empty dark burgundy tabletop for typography. Hard warm side light from upper left, tactile paper shadows and rings left by cups. Photographed evidence of a date, not a product arrangement.",
+    "aspect_ratio": "16:9",
+    "quality": "high",
+    "references": [
+      "hero-cafe.png"
+    ]
+  },
+  {
+    "name": "waiting",
+    "model": "openai/gpt-image-2",
+    "prompt": "Original cinematic editorial photograph for a love story, matching the supplied image photographic language. Fine 35mm grain, tactile real materials, restrained halation, deep shadows with visible detail, 50mm lens, no people, no text or logos. Scarlet red poppy is the recurring romantic keepsake. A quiet young persons bedroom at 1am in blue rain light. A large rain-covered window fills right two-thirds showing out-of-focus city lights. Near right lower corner is a small wooden bedside table with two glasses of water, a face-down dark phone, one folded cream note with a red dried poppy resting on it. A small amber lamp glows at far right, a sliver of rumpled ivory bedsheet. LEFT third near-black blue wall negative space. Emotion of waiting for someone, cinematic and intimate.",
+    "aspect_ratio": "16:9",
+    "quality": "high",
+    "references": [
+      "hero-cafe.png"
+    ]
+  },
+  {
+    "name": "unsent",
+    "model": "openai/gpt-image-2",
+    "prompt": "Original cinematic editorial photograph for a love story, matching the supplied image photographic language. Fine 35mm grain, tactile real materials, restrained halation, deep shadows with visible detail, 50mm lens, no people, no text or logos. Scarlet red poppy is the recurring romantic keepsake. An extreme close photograph of a single open folded ivory love letter lying across a dark wooden desk, right half dominant, blank thin paper curved upward along a deep crease, one loose red poppy petal at the lower edge. In background a shadowed blue bedroom with warm window light. LEFT third dark for copy. The paper is enormous in perspective, real fibers, tactile shadows, no envelopes floating in this image.",
+    "aspect_ratio": "16:9",
+    "quality": "high",
+    "references": [
+      "hero-cafe.png"
+    ]
+  },
+  {
+    "name": "us-train",
+    "model": "openai/gpt-image-2",
+    "prompt": "Original cinematic editorial photograph for a love story, matching the supplied image photographic language. Fine 35mm grain, tactile real materials, restrained halation, deep shadows with visible detail, 50mm lens, no people, no text or logos. Scarlet red poppy is the recurring romantic keepsake. An intimate empty train compartment at golden hour, exactly two adjacent worn burgundy seats beside a large window. A small bouquet with one red poppy wrapped in folded cream paper lies on one seat, a pair of wired headphones stretches across both seats. Warm sunset landscape through window, deep blue interior shadows, realistic train details, soft reflections. Subjects mainly RIGHT half, LEFT third dark negative space. This is the happy memory of sharing the long way home.",
+    "aspect_ratio": "16:9",
+    "quality": "high",
+    "references": [
+      "hero-cafe.png"
+    ]
+  },
+  {
+    "name": "us-street",
+    "model": "openai/gpt-image-2",
+    "prompt": "Original cinematic editorial photograph for a love story, matching the supplied image photographic language. Fine 35mm grain, tactile real materials, restrained halation, deep shadows with visible detail, 50mm lens, no people, no text or logos. Scarlet red poppy is the recurring romantic keepsake. Rainy city street late at night seen from beneath one umbrella, no people visible. In near right foreground two takeaway coffee cups sit side by side on a wet stone ledge, one red poppy tucked between them. Warm cafe windows glow beyond wet pavement, blue-black sky, tender intimate mood after a date, shallow focus on cups and flower, left half negative space of dark reflective street.",
+    "aspect_ratio": "16:9",
+    "quality": "high",
+    "references": [
+      "hero-cafe.png"
+    ]
+  },
+  {
+    "name": "distance",
+    "model": "openai/gpt-image-2",
+    "prompt": "Original cinematic editorial photograph for a love story, matching the supplied image photographic language. Fine 35mm grain, tactile real materials, restrained halation, deep shadows with visible detail, 50mm lens, no people, no text or logos. Scarlet red poppy is the recurring romantic keepsake. The same intimate old train compartment after departure at blue hour: two burgundy seats face each other across empty space, only the near right seat contains a single dried red poppy and a folded cream note. Far seat completely empty. Large rain-streaked window on right shows a distant tiny warm station light and blue landscape. Camera far back, emptiness palpable, LEFT third very dark negative space, no people.",
+    "aspect_ratio": "16:9",
+    "quality": "high",
+    "references": [
+      "hero-cafe.png"
+    ]
+  },
+  {
+    "name": "drawer",
+    "model": "openai/gpt-image-2",
+    "prompt": "Original cinematic editorial photograph for a love story, matching the supplied image photographic language. Fine 35mm grain, tactile real materials, restrained halation, deep shadows with visible detail, 50mm lens, no people, no text or logos. Scarlet red poppy is the recurring romantic keepsake. Close intimate photograph of a half-open wooden bedside drawer, inside a folded cream love letter with one pressed scarlet poppy and a faded photograph whose image is a tiny empty cafe table, no faces, no words. Drawer occupies lower right, broad black-blue wall on left. Very narrow slant of amber afternoon light catches the letter, deep tactile shadows and scratches. The act of trying to put a memory away.",
+    "aspect_ratio": "16:9",
+    "quality": "high",
+    "references": [
+      "hero-cafe.png"
+    ]
+  },
+  {
+    "name": "love-morning",
+    "model": "openai/gpt-image-2",
+    "prompt": "Original cinematic editorial photograph for a love story, matching the supplied image photographic language. Fine 35mm grain, tactile real materials, restrained halation, deep shadows with visible detail, 50mm lens, no people, no text or logos. Scarlet red poppy is the recurring romantic keepsake. A small sunlit kitchen table in a quiet apartment, two mismatched ceramic cups of coffee waiting next to each other, one cream one oxblood, a living red poppy in a tiny clear vase, one open blank cream note. Soft morning sunlight through gauze curtain at right, warm pale peach walls, real lived-in objects, fine film grain, generous empty LEFT half of softly shaded warm wall for dark text. The scene feels like saving someone a place, romantic resolution and peace. No people.",
+    "aspect_ratio": "16:9",
+    "quality": "high",
+    "references": [
+      "hero-cafe.png"
+    ]
+  }
+]

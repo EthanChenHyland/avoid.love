@@ -1,0 +1,27 @@
+{
+  "name": "little-things",
+  "model": "openai/gpt-image-2",
+  "prompt": "Original cinematic editorial photograph for a love story, matching the supplied image photographic language. Fine 35mm grain, tactile real materials, restrained halation, deep shadows with visible detail, 50mm lens, no people, no text or logos. Scarlet red poppy is the recurring romantic keepsake. Overhead close view of a scratched oxblood lacquered cafe table, two overlapping used cream coffee cups on the far upper right, a small crumpled plain receipt with no legible print, a folded cream napkin, and one scarlet poppy laid diagonally across the right half. Lower LEFT third is empty dark burgundy tabletop for typography. Hard warm side light from upper left, tactile paper shadows and rings left by cups. Photographed evidence of a date, not a product arrangement.",
+  "seconds": 81.6,
+  "usage": {
+    "prompt_tokens": 1462,
+    "completion_tokens": 4312,
+    "total_tokens": 5774,
+    "cost": 0.140558,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.140558,
+      "upstream_inference_prompt_cost": 0.011198,
+      "upstream_inference_completions_cost": 0.12936
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 4312
+    }
+  },
+  "bytes": 2137987,
+  "status": "generated"
+}

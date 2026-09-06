@@ -1,0 +1,25 @@
+{
+  "job": {
+    "name": "poppy-film",
+    "model": "bytedance/seedance-2.0",
+    "duration": 6,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "generate_audio": false,
+    "first": "hero-poppy.png",
+    "prompt": "One continuous cinematic macro shot. The giant scarlet poppy in the foreground moves very gently in a passing breeze, its thin translucent petals flutter with physically realistic subtle motion. Distant meadow grasses sway softly. Camera makes a very slow controlled 8 percent push toward the flower. Preserve composition, blue dusk sky, red petal texture, photoreal analog film style. No new objects, no people, no text, no cuts. Intimate and almost still."
+  },
+  "result": {
+    "id": "VY7eJKQr8bvvUSYeYAbS",
+    "generation_id": "gen-vid-1788732684-d1KOUv2Gdx0JHtoAdHge",
+    "polling_url": "https://openrouter.ai/api/v1/videos/VY7eJKQr8bvvUSYeYAbS",
+    "status": "completed",
+    "unsigned_urls": [
+      "https://openrouter.ai/api/v1/videos/VY7eJKQr8bvvUSYeYAbS/content?index=0"
+    ],
+    "usage": {
+      "cost": 0.9135,
+      "is_byok": false
+    }
+  }
+}
