@@ -14,3 +14,6 @@ export function nearestFrame(keys,target){
  for(const k of keys){const d=Math.abs(k-target);if(d<dist){best=k;dist=d}}
  return best;
 }
+
+// Centered cover must retain enough overscan for the entire translated viewport.
+export function motionScale(w,h,scale,dx,dy){return Math.max(scale,1+2*Math.max((Math.abs(dx)+1)/w,(Math.abs(dy)+1)/h))}

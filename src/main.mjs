@@ -1,4 +1,4 @@
-import {clamp,progress,smooth,mix,cover,firstAct} from './timeline.mjs';
+import {clamp,progress,smooth,mix,cover,firstAct,motionScale} from './timeline.mjs';
 import {FrameSequence} from './sequence.mjs';
 import {chapters,chapterIndex} from './story.mjs';
 import {playthings} from './playthings.mjs';
@@ -21,7 +21,7 @@ function invalidate(){dirty=true;if(!raf&&!document.hidden)raf=requestAnimationF
 async function plate(name){
  if(plates.has(name))return plates.get(name);if(plateLoads.has(name))return plateLoads.get(name);
  const version=loadVersion;
- const promise=(async()=>{const img=new Image();img.src=`/art/${name}${mobile?'-mobile':''}.webp`;await img.decode();if(version===loadVersion){plates.set(name,img);invalidate()}return img})().catch(()=>{errors.add(name);return null}).finally(()=>{if(plateLoads.get(name)===promise)plateLoads.delete(name)});
+ const promise=(async()=>{const img=new Image();img.src=`/art/${name}${mobile?'-mobile':''}.webp`;await img.decode();if(version===loadVersion){img.readyAt=performance.now();plates.set(name,img);invalidate()}return img})().catch(()=>{errors.add(name);return null}).finally(()=>{if(plateLoads.get(name)===promise)plateLoads.delete(name)});
  plateLoads.set(name,promise);return promise;
 }
 function prepareNearby(){
@@ -42,10 +42,17 @@ function film(name,t,fallback){
  const image=seq.get(t);if(image&&!seq.readyAt)seq.readyAt=performance.now();const blend=image?smooth(clamp((performance.now()-seq.readyAt)/220)):0;if(image&&blend<1)filmBlending=true;frameStats={film:name,frame:seq.drawn,cached:[...sequences.values()].reduce((n,s)=>n+s.frames.size,0)};return image?{filmImage:image,fallback,blend}:fallback;
 }
 function draw(image,scale=1,alpha=1,focus=.5,dx=0,dy=0,dc=ctx){if(!image||alpha<=0)return;if(image.filmImage){if(image.blend<1)draw(image.fallback,scale,alpha,focus,dx,dy,dc);draw(image.filmImage,scale,alpha*image.blend,focus,dx,dy,dc);return}const b=cover(image.width,image.height,w,h,focus,scale);dc.globalAlpha=clamp(alpha);dc.drawImage(image,b.x+dx,b.y+dy,b.w,b.h);dc.globalAlpha=1}
+function plateOpacity(name,alpha){const image=plates.get(name);if(!image)return 0;const ready=still?1:smooth(clamp((performance.now()-image.readyAt)/400));if(ready<1)filmBlending=true;return alpha*ready}
 function depthPlate(name,scale=1,alpha=1){
  const amount=still?0:depthAmount(p),gain=mobile?.5:1;
- draw(plates.get(name),scale+amount*.012,alpha,.5,(visitor.x*2+Math.sin(p*45)*5)*amount*gain,(visitor.y*1.5+Math.cos(p*30)*3)*amount*gain);
- if(amount&&plates.has(name+'-depth'))draw(plates.get(name+'-depth'),scale+amount*.012,alpha*amount,.5,(visitor.x*12+Math.sin(p*45)*9)*amount*gain,(visitor.y*8+Math.cos(p*30)*6)*amount*gain);
+ const bx=(visitor.x*2+Math.sin(p*45)*5)*amount*gain,by=(visitor.y*1.5+Math.cos(p*30)*3)*amount*gain;
+ const fx=(visitor.x*12+Math.sin(p*45)*9)*amount*gain,fy=(visitor.y*8+Math.cos(p*30)*6)*amount*gain;
+ // A portrait crop magnifies the feathered duplicate into a second cup/table edge.
+ // Keep portrait depth on one continuous image; desktop layers share one crop scale.
+ const layered=w>=h&&!mobile&&amount&&plates.has(name+'-depth');
+ const baseScale=motionScale(w,h,scale+amount*.012,bx,by),safeScale=layered?Math.max(baseScale,motionScale(w,h,scale+amount*.012,fx,fy)):baseScale;
+ draw(plates.get(name),safeScale,alpha,.5,bx,by);
+ if(layered)draw(plates.get(name+'-depth'),safeScale,plateOpacity(name+'-depth',alpha*amount),.5,fx,fy);
 }
 function wipe(image,t,kind='diagonal',scale=1,focus=.5){
  if(!image||t<=0)return;if(t>=1){draw(image,scale,1,focus);return}if(still){draw(image,scale,smooth(t),focus);return}
@@ -63,13 +70,15 @@ function photo(image,t,x=.5,y=.5,angle=0){if(!image)return;const q=smooth(t),cw=
 function render(){
  const started=performance.now();filmBlending=false;mistSource=null;canvas.style.opacity=plates.size?'1':'0';for(const el of shots)el.style.opacity=0;$('#foreground').style.opacity=0;ctx.fillStyle='#101b1d';ctx.fillRect(0,0,w,h);frameStats={frame:-1,cached:0,film:''};
  const get=n=>plates.get(n),hero=get('hero-poppy'),cafe=get('hero-cafe'),q=p/.23;
+ const portrait=w/h<1,ending=plateOpacity('love-morning',smooth(progress(p,portrait?.925:.95,portrait?.982:.966)));
+ const cafeStart=portrait?.60:.76,cafeEnd=portrait?.85:.85,cafeAlpha=plateOpacity('hero-cafe',smooth(progress(q,cafeStart,cafeEnd)));
  if(p<.255){
   const a=firstAct(q),zoom=still?1:1+smooth(progress(q,.05,.29))*.065;
   draw(hero,zoom);
   if(!still&&q>.035&&q<.35){const opening=film('opening',progress(q,.035,.29),hero);draw(opening,1,smooth(progress(q,.035,.065)),mobile?.77:.5)}
   if(still)draw(cafe,1,smooth(progress(q,.42,.58)));
-  else if(q>.29&&q<.86){const frame=film('transition',a.film,hero);draw(frame,1,smooth(progress(q,.29,.35)),mobile?.77:.5)}
-  if(q>=.76)draw(cafe,1,smooth(progress(q,.76,.85)));
+  else if(q>.29&&cafeAlpha<1){const frame=film('transition',portrait?Math.min(a.film,.69):a.film,hero);draw(frame,1,smooth(progress(q,.29,.35)),mobile?.77:.5)}
+  if(q>=cafeStart)draw(cafe,1,cafeAlpha);
   const op=still?1-smooth(progress(q,.36,.46)):a.hero;show('opening',op);show('opening-foot',op);
   $('#opening').style.transform=`translateY(${still?0:-progress(q,.03,.3)*openingTravel}px) scale(${still?1:1+progress(q,.02,.3)*.025})`;
   $('#foreground').style.opacity=still?0:op*(1-smooth(progress(q,.025,.065)));$('#foreground').style.transform=`scale(${zoom})`;
@@ -104,15 +113,15 @@ function render(){
   if(!still&&local>.6){ctx.save();ctx.beginPath();ctx.rect(0,h*.5-h*.5*smooth(progress(local,.6,.86)),w,h*smooth(progress(local,.6,.86)));ctx.clip();draw(cafe,1.08,smooth(progress(local,.6,.84)));ctx.restore()}
   show('trying-copy',windowed(p,.753,.765,.809,.833));$('#trying-line').textContent=local>.63?'But there it was again.':'That should have been that.';
  }
- if(p>=.82&&p<.97){const local=progress(p,.82,.95);draw(get('hero-letters'),1,smooth(progress(p,.82,.837)));
+ if(p>=.82&&ending<1){const local=progress(p,.82,.95);draw(get('hero-letters'),1,smooth(progress(p,.82,.837)));
   if(!still){if(local<.50){photo(cafe,progress(local,0,.25),.75,.4,-.12);if(!mobile)photo(get('us-street'),progress(local,.1,.38),.3,.65,.15);photo(get('unsent'),progress(local,.23,.48),.7,.5,-.08)}if(local>.40){const image=film('impossible',progress(local,.43,1),get('hero-letters'));draw(image,1,smooth(progress(local,.40,.50)),mobile?.72:.5)}}
   show('impossible-copy',windowed(p,.83,.848,.89,.916));
  }
- if(p>=.95){depthPlate('love-morning',1,smooth(progress(p,.95,.966)));const local=progress(p,.95,1);show('love-copy',smooth(progress(p,.958,.978)));$('#avoid-word').style.opacity=1-smooth(progress(local,.32,.8));}
+ if(p>=(portrait?.925:.95)){depthPlate('love-morning',1,ending);const local=progress(p,.95,1);show('love-copy',smooth(progress(p,.958,.978)));$('#avoid-word').style.opacity=1-smooth(progress(local,.32,.8));}
  memory.draw(ctx,canvas,mistSource);gradeCopy(ctx,w,h,p);if(!still)letterLight(ctx,w,h,p,visitor,mobile);redThread(ctx,w,h,p,visitor,mobile,still);
  play.draw(ctx);
  canvas.dataset.visitor=visitor.presence.toFixed(3);canvas.dataset.depth=String(!still&&depthAmount(p)>0);
- const light=p>.963;document.body.classList.toggle('on-light',light);
+ const light=p>.963;document.body.classList.toggle('on-light',light);$('.stage').style.setProperty('--stage-shade',String(1-ending));
  $('#chapter-label').textContent=chapters[active].name;
  const interaction=[4,7].includes(active);holdButton.hidden=true;holdButton.textContent=active===7?'Hold to put it away':'Hold the thought';
  $('#next-beat').innerHTML=p>.985?'Once more <span aria-hidden="true">↺</span>':p<.05?'Scroll a little closer <span aria-hidden="true">↓</span>':'Keep going <span aria-hidden="true">↓</span>';
