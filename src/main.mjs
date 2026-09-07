@@ -70,14 +70,14 @@ function photo(image,t,x=.5,y=.5,angle=0){if(!image)return;const q=smooth(t),cw=
 function render(){
  const started=performance.now();filmBlending=false;mistSource=null;canvas.style.opacity=plates.size?'1':'0';for(const el of shots)el.style.opacity=0;$('#foreground').style.opacity=0;ctx.fillStyle='#101b1d';ctx.fillRect(0,0,w,h);frameStats={frame:-1,cached:0,film:''};
  const get=n=>plates.get(n),hero=get('hero-poppy'),cafe=get('hero-cafe'),q=p/.23;
- const portrait=w/h<1,ending=plateOpacity('love-morning',smooth(progress(p,portrait?.895:.95,portrait?.968:.966)));
- const cafeStart=portrait?.40:.76,cafeEnd=portrait?.76:.85,cafeAlpha=plateOpacity('hero-cafe',smooth(progress(q,cafeStart,cafeEnd)));
+ const portrait=w/h<1,ending=plateOpacity('love-morning',smooth(progress(p,.95,portrait?.982:.966)));
+ const cafeStart=.76,cafeEnd=portrait?.90:.85,cafeAlpha=plateOpacity('hero-cafe',smooth(progress(q,cafeStart,cafeEnd)));
  if(p<.255){
   const a=firstAct(q),zoom=still?1:1+smooth(progress(q,.05,.29))*.065;
   draw(hero,zoom);
-  if(!still&&!portrait&&q>.035&&q<.35){const opening=film('opening',progress(q,.035,.29),hero);draw(opening,1,smooth(progress(q,.035,.065)),mobile?.77:.5)}
+  if(!still&&q>.035&&q<.35){const opening=film('opening',progress(q,.035,.29),hero);draw(opening,1,smooth(progress(q,.035,.065)),mobile?.77:.5)}
   if(still)draw(cafe,1,plateOpacity('hero-cafe',smooth(progress(q,.42,.58))));
-  else if(!portrait&&q>.29&&cafeAlpha<1){const frame=film('transition',a.film,hero);draw(frame,1,smooth(progress(q,.29,.35)),mobile?.77:.5)}
+  else if(q>.29&&cafeAlpha<1){const frame=film('transition',a.film,hero);draw(frame,1,smooth(progress(q,.29,.35)),mobile?.77:.5)}
   if(q>=cafeStart)draw(cafe,1,cafeAlpha);
   const op=still?1-smooth(progress(q,.36,.46)):a.hero;show('opening',op);show('opening-foot',op);
   $('#opening').style.transform=`translateY(${still?0:-progress(q,.03,.3)*openingTravel}px) scale(${still?1:1+progress(q,.02,.3)*.025})`;
@@ -114,13 +114,13 @@ function render(){
   show('trying-copy',windowed(p,.753,.765,.809,.833));$('#trying-line').textContent=local>.63?'But there it was again.':'That should have been that.';
  }
  if(p>=.82&&ending<1){const local=progress(p,.82,.95);draw(get('hero-letters'),1,smooth(progress(p,.82,.837)));
-  if(!still&&!portrait){if(local<.50){photo(cafe,progress(local,0,.25),.75,.4,-.12);if(!mobile)photo(get('us-street'),progress(local,.1,.38),.3,.65,.15);photo(get('unsent'),progress(local,.23,.48),.7,.5,-.08)}if(local>.40){const image=film('impossible',progress(local,.43,1),get('hero-letters'));draw(image,1,smooth(progress(local,.40,.50)),mobile?.72:.5)}}
+  if(!still){if(local<.50){photo(cafe,progress(local,0,.25),.75,.4,-.12);if(!mobile)photo(get('us-street'),progress(local,.1,.38),.3,.65,.15);photo(get('unsent'),progress(local,.23,.48),.7,.5,-.08)}if(local>.40){const image=film('impossible',progress(local,.43,1),get('hero-letters'));draw(image,1,smooth(progress(local,.40,.50)),mobile?.72:.5)}}
   show('impossible-copy',windowed(p,.83,.848,.89,.916));
  }
- if(p>=(portrait?.895:.95)){depthPlate('love-morning',1,ending);const local=progress(p,.95,1);show('love-copy',smooth(progress(p,.958,.978)));$('#avoid-word').style.opacity=1-smooth(progress(local,.32,.8));}
+ if(p>=.95){depthPlate('love-morning',1,ending);const local=progress(p,.95,1);show('love-copy',smooth(progress(p,.958,.978)));$('#avoid-word').style.opacity=1-smooth(progress(local,.32,.8));}
  memory.draw(ctx,canvas,mistSource);gradeCopy(ctx,w,h,p);if(!still)letterLight(ctx,w,h,p,visitor,mobile);redThread(ctx,w,h,p,visitor,mobile,still);
  play.draw(ctx);
- canvas.dataset.rendition=portrait?'portrait-continuous':'landscape-film';canvas.dataset.visitor=visitor.presence.toFixed(3);canvas.dataset.depth=String(!still&&depthAmount(p)>0);
+ canvas.dataset.rendition=portrait?'portrait-film':'landscape-film';canvas.dataset.visitor=visitor.presence.toFixed(3);canvas.dataset.depth=String(!still&&depthAmount(p)>0);
  const light=p>.963;document.body.classList.toggle('on-light',light);$('.stage').style.setProperty('--stage-shade',String(1-ending));
  $('#chapter-label').textContent=chapters[active].name;
  const interaction=[4,7].includes(active);holdButton.hidden=true;holdButton.textContent=active===7?'Hold to put it away':'Hold the thought';
