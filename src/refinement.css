@@ -91,3 +91,28 @@ html[data-still=true] .stage *{transition:none!important}
 @media(max-height:600px) and (orientation:landscape){.scene-action{bottom:65px}#memory-card{width:min(55vw,430px);aspect-ratio:16/9}#memory-dialog[open]{gap:12px;padding:55px 20px 15px}.memory-face{padding:9px 9px 23px}#memory-note{font-size:28px}}
 html[data-still=true] .memory-face{transition:none}
 @media(prefers-reduced-motion:reduce){.memory-face{transition:none}}
+/* Explicit touch controls give the story a second, playful layer. */
+.play-dock{position:fixed;z-index:18;left:50%;transform:translateX(-50%);bottom:max(82px,env(safe-area-inset-bottom));width:max-content;max-width:calc(100% - 32px);color:#fff4e2}
+.play-dock[hidden],.play-dock [hidden]{display:none}
+.play-dock button,.play-dock label{display:block;border:1px solid #f6e2c277;border-radius:30px;background:#17221ee6;padding:12px 22px;min-height:48px;font-size:16px;box-shadow:0 8px 32px #0003}
+.play-dock[data-mode=letter]{bottom:140px}
+#thread-control{display:grid;grid-template-columns:1fr auto;gap:8px 20px;width:min(340px,85vw)}
+#thread-control input{grid-column:1/-1;grid-row:2;accent-color:#ee4051;width:100%;height:30px;touch-action:pan-y}
+#thread-control span{font-size:13px;opacity:.8}
+#letter-dialog{position:fixed;inset:0;margin:auto;width:100%;height:100%;max-width:none;max-height:none;border:0;background:#091612ed;color:#fff5e4;padding:72px 20px 24px;overflow:auto}
+#letter-dialog::backdrop{background:#091612d9}#letter-dialog[open]{display:grid;place-items:center}
+.letter-close{position:absolute;top:18px;right:24px;min-height:44px}
+.letter-paper{width:min(560px,100%);padding:clamp(24px,5vw,48px);background:#eee1c9;color:#493528;box-shadow:0 30px 100px #0007;transform:rotate(-1deg);transition:transform .65s,background .65s;box-sizing:border-box}
+.letter-eyebrow{font-size:12px;letter-spacing:.15em}.letter-paper h2{font:italic clamp(38px,9vw,64px)/1.1 Bodoni,serif;margin:22px 0}.letter-paper label{font-size:16px}
+.letter-paper textarea{display:block;width:100%;box-sizing:border-box;min-height:180px;margin:18px 0;border:0;border-bottom:1px solid #806648;background:repeating-linear-gradient(transparent 0 31px,#80664833 31px 32px);color:#493528;font:20px/32px Bodoni,serif;resize:vertical;padding:0;border-radius:0}
+.letter-status{font-size:14px;line-height:1.5}.fold-letter{min-height:48px;border-bottom:1px solid currentColor;font-size:16px}
+.letter-paper.folded{transform:rotate(2deg);background:#d8c39f}.letter-paper.folded textarea{display:none}.letter-paper.folded label{display:none}.letter-paper.folded:after{content:'♡';display:block;text-align:center;font:64px Bodoni,serif;color:#b83740}
+.memory-navigation{display:flex;align-items:center;justify-content:center;gap:24px}.memory-navigation button{min-width:48px;min-height:48px;border:1px solid #f0e4cd66;border-radius:50%}.memory-navigation output{font-size:15px}
+#memory-card{touch-action:pan-y;user-select:none}.memory-front img{pointer-events:none}.memory-hint{font-size:14px;opacity:.7;margin:0}
+@media(max-height:600px){.play-dock{bottom:65px}.play-dock[data-mode=letter]{bottom:119px}#letter-dialog{padding-top:62px}.letter-paper{padding:20px}.letter-paper h2{margin:10px 0}.letter-paper textarea{min-height:90px}.memory-navigation{position:absolute;bottom:12px;left:20px;right:20px}.memory-hint{display:none}}
+@media(prefers-reduced-motion:reduce){.letter-paper{transition:none}}
+html[data-still=true] .letter-paper{transition:none}
+.play-dock #thread-control[hidden]{display:none}
+.distance-copy p{bottom:max(200px,25svh)}
+@media(max-height:600px) and (orientation:landscape){#thread-control{width:290px}.play-dock[data-mode=thread]{left:auto;right:24px;transform:none}.distance-copy p{left:7.5%;right:auto;bottom:95px}}
+@media(max-height:600px) and (orientation:landscape){#memory-card{width:min(55vw,calc((100svh - 180px)*1.6));aspect-ratio:16/10}#memory-dialog[open]{gap:8px}.memory-navigation{position:static;gap:24px;flex-shrink:0}#turn-memory{flex-shrink:0}}

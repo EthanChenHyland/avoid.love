@@ -38,3 +38,5 @@ Production QA uses `npm run build` and `npm run preview -- --port 4175`, then `n
 In Little Things and Us, select **Stay a little** (or the photograph area) to open a kept photograph. Turn it over to read the note; Escape or Close returns to the same point in the story. Waiting has a feathered mist layer: touch/drag over the window or choose **Clear the glass**. Both features support keyboard controls and reduced motion. The dialog pauses scene rendering while open.
 
 Transitions now retain outgoing film frames through the handoff, use feathered optical wipes, keep montage zoom continuous, and dissolve newly decoded sequences in over 220ms. `scripts/qa-cuts.mjs` samples closely spaced frame pairs around 24 handoffs on desktop and mobile; `scripts/qa-memory.mjs` checks the new controls and focus restoration against the production preview.
+
+The story now includes a swipeable five-photo collection, a personal unsent letter (tab-local, never submitted), a red-thread tension control, and opening/ending petal bursts. Run `node scripts/qa-playthings.mjs` with production preview on port 4175 to check the new interactions across phone, landscape and desktop sizes.

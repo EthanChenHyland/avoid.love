@@ -1,6 +1,7 @@
 import {clamp,progress,smooth,mix,cover,firstAct} from './timeline.mjs';
 import {FrameSequence} from './sequence.mjs';
 import {chapters,chapterIndex} from './story.mjs';
+import {playthings} from './playthings.mjs';
 import {memories} from './memory.mjs';
 import {Visitor,depthAmount,gradeCopy,letterLight,redThread} from './interaction.mjs';
 const visitor=new Visitor();
@@ -14,6 +15,7 @@ const nav=$('#chapters'),toggle=$('#chapters-toggle'),holdButton=$('#hold-memory
 let openingTravel=0,layoutReady=false;
 let filmBlending=false,mistSource=null;
 const memory=memories({state:()=>({p,w,h,mobile,still}),wake:invalidate,signal:abort.signal});
+const play=playthings({state:()=>({p,w,h,mobile,still}),wake:invalidate,signal:abort.signal});
 let samples=[],frameStats={frame:-1,cached:0,film:''};
 function invalidate(){dirty=true;if(!raf&&!document.hidden)raf=requestAnimationFrame(tick)}
 async function plate(name){
@@ -50,7 +52,7 @@ function wipe(image,t,kind='diagonal',scale=1,focus=.5){
  // A feathered optical edge, with endpoints entirely outside the viewport.
  const f=w*.035,k=smooth(t);wipeCtx.clearRect(0,0,w,h);draw(image,scale,1,focus,0,0,wipeCtx);wipeCtx.save();wipeCtx.globalCompositeOperation='destination-in';let mask;
  if(kind==='iris'){const radius=Math.hypot(w,h)*k;mask=wipeCtx.createRadialGradient(w*.7,h*.65,Math.max(0,radius-f),w*.7,h*.65,radius+f);mask.addColorStop(0,'#000');mask.addColorStop(1,'transparent')}
- else{const edge=mix(kind==='diagonal'?2*w+f:w+f,-f,k);mask=wipeCtx.createLinearGradient(edge-f,0,edge+f,0);mask.addColorStop(0,'transparent');mask.addColorStop(1,'#000');if(kind==='diagonal')wipeCtx.transform(1,0,-w/h,1,0,0)}
+ else{const edge=mix(kind==='diagonal'?2*w+f:w+f,-f,k);if(kind==='diagonal')wipeCtx.transform(1,0,-w/h,1,0,0);mask=wipeCtx.createLinearGradient(edge-f,0,edge+f,0);mask.addColorStop(0,'transparent');mask.addColorStop(1,'#000')}
  wipeCtx.fillStyle=mask;wipeCtx.fillRect(-w,0,w*3,h);wipeCtx.restore();ctx.drawImage(wipeCanvas,0,0,w,h);
 }
 // Exclusive copy intervals keep outgoing and incoming headlines from sharing the lens.
@@ -75,7 +77,7 @@ function render(){
   show('notice-copy',(still?smooth(progress(q,.55,.62)):a.cafe)*(1-smooth(progress(q,.91,.98))));
   show('late-copy',smooth(progress(q,.92,.99))*(1-smooth(progress(p,.225,.25))));
  }
- if(p>=.23&&p<.335){const local=progress(p,.23,.31);if(p<.255){draw(cafe);wipe(get('little-things'),progress(p,.23,.255),'diagonal',still?1:1+local*.09)}else depthPlate('little-things',still?1:1+local*.09);
+ if(p>=.23&&p<.335){const local=progress(p,.23,.31);if(mobile&&p<.265){draw(cafe);depthPlate('little-things',still?1:1+local*.09,smooth(progress(p,.23,.265)))}else if(!mobile&&p<.255){draw(cafe);wipe(get('little-things'),progress(p,.23,.255),'diagonal',still?1:1+local*.09)}else depthPlate('little-things',still?1:1+local*.09);
   show('little-copy',windowed(p,.24,.26,.298,.32));$('#little-copy').style.transform=`translateY(${still?0:-local*20}px)`;
  }
  if(p>=.31&&p<.44){const local=progress(p,.31,.42),rain=film('waiting',local,get('waiting'));mistSource=rain;if(p<.335){wipe(rain,progress(p,.31,.335),'window',1,mobile?.77:.5)}else draw(rain,1,1,mobile?.77:.5);
@@ -108,6 +110,7 @@ function render(){
  }
  if(p>=.95){depthPlate('love-morning',1,smooth(progress(p,.95,.966)));const local=progress(p,.95,1);show('love-copy',smooth(progress(p,.958,.978)));$('#avoid-word').style.opacity=1-smooth(progress(local,.32,.8));}
  memory.draw(ctx,canvas,mistSource);gradeCopy(ctx,w,h,p);if(!still)letterLight(ctx,w,h,p,visitor,mobile);redThread(ctx,w,h,p,visitor,mobile,still);
+ play.draw(ctx);
  canvas.dataset.visitor=visitor.presence.toFixed(3);canvas.dataset.depth=String(!still&&depthAmount(p)>0);
  const light=p>.963;document.body.classList.toggle('on-light',light);
  $('#chapter-label').textContent=chapters[active].name;
@@ -117,19 +120,19 @@ function render(){
  canvas.dataset.progress=p.toFixed(4);canvas.dataset.chapter=chapters[active].id;canvas.dataset.frame=frameStats.frame;canvas.dataset.cached=[...sequences.values()].reduce((n,s)=>n+s.frames.size,0);canvas.dataset.film=frameStats.film;
  samples.push(performance.now()-started);if(samples.length>180)samples.shift();canvas.dataset.drawMs=Math.max(...samples).toFixed(2);canvas.dataset.errors=[...errors].join(',');
 }
-function tick(time){raf=0;if(document.hidden||$('#memory-dialog').open)return;const dt=last?Math.min(time-last,50):16;last=time;
+function tick(time){raf=0;if(document.hidden||document.querySelector('dialog[open]'))return;const dt=last?Math.min(time-last,50):16;last=time;
  p=still?target:p+(target-p)*(1-Math.exp(-dt/85));if(Math.abs(target-p)<.00005)p=target;
  held+=(Number(holding)-held)*(1-Math.exp(-dt/160));if(Math.abs(Number(holding)-held)<.002)held=Number(holding);
  const visitorMoving=visitor.step(dt,!still&&nav.hidden&&!document.body.classList.contains('reading-active')&&([1,2,4,5,6,7,8,9].includes(active)));
  const next=Math.max(0,chapterIndex(p));if(next!==active){holding=false;holdButton.setAttribute('aria-pressed','false');active=next;prepareNearby();for(const a of nav.querySelectorAll('a'))a.setAttribute('aria-current',String(a.hash==='#'+chapters[active].id))}
  if(dirty||visitorMoving||p!==target||held!==Number(holding)){render();dirty=false}
- if(filmBlending||visitorMoving||p!==target||held!==Number(holding))invalidate();else last=0;
+ if(play.moving||filmBlending||visitorMoving||p!==target||held!==Number(holding))invalidate();else last=0;
 }
 function updateTarget(){target=clamp(scrollY/Math.max(1,$('.scroll-track').offsetHeight-innerHeight));invalidate()}
 function resize(){w=innerWidth;h=innerHeight;openingTravel=Math.min(40,Math.max(0,$('#opening').offsetTop-82));dpr=Math.min(devicePixelRatio||1,mobile?1.25:1.75);wipeCanvas.width=Math.round(w);wipeCanvas.height=Math.round(h);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);if(layoutReady&&!document.body.classList.contains('reading-active'))window.scrollTo({top:target*Math.max(1,$('.scroll-track').offsetHeight-innerHeight),behavior:'instant'});layoutReady=true;updateTarget();invalidate()}
 function jump(value){window.scrollTo({top:value*Math.max(1,$('.scroll-track').offsetHeight-innerHeight),behavior:still?'instant':'smooth'})}
 function menu(open){visitor.leave();invalidate();nav.hidden=!open;toggle.setAttribute('aria-expanded',String(open));if(open)$('#chapters-close').focus();else toggle.focus()}
-function route(){memory.close();document.body.classList.toggle('reading-active',location.hash==='#reading');if(location.hash==='#reading'){$('#reading').focus();return}const c=chapters.find(c=>'#'+c.id===location.hash);if(c)jump(c.at)}
+function route(){memory.close();play.close();document.body.classList.toggle('reading-active',location.hash==='#reading');if(location.hash==='#reading'){$('#reading').focus();return}const c=chapters.find(c=>'#'+c.id===location.hash);if(c)jump(c.at)}
 function listen(el,type,fn,options={}){el.addEventListener(type,fn,{...options,signal:abort.signal})}
 // Passive touch input leaves native vertical scrolling and pinch zoom intact.
 const visitorInput=e=>{if(still||!nav.hidden||$('#memory-dialog').open||e.target.closest('button,a,.reading')||document.body.classList.contains('reading-active'))return;if(![1,2,4,5,6,7,8,9].includes(active))return;visitor.move(e.clientX,e.clientY,w,h);invalidate()};
