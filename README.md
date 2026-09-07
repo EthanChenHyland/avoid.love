@@ -32,3 +32,9 @@ Generated originals live in ignored `art-source/`; optimized runtime outputs are
 `src/refinement.css` owns the film-aware safe zones and intermediate/short-screen composition. `src/interaction.mjs` adds restrained tabletop depth in Little Things/Love, projected window light in Almost and the recurring live red thread. All effects share the existing render loop, settle to idle, support passive touch input and respect reduced motion. Recreate the four derived depth mattes with `node scripts/prepare-depth.mjs` after exporting the accepted artwork.
 
 Production QA uses `npm run build` and `npm run preview -- --port 4175`, then `node scripts/qa-layout.mjs`, `node scripts/qa-production.mjs`, and `node scripts/qa-interaction.mjs`. `qa-zoom.mjs` additionally requires `npx playwright install chromium`; it uses a temporary isolated extension fixture to set real browser zoom and removes its test profile afterward. These QA tools do not ship to visitors. See `research/FINAL-QA.md` for scope, evidence and limitations.
+
+## Revisit a memory
+
+In Little Things and Us, select **Stay a little** (or the photograph area) to open a kept photograph. Turn it over to read the note; Escape or Close returns to the same point in the story. Waiting has a feathered mist layer: touch/drag over the window or choose **Clear the glass**. Both features support keyboard controls and reduced motion. The dialog pauses scene rendering while open.
+
+Transitions now retain outgoing film frames through the handoff, use feathered optical wipes, keep montage zoom continuous, and dissolve newly decoded sequences in over 220ms. `scripts/qa-cuts.mjs` samples closely spaced frame pairs around 24 handoffs on desktop and mobile; `scripts/qa-memory.mjs` checks the new controls and focus restoration against the production preview.

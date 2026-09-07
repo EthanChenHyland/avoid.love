@@ -70,3 +70,24 @@ html[data-still=true] .stage *{transition:none!important}
 @media(min-width:701px) and (min-height:601px){.opening{top:calc(var(--safe-top) - 12px)}.opening-foot{bottom:max(64px,8svh)}}
 
 @media(max-width:700px) and (min-aspect-ratio:3/4){.opening{top:var(--safe-top)}}
+/* A photograph can be revisited; the rain can be touched. Neither blocks the story. */
+.scene-action{position:fixed;z-index:18;left:50%;bottom:max(82px,env(safe-area-inset-bottom));transform:translateX(-50%);border:1px solid #f5eee360;border-radius:40px;padding:10px 24px;background:#13191b80;backdrop-filter:blur(8px);font-size:16px;min-height:46px;white-space:nowrap}
+.scene-action[hidden],#memory-object[hidden]{display:none}
+#memory-object{position:fixed;z-index:5;right:5%;bottom:23%;width:32%;height:32%;cursor:zoom-in}
+.memory-open{overflow:hidden}
+#memory-dialog{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;border:0;background:#07100fea;color:#f5eee3;padding:80px 24px 40px;overflow:auto}
+#memory-dialog::backdrop{background:#07100fd9}
+#memory-dialog[open]{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+#close-memory{position:absolute;right:max(24px,4vw);top:20px;font-size:17px;min-width:60px}
+#memory-card{width:min(760px,80vw);aspect-ratio:16/10;position:relative;perspective:1400px}
+.memory-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .65s cubic-bezier(.2,.7,.2,1);background:#eee4d3;box-shadow:0 24px 80px #0007;padding:14px 14px 40px}
+.memory-front{transform:rotateY(0deg) rotate(-2deg)}.memory-front img{width:100%;height:100%;object-fit:cover}
+.memory-back{transform:rotateY(180deg);display:flex;align-items:center;justify-content:center;color:#493326;border:1px solid #c8b79c}
+#memory-note{font:italic clamp(27px,4vw,52px)/1.25 Bodoni,serif;max-width:75%;text-align:center}
+#memory-card[data-turned=true] .memory-front{transform:rotateY(-180deg)}
+#memory-card[data-turned=true] .memory-back{transform:rotateY(0deg) rotate(1deg)}
+#turn-memory{border-bottom:1px solid #eee6;font-size:17px;min-height:46px}
+@media(max-width:700px){#memory-card{width:88vw;aspect-ratio:16/10}.memory-face{padding:12px 12px 38px}.scene-action{font-size:15px}#memory-object{width:60%;height:26%;bottom:27%}#memory-note{font-size:34px}}
+@media(max-height:600px) and (orientation:landscape){.scene-action{bottom:65px}#memory-card{width:min(55vw,430px);aspect-ratio:16/9}#memory-dialog[open]{gap:12px;padding:55px 20px 15px}.memory-face{padding:9px 9px 23px}#memory-note{font-size:28px}}
+html[data-still=true] .memory-face{transition:none}
+@media(prefers-reduced-motion:reduce){.memory-face{transition:none}}
