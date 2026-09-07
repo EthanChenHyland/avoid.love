@@ -1,0 +1,9 @@
+import {chromium} from 'playwright';import fs from 'node:fs/promises';
+const b=await chromium.launch({channel:'chrome'});await fs.mkdir('qa/portrait-source',{recursive:true});const report=[];
+for(const [width,height] of [[390,844],[639,734],[700,900],[701,900]]){
+ const p=await b.newPage({viewport:{width,height}}),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto(process.env.QA_URL||'http://127.0.0.1:4188/');
+ for(const at of [.14,.17,.185,.22,.895,.93,.96,.968,1,.96,.185]){await p.evaluate(at=>scrollTo({top:at*(document.querySelector('.scroll-track').offsetHeight-innerHeight),behavior:'instant'}),at);await p.waitForFunction(at=>Math.abs(+document.querySelector('#world').dataset.progress-at)<.0002,at);await p.waitForTimeout(450);const state=await p.locator('#world').evaluate(e=>({...e.dataset}));if(state.rendition!=='portrait-continuous'||state.film)throw Error(`Unexpected framing source ${width} ${at}: ${JSON.stringify(state)}`);if([.185,.96,1].includes(at))await p.screenshot({path:`qa/portrait-source/${width}-${at}.png`});report.push({width,height,at,film:state.film})}
+ // Rotation/breakpoint changes must preserve story position and a visible canvas.
+ for(const nextWidth of [701,699,width]){const before=+await p.locator('#world').getAttribute('data-progress');await p.setViewportSize({width:nextWidth,height});await p.waitForTimeout(650);const after=+await p.locator('#world').getAttribute('data-progress');if(Math.abs(before-after)>.002)throw Error('Resize changed story position');if(await p.locator('#world').evaluate(e=>getComputedStyle(e).opacity)==='0')throw Error('Resize blanked canvas')}
+ if(errors.length)throw Error(errors.join());await p.close();
+}await b.close();await fs.writeFile('qa/portrait-source/report.json',JSON.stringify(report,null,2));console.log(`${report.length} portrait source samples and breakpoint resizes passed`);

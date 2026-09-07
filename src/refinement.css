@@ -77,3 +77,4 @@ html[data-still=true] .stage *{transition:none!important}
 @media(max-height:600px) and (orientation:landscape){#memory-object{width:20%;right:12%;height:26%;bottom:22%}}
 /* Fade the mobile exposure veil with the image instead of cutting it at a chapter flag. */
 .stage::after,.on-light .stage::after{opacity:var(--stage-shade,1)}
+@media(max-width:700px) and (min-aspect-ratio:7/10) and (orientation:portrait){#memory-object{bottom:14%;height:26%}}

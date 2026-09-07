@@ -1,10 +1,11 @@
+import {atmosphere} from './atmosphere.mjs';
 import {progress,smooth} from './timeline.mjs';
 /** Petals belong to the flower: scene-entry motion, then scroll-driven drift. */
 export function playthings({state,wake,signal}){
- let scene='',entered=0,running=false;
+ let scene='',entered=0,running=false;const air=atmosphere();
  const petals=Array.from({length:28},(_,i)=>({seed:((i*47)%101)/101,size:7+(i%7)*2.3,angle:i*2.399,shade:['#a6172a','#cb293a','#e04849','#8e152a'][i%4]}));
- return {get moving(){return running},close(){},draw(ctx){
- const {p,w,h,mobile,still}=state(),next=p<.045?'opening':p>.967?'ending':'';
+ return {get moving(){return running||air.moving},close(){},draw(ctx){
+ const current=state();air.draw(ctx,current);const {p,w,h,mobile,still,visitor:v}=current,next=p<.045?'opening':p>.967?'ending':'';
  if(next!==scene){scene=next;entered=performance.now()}
  running=false;if(!scene||still)return;
  const elapsed=(performance.now()-entered)/1000;running=elapsed<3.2;
@@ -15,8 +16,8 @@ export function playthings({state,wake,signal}){
  for(const [i,a] of petals.entries()){
  if(mobile&&i>17)break;
  const t=(entry*.5+travel*.6+a.seed*.24),side=scene==='opening'?1:-1;
- const x=w*(scene==='opening'?.84:.77)+side*w*(a.seed-.65)*t;
- const y=h*(.26+a.seed*.58)-h*.37*t+Math.sin(a.angle+t*3)*h*.055;
+ const x=w*(scene==='opening'?.84:.77)+side*w*(a.seed-.65)*t+v.x*v.presence*w*.065*(.3+a.seed);
+ const y=h*(.26+a.seed*.58)-h*.37*t+Math.sin(a.angle+t*3)*h*.055+v.y*v.presence*h*.025;
  ctx.save();ctx.translate(x,y);ctx.rotate(a.angle+t*2);ctx.scale(1,.6+Math.abs(Math.sin(a.angle+t))*.4);
  ctx.fillStyle=a.shade;ctx.beginPath();ctx.moveTo(0,a.size);ctx.bezierCurveTo(-a.size*1.3,0,-a.size,-a.size,0,-a.size*.65);ctx.bezierCurveTo(a.size,-a.size,a.size*1.3,0,0,a.size);ctx.fill();ctx.strokeStyle='#f18b7344';ctx.lineWidth=.7;ctx.beginPath();ctx.moveTo(0,a.size);ctx.quadraticCurveTo(-a.size*.25,0,0,-a.size*.6);ctx.stroke();ctx.restore();
  }ctx.restore();

@@ -17,9 +17,9 @@ export function memories({state,wake,signal}){
  function spread(ctx,s){if(!albumReady)return;
  const start=mode==='little'?.252:.563,end=mode==='little'?.307:.642;
  const a=smooth(progress(s.p,start,start+.012))*(1-smooth(progress(s.p,end-.012,end)))* (s.still?1:smooth(Math.min(1,(performance.now()-albumStarted)/300)));
- if(!a)return;const t=progress(s.p,start,end),cw=Math.min(s.w*(s.mobile?.47:.24),s.h<600&&s.w>s.h?s.h*.32:420),ch=cw*.625,cx=s.w*(s.mobile?.66:.76),cy=s.h*(s.h<600&&s.w>s.h?.65:s.mobile?.66:.59);
+ if(!a)return;const t=progress(s.p,start,end),cw=Math.min(s.w*(s.mobile?.47:.24),s.h<600&&s.w>s.h?s.h*.32:s.mobile&&s.w/s.h>.7?s.h*.27:420),ch=cw*.625,cx=s.w*(s.mobile?.66:.76),cy=s.h*(s.h<600&&s.w>s.h?.65:s.mobile&&s.w/s.h>.7?.74:s.mobile?.66:.59);
  ctx.save();ctx.globalAlpha=a;
- for(let i=0;i<3;i++){const image=album[(i+offset)%3];if(!image?.complete||!image.naturalWidth)continue;ctx.save();const fan=s.still?.5:smooth(t);ctx.translate(cx+(i-1)*cw*(.035+fan*.10),cy+(i-1)*ch*.045);ctx.rotate((i-1)*(.05+fan*.1)+(s.still?0:hand.x*.06));ctx.shadowColor='#120c0880';ctx.shadowBlur=18;ctx.shadowOffsetY=6;ctx.fillStyle='#e9decb';ctx.fillRect(-cw/2-6,-ch/2-6,cw+12,ch+22);ctx.shadowColor='transparent';ctx.drawImage(image,-cw/2,-ch/2,cw,ch);ctx.restore()}
+ for(let i=0;i<3;i++){const image=album[(i+offset)%3];if(!image?.complete||!image.naturalWidth)continue;ctx.save();const fan=s.still?.5:smooth(t);ctx.translate(cx+(i-1)*cw*(.035+fan*.10),cy+(i-1)*ch*.045);ctx.rotate((i-1)*(.05+fan*.1)+(s.still?0:hand.x*.06));const turn=i===2&&!s.still?smooth(progress(t,.44,.67))*(1-smooth(progress(t,.83,.96))):0;if(i===2)ctx.scale(Math.cos(Math.PI*turn),1);ctx.shadowColor='#120c0880';ctx.shadowBlur=18;ctx.shadowOffsetY=6;ctx.fillStyle='#e9decb';ctx.fillRect(-cw/2-6,-ch/2-6,cw+12,ch+22);ctx.shadowColor='transparent';if(turn>.5){ctx.scale(-1,1);ctx.fillStyle='#614634';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=`italic ${Math.max(14,cw*.075)}px Bodoni,serif`;const lines=[['One more coffee.','One more minute.'],['The long way home.','With you.'],['I saved you','a place.']][(i+offset)%3];ctx.fillText(lines[0],0,-ch*.10,cw*.85);ctx.fillText(lines[1],0,ch*.15,cw*.85)}else ctx.drawImage(image,-cw/2,-ch/2,cw,ch);ctx.restore()}
  ctx.restore();
  }
  on(object,'click',()=>{if(suppressOpen){suppressOpen=false;return}offset=(offset+1)%3;wake()});
