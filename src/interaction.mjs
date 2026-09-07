@@ -21,7 +21,7 @@ function windowPane(){
  g.globalCompositeOperation='destination-in';const edge=g.createLinearGradient(0,0,320,0);edge.addColorStop(0,'transparent');edge.addColorStop(.25,'#000');edge.addColorStop(.6,'#000');edge.addColorStop(1,'transparent');g.fillStyle=edge;g.fillRect(0,0,320,96);paneTexture=c;return c;
 }
 export function letterLight(ctx,w,h,p,v,mobile){
- const a=envelope(p,.443,.461,.516,.534)*v.presence;if(a<.001)return;
+ const a=envelope(p,.443,.461,.516,.534)*(.55+v.presence*.45);if(a<.001)return;
  ctx.save();ctx.beginPath();ctx.moveTo(w*(mobile?0:.30),h*.97);ctx.lineTo(w*(mobile?.50:.63),h*.14);ctx.lineTo(w,h*.31);ctx.lineTo(w,h);ctx.closePath();ctx.clip();
  // Three projected window panes: oblique incidence and dark mullions, not a cursor halo.
  ctx.translate(w*(.7+v.x*.075),h*(.55+v.y*.065));ctx.transform(1,.13+v.x*.035,-.38+v.x*.12,1,0,0);
@@ -45,7 +45,7 @@ export function redThread(ctx,w,h,p,v,mobile,still){
  const s=threadState(p);if(!s||s[4]<.01)return;let [x1,y1,x2,y2,opacity]=s;
  // Mobile stays near the paired objects and clear of lower captions and touch controls.
  if(mobile){x1=.55;x2=.87;y1=p>.965?.79:p<.23?.74:.73;y2=y1+.035;if(p>.64&&p<.8){y1=.79;y2=.79}}
- const tension=progress(p,.65,.75),bend=(1-tension)*(mobile?12:26),dx=still?0:v.x*(mobile?3:8),dy=still?0:v.y*6;
+ const tension=progress(p,.65,.75),bend=(1-tension)*(mobile?12:26),dx=still?0:v.x*(mobile?24:60),dy=still?0:v.y*(mobile?24:48);
  ctx.save();ctx.globalAlpha=opacity*(mobile?.8:.9);ctx.lineCap='round';
  const path=(offset)=>{ctx.beginPath();ctx.moveTo(w*x1,h*y1+offset);ctx.bezierCurveTo(w*x1+w*.06+dx,h*y1+bend+dy+offset,w*x2-w*.07-dx,h*y2+bend*.4+offset,w*x2,h*y2+offset)};
  path(2);ctx.strokeStyle='#240b06';ctx.lineWidth=mobile?2.5:3;ctx.globalAlpha*=.35;ctx.stroke();ctx.globalAlpha=opacity*.9;

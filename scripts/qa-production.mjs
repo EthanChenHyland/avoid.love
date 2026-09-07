@@ -6,7 +6,7 @@ console.log('Testing',mode,width);const height=width===390?844:720,p=await b.new
 await p.addInitScript(()=>{window.qaFrames=0;const raf=window.requestAnimationFrame;window.requestAnimationFrame=cb=>raf(t=>{window.qaFrames++;cb(t)})});
 if(mode==='fallback')await p.route('**/frames/**',r=>r.abort());
 if(mode==='slow')await p.route('**/art/**',async r=>{await new Promise(r=>setTimeout(r,900));await r.continue().catch(()=>{})});
-await p.goto('http://127.0.0.1:4175/',{waitUntil:'domcontentloaded'});
+await p.goto((process.env.QA_URL||'http://127.0.0.1:4175/'),{waitUntil:'domcontentloaded'});
 if(mode==='slow'){await p.screenshot({path:`qa/production/${width}-loading.png`});await p.waitForTimeout(1100)}
 for(const c of chapters){await p.evaluate(at=>scrollTo({top:at*(document.querySelector('.scroll-track').offsetHeight-innerHeight),behavior:'instant'}),c.at);await p.waitForFunction(at=>Math.abs(+document.querySelector('#world').dataset.progress-at)<.0002,c.at).catch(async e=>{console.log('Checkpoint failure',mode,width,c.id,await p.locator('#world').evaluate(e=>({...e.dataset,scrollY,height:document.querySelector('.scroll-track').offsetHeight})));throw e});await p.waitForTimeout(mode==='slow'?1000:120);const state=await p.locator('#world').evaluate(e=>({...e.dataset,overflow:document.documentElement.scrollWidth>innerWidth}));if(state.errors||state.overflow)throw Error(JSON.stringify(state));if(mode==='reduced'&&state.cached!=='0')throw Error('Reduced mode cached film');report.push({mode,width,...state,layout:await p.evaluate(inspectText)});
 if(['unsent','impossible','love'].includes(c.id))await p.screenshot({path:`qa/production/${width}-${mode}-${c.id}.png`});}

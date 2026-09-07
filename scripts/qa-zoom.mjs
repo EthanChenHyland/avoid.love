@@ -3,7 +3,7 @@ import {chromium} from 'playwright';import fs from 'node:fs/promises';import pat
 const ext=path.resolve('scripts/zoom-fixture'),dir=await fs.mkdtemp('/tmp/avoid-zoom-');await fs.mkdir('qa/zoom',{recursive:true});
 const b=await chromium.launchPersistentContext(dir,{channel:'chromium',headless:true,viewport:null,args:['--window-size=1440,1000',`--disable-extensions-except=${ext}`,`--load-extension=${ext}`]});
 const cdp=await b.newCDPSession(b.pages()[0]);
-const sw=b.serviceWorkers()[0]||await b.waitForEvent('serviceworker'),p=b.pages()[0];await p.goto('http://127.0.0.1:4175/');const out=[];
+const sw=b.serviceWorkers()[0]||await b.waitForEvent('serviceworker'),p=b.pages()[0];await p.goto((process.env.QA_URL||'http://127.0.0.1:4175/'));const out=[];
 for(const factor of [.8,1,1.25]){
 const actual=await sw.evaluate(async factor=>{const [t]=await chrome.tabs.query({url:'http://127.0.0.1:4175/*'});await chrome.tabs.setZoom(t.id,factor);return chrome.tabs.getZoom(t.id)},factor);
 await p.waitForTimeout(250);const metrics=await p.evaluate(()=>({innerWidth,innerHeight,dpr:devicePixelRatio}));

@@ -44,8 +44,8 @@ function film(name,t,fallback){
 function draw(image,scale=1,alpha=1,focus=.5,dx=0,dy=0,dc=ctx){if(!image||alpha<=0)return;if(image.filmImage){if(image.blend<1)draw(image.fallback,scale,alpha,focus,dx,dy,dc);draw(image.filmImage,scale,alpha*image.blend,focus,dx,dy,dc);return}const b=cover(image.width,image.height,w,h,focus,scale);dc.globalAlpha=clamp(alpha);dc.drawImage(image,b.x+dx,b.y+dy,b.w,b.h);dc.globalAlpha=1}
 function depthPlate(name,scale=1,alpha=1){
  const amount=still?0:depthAmount(p),gain=mobile?.5:1;
- draw(plates.get(name),scale+amount*.012,alpha,.5,visitor.x*amount*2*gain,visitor.y*amount*1.5*gain);
- if(amount&&plates.has(name+'-depth'))draw(plates.get(name+'-depth'),scale+amount*.012,alpha*amount,.5,visitor.x*amount*7*gain,visitor.y*amount*5*gain);
+ draw(plates.get(name),scale+amount*.012,alpha,.5,(visitor.x*2+Math.sin(p*45)*5)*amount*gain,(visitor.y*1.5+Math.cos(p*30)*3)*amount*gain);
+ if(amount&&plates.has(name+'-depth'))draw(plates.get(name+'-depth'),scale+amount*.012,alpha*amount,.5,(visitor.x*12+Math.sin(p*45)*9)*amount*gain,(visitor.y*8+Math.cos(p*30)*6)*amount*gain);
 }
 function wipe(image,t,kind='diagonal',scale=1,focus=.5){
  if(!image||t<=0)return;if(t>=1){draw(image,scale,1,focus);return}if(still){draw(image,scale,smooth(t),focus);return}
@@ -114,7 +114,7 @@ function render(){
  canvas.dataset.visitor=visitor.presence.toFixed(3);canvas.dataset.depth=String(!still&&depthAmount(p)>0);
  const light=p>.963;document.body.classList.toggle('on-light',light);
  $('#chapter-label').textContent=chapters[active].name;
- const interaction=[4,7].includes(active);holdButton.hidden=!interaction;holdButton.textContent=active===7?'Hold to put it away':'Hold the thought';
+ const interaction=[4,7].includes(active);holdButton.hidden=true;holdButton.textContent=active===7?'Hold to put it away':'Hold the thought';
  $('#next-beat').innerHTML=p>.985?'Once more <span aria-hidden="true">↺</span>':p<.05?'Scroll a little closer <span aria-hidden="true">↓</span>':'Keep going <span aria-hidden="true">↓</span>';
  $('#next-beat').setAttribute('aria-label',p>.985?'Replay the story':'Continue the story');$('#progress-fill').style.transform=`scaleX(${p})`;
  canvas.dataset.progress=p.toFixed(4);canvas.dataset.chapter=chapters[active].id;canvas.dataset.frame=frameStats.frame;canvas.dataset.cached=[...sequences.values()].reduce((n,s)=>n+s.frames.size,0);canvas.dataset.film=frameStats.film;
@@ -126,7 +126,7 @@ function tick(time){raf=0;if(document.hidden||document.querySelector('dialog[ope
  const visitorMoving=visitor.step(dt,!still&&nav.hidden&&!document.body.classList.contains('reading-active')&&([1,2,4,5,6,7,8,9].includes(active)));
  const next=Math.max(0,chapterIndex(p));if(next!==active){holding=false;holdButton.setAttribute('aria-pressed','false');active=next;prepareNearby();for(const a of nav.querySelectorAll('a'))a.setAttribute('aria-current',String(a.hash==='#'+chapters[active].id))}
  if(dirty||visitorMoving||p!==target||held!==Number(holding)){render();dirty=false}
- if(play.moving||filmBlending||visitorMoving||p!==target||held!==Number(holding))invalidate();else last=0;
+ if(memory.moving||play.moving||filmBlending||visitorMoving||p!==target||held!==Number(holding))invalidate();else last=0;
 }
 function updateTarget(){target=clamp(scrollY/Math.max(1,$('.scroll-track').offsetHeight-innerHeight));invalidate()}
 function resize(){w=innerWidth;h=innerHeight;openingTravel=Math.min(40,Math.max(0,$('#opening').offsetTop-82));dpr=Math.min(devicePixelRatio||1,mobile?1.25:1.75);wipeCanvas.width=Math.round(w);wipeCanvas.height=Math.round(h);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);if(layoutReady&&!document.body.classList.contains('reading-active'))window.scrollTo({top:target*Math.max(1,$('.scroll-track').offsetHeight-innerHeight),behavior:'instant'});layoutReady=true;updateTarget();invalidate()}
@@ -135,7 +135,7 @@ function menu(open){visitor.leave();invalidate();nav.hidden=!open;toggle.setAttr
 function route(){memory.close();play.close();document.body.classList.toggle('reading-active',location.hash==='#reading');if(location.hash==='#reading'){$('#reading').focus();return}const c=chapters.find(c=>'#'+c.id===location.hash);if(c)jump(c.at)}
 function listen(el,type,fn,options={}){el.addEventListener(type,fn,{...options,signal:abort.signal})}
 // Passive touch input leaves native vertical scrolling and pinch zoom intact.
-const visitorInput=e=>{if(still||!nav.hidden||$('#memory-dialog').open||e.target.closest('button,a,.reading')||document.body.classList.contains('reading-active'))return;if(![1,2,4,5,6,7,8,9].includes(active))return;visitor.move(e.clientX,e.clientY,w,h);invalidate()};
+const visitorInput=e=>{if(still||!nav.hidden||e.target.closest('button:not(#memory-object),a,.reading')||document.body.classList.contains('reading-active'))return;if(![1,2,4,5,6,7,8,9].includes(active))return;visitor.move(e.clientX,e.clientY,w,h);invalidate()};
 listen(window,'pointermove',visitorInput,{passive:true});listen(window,'pointerdown',visitorInput,{passive:true});
 listen(window,'pointerup',e=>{if(e.pointerType!=='mouse'){visitor.leave();invalidate()}},{passive:true});
 listen(window,'blur',()=>{visitor.leave();setHold(false);invalidate()});
