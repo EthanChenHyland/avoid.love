@@ -1,7 +1,7 @@
 import sharp from 'sharp';
 import fs from 'node:fs/promises';
 await fs.mkdir('public/art',{recursive:true});
-for (const name of ['hero-poppy','hero-cafe','hero-letters']) {
+for (const name of ['hero-poppy','hero-cafe','hero-letters','little-things','waiting','unsent','us-train','us-street','distance','drawer','love-morning']) {
  const input=`art-source/${name}.png`;
  await sharp(input).resize({width:1920,withoutEnlargement:true}).webp({quality:88}).toFile(`public/art/${name}.webp`);
  await sharp(input).resize({width:1536,withoutEnlargement:true}).avif({quality:65}).toFile(`public/art/${name}.avif`);
@@ -23,3 +23,9 @@ for (const [source,dest] of [
  ['node_modules/@fontsource/bodoni-moda/files/bodoni-moda-latin-400-italic.woff2','bodoni-italic.woff2'],
  ['node_modules/@fontsource/manrope/files/manrope-latin-400-normal.woff2','manrope.woff2']]) await fs.copyFile(source,`public/fonts/${dest}`);
 console.log('Accepted artwork and fonts prepared');
+
+for (const [name,source] of [['hero-cafe','cafe-portrait'],['distance','distance-portrait'],['love-morning','morning-portrait']]) {
+ await sharp(`art-source/${source}.png`).resize({width:780}).webp({quality:86}).toFile(`public/art/${name}-mobile.webp`);
+}
+for (const family of ['bodoni-moda','manrope']) await fs.copyFile(`node_modules/@fontsource/${family}/LICENSE`,`public/fonts/${family}-LICENSE.txt`);
+await sharp('art-source/hero-poppy.png').resize(1200,630).composite([{input:Buffer.from('<svg width="1200" height="630"><text x="70" y="385" font-family="Georgia" font-size="260" fill="#f5eee3" letter-spacing="-18">love</text><text x="80" y="465" font-family="Georgia" font-size="28" fill="#f5eee3">You weren’t looking. Then there was them.</text></svg>')}]).jpeg({quality:88}).toFile('public/og.jpg');

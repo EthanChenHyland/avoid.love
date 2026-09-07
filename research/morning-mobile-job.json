@@ -1,0 +1,12 @@
+[
+  {
+    "name": "morning-portrait",
+    "model": "openai/gpt-image-2",
+    "aspect_ratio": "9:16",
+    "quality": "high",
+    "references": [
+      "love-morning.png"
+    ],
+    "prompt": "Adapt this cinematic photograph to PORTRAIT 9:16, preserving its warm analog film texture and original objects. Upper 45 percent is quiet warm cream wall with soft morning light, minimal detail and generous room for a huge dark serif title. In the LOWER THIRD, include exactly two small coffee cups FULLY visible with ample margins, one cream and one oxblood, on the same scratched wooden round table. A clear slender vase and one scarlet poppy rise from the table on the right. An unfolded ivory letter lies in front of the cups. A curved wooden chair at right. No people, no text, no logos. Compose a beautiful quiet final scene of belonging, with both cups comfortably centered in the lower third. Warm window light on the right, delicate shadow, 35mm film realism. Do not crop either cup or the flower."
+  }
+]

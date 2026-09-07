@@ -1,0 +1,12 @@
+{
+  "avoid-love": [],
+  "avoid-love-v2": [],
+  "avoid-love-v3": [
+    "M next-env.d.ts",
+    " M src/app/story.css",
+    " M src/components/love-story/InteractiveMemoryFrame.tsx",
+    " M src/components/love-story/LoveStory.tsx",
+    " M src/components/love-story/useLoveMotion.ts",
+    "?? src/components/love-story/FoldedConfession.tsx"
+  ]
+}

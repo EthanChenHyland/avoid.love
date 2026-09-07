@@ -1,0 +1,25 @@
+{
+  "job": {
+    "name": "waiting-film",
+    "model": "bytedance/seedance-2.0",
+    "duration": 6,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "generate_audio": false,
+    "first": "waiting.png",
+    "prompt": "One continuous locked-off nighttime shot. Rain droplets slowly run down the bedroom window, blue distant city lights drift softly through the glass and a warm bedside lamp flickers imperceptibly. Two water glasses, a folded note and small red poppy remain still on the bedside table. Preserve the source composition exactly, camera almost motionless, subtle breathing of light, intimate anticipation, fine analog grain. No people enter, no new objects, no text, no cuts."
+  },
+  "result": {
+    "id": "MVh7olPq9PsPuI9QMd24",
+    "generation_id": "gen-vid-1788733500-KUcNby8wUnwcjo8hixHR",
+    "polling_url": "https://openrouter.ai/api/v1/videos/MVh7olPq9PsPuI9QMd24",
+    "status": "completed",
+    "unsigned_urls": [
+      "https://openrouter.ai/api/v1/videos/MVh7olPq9PsPuI9QMd24/content?index=0"
+    ],
+    "usage": {
+      "cost": 0.9135,
+      "is_byok": false
+    }
+  }
+}

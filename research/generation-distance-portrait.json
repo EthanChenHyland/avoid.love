@@ -1,0 +1,27 @@
+{
+  "name": "distance-portrait",
+  "model": "openai/gpt-image-2",
+  "prompt": "Create a PORTRAIT 9:16 cinematic photograph using the reference for material and palette continuity. No people, no text, no logos, fine analog grain. Compose specifically for a mobile screen: upper 40 percent is dark negative space, romantic objects clearly visible in the LOWER half with ample margins, no object cropped off. An empty old train compartment at blue hour with TWO facing burgundy seats visible and clear space separating them. A red dried poppy and folded note rest on the near seat at lower right; the far left seat is empty. Rainy window in upper right with one receding warm station light. Upper left is near-black blue wall, keep both seats readable, delicate melancholic lighting.",
+  "seconds": 74.2,
+  "usage": {
+    "prompt_tokens": 1445,
+    "completion_tokens": 4312,
+    "total_tokens": 5757,
+    "cost": 0.140473,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.140473,
+      "upstream_inference_prompt_cost": 0.011113,
+      "upstream_inference_completions_cost": 0.12936
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 4312
+    }
+  },
+  "bytes": 1784418,
+  "status": "generated"
+}

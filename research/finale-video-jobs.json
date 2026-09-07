@@ -1,0 +1,23 @@
+[
+  {
+    "name": "distance-film",
+    "model": "bytedance/seedance-2.0",
+    "duration": 6,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "generate_audio": false,
+    "first": "distance.png",
+    "prompt": "A melancholic cinematic shot of the empty train compartment in the reference. Camera slowly pulls back, making the two seats and the space between them feel further apart. Rain moves down the glass; the distant amber station light slides away slowly as the train leaves. The folded note and dried red poppy remain on the right seat. Preserve objects and intimate blue palette, realistic motion, no people, no text, no cuts."
+  },
+  {
+    "name": "impossible-film",
+    "model": "bytedance/seedance-2.0",
+    "duration": 8,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "generate_audio": false,
+    "first": "hero-letters.png",
+    "last": "love-morning.png",
+    "prompt": "One continuous dreamlike cinematic camera movement. In the blue room the enormous ivory love letters rotate slowly through space as the red silk ribbon undulates gently. Camera moves forward past the closest letter; the tactile cream paper fills the lens and catches warm sunlight. Pass through this paper-white light to reveal the intimate sunlit morning table shown in the final image with exactly two coffee cups, a living red poppy in a glass vase and an open note. End in warm stillness. Emotion is love returning. Physically believable paper and fabric, preserve photographic grain, no people, no words, no flashy effects or abrupt cuts."
+  }
+]

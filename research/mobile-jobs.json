@@ -1,0 +1,22 @@
+[
+  {
+    "name": "cafe-portrait",
+    "model": "openai/gpt-image-2",
+    "aspect_ratio": "9:16",
+    "quality": "high",
+    "references": [
+      "hero-cafe.png"
+    ],
+    "prompt": "Create a PORTRAIT 9:16 cinematic photograph using the reference for material and palette continuity. No people, no text, no logos, fine analog grain. Compose specifically for a mobile screen: upper 40 percent is dark negative space, romantic objects clearly visible in the LOWER half with ample margins, no object cropped off. The same rainy late-night cafe: exactly two half-finished ceramic coffee cups, one cream and one oxblood, on a round scratched table. One small red poppy in a clear slender vase. Include both cups completely within the lower third, the vase and flower in the middle right. Dark blue-black wall in upper left, rainy glass on right, warm amber reflected light. The other chair is just visible behind the table. Quiet and intimate."
+  },
+  {
+    "name": "distance-portrait",
+    "model": "openai/gpt-image-2",
+    "aspect_ratio": "9:16",
+    "quality": "high",
+    "references": [
+      "distance.png"
+    ],
+    "prompt": "Create a PORTRAIT 9:16 cinematic photograph using the reference for material and palette continuity. No people, no text, no logos, fine analog grain. Compose specifically for a mobile screen: upper 40 percent is dark negative space, romantic objects clearly visible in the LOWER half with ample margins, no object cropped off. An empty old train compartment at blue hour with TWO facing burgundy seats visible and clear space separating them. A red dried poppy and folded note rest on the near seat at lower right; the far left seat is empty. Rainy window in upper right with one receding warm station light. Upper left is near-black blue wall, keep both seats readable, delicate melancholic lighting."
+  }
+]

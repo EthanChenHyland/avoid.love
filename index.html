@@ -5,6 +5,7 @@
 <meta name="theme-color" content="#172629">
 <title>avoid.love — You weren't looking.</title>
 <meta name="description" content="A cinematic love story about the things you kept, the words you almost said, and the person you couldn't forget.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://avoid.love/">
 <meta property="og:type" content="website"><meta property="og:title" content="avoid.love — You weren't looking."><meta property="og:description" content="A love story. You already know who it's about."><meta property="og:url" content="https://avoid.love/"><meta property="og:image" content="https://avoid.love/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -16,7 +17,7 @@
 <body>
 <a class="skip" href="#reading">Read the story</a>
 <header class="masthead"><a class="brand" href="#before" aria-label="avoid.love, beginning">avoid<span>.love</span></a><span class="mast-caption">a story you already know</span><button id="chapters-toggle" aria-controls="chapters" aria-expanded="false">The story <span aria-hidden="true">↗</span></button></header>
-<nav id="chapters" aria-label="Story chapters" hidden><button id="chapters-close" aria-label="Close chapters">Close ×</button><a href="#before">Before</a><a href="#notice">The other chair</a><button id="still-toggle" aria-pressed="false">Still-frame mode</button></nav>
+<nav id="chapters" aria-label="Story chapters" hidden><button id="chapters-close" aria-label="Close chapters">Close ×</button><div class="chapter-links"><a href="#before">Before</a><a href="#notice">The other chair</a><a href="#little">Little things</a><a href="#waiting">Waiting</a><a href="#unsent">Almost</a><a href="#us">The long way home</a><a href="#distance">Your side</a><a href="#trying">Put it away</a><a href="#impossible">Everywhere</a><a href="#love">A place for them</a></div><button id="still-toggle" aria-pressed="false">Still-frame mode</button></nav>
 <main id="film" aria-label="A love story">
 <div class="stage" aria-hidden="true">
  <picture id="poster"><source media="(max-width:700px)" srcset="/art/hero-poppy-mobile.webp"><img src="/art/hero-poppy.webp" alt="" fetchpriority="high"></picture>
@@ -25,12 +26,22 @@
  <img id="foreground" src="/art/poppy-foreground.webp" alt="">
  <div id="opening-foot" class="opening-foot"><p>You weren't looking.<br>Then there was them.</p><span>Some things happen anyway.</span></div>
  <div id="notice-copy" class="shot-copy notice-copy"><p class="chapter-kicker">The other chair</p><h2>One more<br><em>coffee.</em></h2><p class="under">Neither of you wanted to leave.</p></div>
+ <div id="little-copy" class="scene-type little-copy"><p>You kept</p><h2>the little<br><em>things.</em></h2><span>A receipt. A flower. That whole evening.</span></div>
+ <div id="waiting-copy" class="scene-type waiting-copy"><span id="clock-time">1:13</span><p>Just one more look.</p><div class="waiting-line">Nothing yet.</div></div>
+ <div id="unsent-copy" class="scene-type unsent-copy"><h2>Almost<br><em>said it.</em></h2><span id="typed-thought"></span></div>
+ <div id="us-copy" class="scene-type us-copy"><h2>us.</h2><p>Every route got longer.</p></div>
+ <div id="distance-copy" class="scene-type distance-copy"><h2><span id="your-word">your</span><em id="side-word">side.</em></h2><p>Still empty.</p></div>
+ <div id="trying-copy" class="scene-type trying-copy"><h2>You put<br>it <em>away.</em></h2><p id="trying-line">That should have been that.</p></div>
+ <div id="impossible-copy" class="scene-type impossible-copy"><h2>And there<br><em>you were.</em></h2><p>In everything.</p></div>
+ <div id="love-copy" class="scene-type love-copy"><p>You saved them a place.</p><h2><span id="avoid-word">avoid.</span>love</h2></div>
  <div id="bridge-copy" class="bridge-copy">oh.</div>
  <div id="late-copy" class="late-copy">You forgot what time it was.</div>
 </div>
-<div class="scroll-track"><article id="before" class="beat"><h1>Avoid love. You weren't looking. Then there was them.</h1><p>A scarlet poppy moves in the evening air. Some things happen anyway.</p></article><article id="notice" class="beat"><h2>One more coffee.</h2><p>Neither of you wanted to leave. You forgot what time it was.</p></article></div>
+<div class="scroll-track"><article id="before" class="beat"><h1>Avoid love. You weren't looking. Then there was them.</h1><p>A scarlet poppy moves in the evening air. Some things happen anyway.</p></article><article id="notice" class="beat"><h2>One more coffee.</h2><p>Neither of you wanted to leave. You forgot what time it was.</p></article><article id="little" class="beat"><h2>You kept the little things.</h2><p>A receipt. A flower. That whole evening.</p></article><article id="waiting" class="beat"><h2>Just one more look.</h2><p>1:13. Nothing yet.</p></article><article id="unsent" class="beat"><h2>Almost said it.</h2><p>You wrote: I wish you were here. You left it unsent.</p></article><article id="us" class="beat"><h2>Us.</h2><p>Every route got longer.</p></article><article id="distance" class="beat"><h2>Your side.</h2><p>Still empty.</p></article><article id="trying" class="beat"><h2>You put it away.</h2><p>That should have been that. But there was the memory again.</p></article><article id="impossible" class="beat"><h2>And there you were.</h2><p>In everything.</p></article><article id="love" class="beat"><h2>Love.</h2><p>You saved them a place.</p></article></div>
 </main>
+<button id="hold-memory" class="hold-memory" hidden aria-pressed="false">Hold the thought</button>
 <footer class="film-footer"><span id="chapter-label">Before</span><button id="next-beat" aria-label="Continue the story">Scroll a little closer <span aria-hidden="true">↓</span></button><span class="progress-rail" aria-hidden="true"><i id="progress-fill"></i></span></footer>
-<div id="reading" class="reading"><h2>A story you already know.</h2><p>You weren't looking. Then there was them.</p><p>One more coffee. Neither of you wanted to leave. You forgot what time it was.</p><a href="#before">Back to the beginning ↑</a></div>
+<div id="reading" class="reading" tabindex="-1"><h2>A story you already know.</h2><p>Avoid love. You weren't looking. Then there was them. A scarlet poppy moves in the evening air. Some things happen anyway.</p><p>One more coffee. Neither of you wanted to leave. You forgot what time it was.</p><p>You kept the little things. A receipt. A flower. That whole evening.</p><p>Just one more look. 1:13. Nothing yet.</p><p>Almost said it. You wrote: I wish you were here. You left it unsent.</p><p>Us. Every route got longer.</p><p>Your side. Still empty.</p><p>You put it away. That should have been that. But there was the memory again.</p><p>And there you were. In everything.</p><p>Love. You saved them a place.</p><a href="#before">Back to the beginning ↑</a></div>
+<noscript><style>.stage,.masthead,.film-footer,.reading,.hold-memory{display:none}.scroll-track{height:auto;padding:30px}.beat{position:static;width:auto;height:auto;clip-path:none;overflow:visible;margin:40px 0;font-size:20px;line-height:1.6}</style></noscript>
 <script type="module" src="/src/main.mjs"></script>
 </body></html>

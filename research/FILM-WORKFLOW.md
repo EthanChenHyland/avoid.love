@@ -16,3 +16,7 @@ Prototype `/prototypes/transport.html` compares the same source through frame se
 Generation scripts only run locally. Credential loaded from environment or the user's local credential file. Download uses the trusted OpenRouter content endpoint and strips Authorization on cross-origin redirects. No account signup, public deployment, or private-reference upload. Only original generated stills are sent as film references.
 
 Reported total for first two films: $2.1294.
+
+## Complete story update
+
+All six generated films completed: poppy, petal-to-café, waiting rain, folding letter, receding station light, and impossible letter-room-to-morning. Contact sheets were inspected. Waiting and distance preserve subtle environmental motion; unsent includes a full fold/reopen gesture; the final film travels through an architectural envelope into the final table scene. Runtime uses 1,212 responsive frames in total (desktop and mobile combined, 28.3 MB on disk), fetched on demand rather than loaded together. The six H.264 alternatives total 16.2 MB and are not requested by the main experience.

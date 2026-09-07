@@ -1,0 +1,25 @@
+{
+  "job": {
+    "name": "distance-film",
+    "model": "bytedance/seedance-2.0",
+    "duration": 6,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "generate_audio": false,
+    "first": "distance.png",
+    "prompt": "A melancholic cinematic shot of the empty train compartment in the reference. Camera slowly pulls back, making the two seats and the space between them feel further apart. Rain moves down the glass; the distant amber station light slides away slowly as the train leaves. The folded note and dried red poppy remain on the right seat. Preserve objects and intimate blue palette, realistic motion, no people, no text, no cuts."
+  },
+  "result": {
+    "id": "Xow1bMGSQApmAUFynYiZ",
+    "generation_id": "gen-vid-1788733563-dOSRon0Y3PMBCBd2N4ts",
+    "polling_url": "https://openrouter.ai/api/v1/videos/Xow1bMGSQApmAUFynYiZ",
+    "status": "completed",
+    "unsigned_urls": [
+      "https://openrouter.ai/api/v1/videos/Xow1bMGSQApmAUFynYiZ/content?index=0"
+    ],
+    "usage": {
+      "cost": 0.9135,
+      "is_byok": false
+    }
+  }
+}

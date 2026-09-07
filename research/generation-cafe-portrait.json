@@ -1,0 +1,27 @@
+{
+  "name": "cafe-portrait",
+  "model": "openai/gpt-image-2",
+  "prompt": "Create a PORTRAIT 9:16 cinematic photograph using the reference for material and palette continuity. No people, no text, no logos, fine analog grain. Compose specifically for a mobile screen: upper 40 percent is dark negative space, romantic objects clearly visible in the LOWER half with ample margins, no object cropped off. The same rainy late-night cafe: exactly two half-finished ceramic coffee cups, one cream and one oxblood, on a round scratched table. One small red poppy in a clear slender vase. Include both cups completely within the lower third, the vase and flower in the middle right. Dark blue-black wall in upper left, rainy glass on right, warm amber reflected light. The other chair is just visible behind the table. Quiet and intimate.",
+  "seconds": 82.4,
+  "usage": {
+    "prompt_tokens": 1458,
+    "completion_tokens": 4312,
+    "total_tokens": 5770,
+    "cost": 0.140538,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.140538,
+      "upstream_inference_prompt_cost": 0.011178,
+      "upstream_inference_completions_cost": 0.12936
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 4312
+    }
+  },
+  "bytes": 2011350,
+  "status": "generated"
+}

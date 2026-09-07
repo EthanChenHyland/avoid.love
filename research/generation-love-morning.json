@@ -1,0 +1,27 @@
+{
+  "name": "love-morning",
+  "model": "openai/gpt-image-2",
+  "prompt": "Original cinematic editorial photograph for a love story, matching the supplied image photographic language. Fine 35mm grain, tactile real materials, restrained halation, deep shadows with visible detail, 50mm lens, no people, no text or logos. Scarlet red poppy is the recurring romantic keepsake. A small sunlit kitchen table in a quiet apartment, two mismatched ceramic cups of coffee waiting next to each other, one cream one oxblood, a living red poppy in a tiny clear vase, one open blank cream note. Soft morning sunlight through gauze curtain at right, warm pale peach walls, real lived-in objects, fine film grain, generous empty LEFT half of softly shaded warm wall for dark text. The scene feels like saving someone a place, romantic resolution and peace. No people.",
+  "seconds": 71.7,
+  "usage": {
+    "prompt_tokens": 1463,
+    "completion_tokens": 4312,
+    "total_tokens": 5775,
+    "cost": 0.140563,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.140563,
+      "upstream_inference_prompt_cost": 0.011203,
+      "upstream_inference_completions_cost": 0.12936
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 4312
+    }
+  },
+  "bytes": 1759862,
+  "status": "generated"
+}

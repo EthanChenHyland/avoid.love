@@ -1,0 +1,22 @@
+[
+  {
+    "name": "waiting-film",
+    "model": "bytedance/seedance-2.0",
+    "duration": 6,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "generate_audio": false,
+    "first": "waiting.png",
+    "prompt": "One continuous locked-off nighttime shot. Rain droplets slowly run down the bedroom window, blue distant city lights drift softly through the glass and a warm bedside lamp flickers imperceptibly. Two water glasses, a folded note and small red poppy remain still on the bedside table. Preserve the source composition exactly, camera almost motionless, subtle breathing of light, intimate anticipation, fine analog grain. No people enter, no new objects, no text, no cuts."
+  },
+  {
+    "name": "unsent-film",
+    "model": "bytedance/seedance-2.0",
+    "duration": 6,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "generate_audio": false,
+    "first": "unsent.png",
+    "prompt": "A cinematic close-up of a blank unfolded love letter on the desk. A gentle breeze slowly lifts the upper right corner of the paper, revealing the crease and translucent fibers. The paper folds closed softly and slowly reopens, like a sentence almost spoken. A red petal shifts slightly at its base. Preserve all objects and the dark bedroom background; slow physical paper movement, realistic shadows, no hands, no people, no words, no camera cuts. Finish with paper open and still."
+  }
+]

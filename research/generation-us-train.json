@@ -1,0 +1,27 @@
+{
+  "name": "us-train",
+  "model": "openai/gpt-image-2",
+  "prompt": "Original cinematic editorial photograph for a love story, matching the supplied image photographic language. Fine 35mm grain, tactile real materials, restrained halation, deep shadows with visible detail, 50mm lens, no people, no text or logos. Scarlet red poppy is the recurring romantic keepsake. An intimate empty train compartment at golden hour, exactly two adjacent worn burgundy seats beside a large window. A small bouquet with one red poppy wrapped in folded cream paper lies on one seat, a pair of wired headphones stretches across both seats. Warm sunset landscape through window, deep blue interior shadows, realistic train details, soft reflections. Subjects mainly RIGHT half, LEFT third dark negative space. This is the happy memory of sharing the long way home.",
+  "seconds": 70.1,
+  "usage": {
+    "prompt_tokens": 1452,
+    "completion_tokens": 4312,
+    "total_tokens": 5764,
+    "cost": 0.140508,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.140508,
+      "upstream_inference_prompt_cost": 0.011148,
+      "upstream_inference_completions_cost": 0.12936
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 4312
+    }
+  },
+  "bytes": 1761986,
+  "status": "generated"
+}

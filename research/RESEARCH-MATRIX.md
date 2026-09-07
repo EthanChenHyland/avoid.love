@@ -45,3 +45,5 @@ Raw page captures: sibling `avoid-love-references/web/`. Public repositories are
 
 ## Architecture decision
 Vite + semantic static HTML + small original timeline/Canvas renderer. The narrative does not need application state, client routing, a component library, or a React tree updated at scroll frequency. CSS handles type and controls, canvas handles images and transitional masks. Prototype actual frame decode and reverse scroll before committing to a film transport. No service worker for the first slice: it complicates invalidation before a measured need. Keep source artwork out of the public payload; export responsive WebP/AVIF only.
+
+Final film route: OpenRouter's current dedicated [Video API](https://openrouter.ai/docs/guides/overview/multimodal/video-generation) exposed Seedance 2.0 through the existing credential. Six real requests completed. The fal entries above remain research-only; their lack of a separate credential did not block production.

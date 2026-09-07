@@ -1,0 +1,27 @@
+{
+  "name": "drawer",
+  "model": "openai/gpt-image-2",
+  "prompt": "Original cinematic editorial photograph for a love story, matching the supplied image photographic language. Fine 35mm grain, tactile real materials, restrained halation, deep shadows with visible detail, 50mm lens, no people, no text or logos. Scarlet red poppy is the recurring romantic keepsake. Close intimate photograph of a half-open wooden bedside drawer, inside a folded cream love letter with one pressed scarlet poppy and a faded photograph whose image is a tiny empty cafe table, no faces, no words. Drawer occupies lower right, broad black-blue wall on left. Very narrow slant of amber afternoon light catches the letter, deep tactile shadows and scratches. The act of trying to put a memory away.",
+  "seconds": 71.7,
+  "usage": {
+    "prompt_tokens": 1445,
+    "completion_tokens": 4312,
+    "total_tokens": 5757,
+    "cost": 0.140473,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.140473,
+      "upstream_inference_prompt_cost": 0.011113,
+      "upstream_inference_completions_cost": 0.12936
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 4312
+    }
+  },
+  "bytes": 1801075,
+  "status": "generated"
+}

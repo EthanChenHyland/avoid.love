@@ -1,0 +1,27 @@
+{
+  "name": "us-street",
+  "model": "openai/gpt-image-2",
+  "prompt": "Original cinematic editorial photograph for a love story, matching the supplied image photographic language. Fine 35mm grain, tactile real materials, restrained halation, deep shadows with visible detail, 50mm lens, no people, no text or logos. Scarlet red poppy is the recurring romantic keepsake. Rainy city street late at night seen from beneath one umbrella, no people visible. In near right foreground two takeaway coffee cups sit side by side on a wet stone ledge, one red poppy tucked between them. Warm cafe windows glow beyond wet pavement, blue-black sky, tender intimate mood after a date, shallow focus on cups and flower, left half negative space of dark reflective street.",
+  "seconds": 83.0,
+  "usage": {
+    "prompt_tokens": 1441,
+    "completion_tokens": 4312,
+    "total_tokens": 5753,
+    "cost": 0.140453,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.140453,
+      "upstream_inference_prompt_cost": 0.011093,
+      "upstream_inference_completions_cost": 0.12936
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 4312
+    }
+  },
+  "bytes": 2030216,
+  "status": "generated"
+}

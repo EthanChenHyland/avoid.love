@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://avoid.love/sitemap.xml

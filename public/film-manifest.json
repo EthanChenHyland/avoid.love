@@ -12,5 +12,33 @@
     "desktop": "/frames/poppy-film/desktop",
     "mobile": "/frames/poppy-film/mobile",
     "video": "/films/poppy-film.mp4"
+  },
+  "waiting": {
+    "count": 91,
+    "fps": 15,
+    "desktop": "/frames/waiting-film/desktop",
+    "mobile": "/frames/waiting-film/mobile",
+    "video": "/films/waiting-film.mp4"
+  },
+  "unsent": {
+    "count": 91,
+    "fps": 15,
+    "desktop": "/frames/unsent-film/desktop",
+    "mobile": "/frames/unsent-film/mobile",
+    "video": "/films/unsent-film.mp4"
+  },
+  "distance": {
+    "count": 91,
+    "fps": 15,
+    "desktop": "/frames/distance-film/desktop",
+    "mobile": "/frames/distance-film/mobile",
+    "video": "/films/distance-film.mp4"
+  },
+  "impossible": {
+    "count": 121,
+    "fps": 15,
+    "desktop": "/frames/impossible-film/desktop",
+    "mobile": "/frames/impossible-film/mobile",
+    "video": "/films/impossible-film.mp4"
   }
 }

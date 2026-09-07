@@ -1,0 +1,25 @@
+{
+  "job": {
+    "name": "unsent-film",
+    "model": "bytedance/seedance-2.0",
+    "duration": 6,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "generate_audio": false,
+    "first": "unsent.png",
+    "prompt": "A cinematic close-up of a blank unfolded love letter on the desk. A gentle breeze slowly lifts the upper right corner of the paper, revealing the crease and translucent fibers. The paper folds closed softly and slowly reopens, like a sentence almost spoken. A red petal shifts slightly at its base. Preserve all objects and the dark bedroom background; slow physical paper movement, realistic shadows, no hands, no people, no words, no camera cuts. Finish with paper open and still."
+  },
+  "result": {
+    "id": "SNB3rFPLhYNwdB3FUETX",
+    "generation_id": "gen-vid-1788733514-QGoXbqbjNpg9VneDqaQy",
+    "polling_url": "https://openrouter.ai/api/v1/videos/SNB3rFPLhYNwdB3FUETX",
+    "status": "completed",
+    "unsigned_urls": [
+      "https://openrouter.ai/api/v1/videos/SNB3rFPLhYNwdB3FUETX/content?index=0"
+    ],
+    "usage": {
+      "cost": 0.9135,
+      "is_byok": false
+    }
+  }
+}

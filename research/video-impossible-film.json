@@ -1,0 +1,26 @@
+{
+  "job": {
+    "name": "impossible-film",
+    "model": "bytedance/seedance-2.0",
+    "duration": 8,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "generate_audio": false,
+    "first": "hero-letters.png",
+    "last": "love-morning.png",
+    "prompt": "One continuous dreamlike cinematic camera movement. In the blue room the enormous ivory love letters rotate slowly through space as the red silk ribbon undulates gently. Camera moves forward past the closest letter; the tactile cream paper fills the lens and catches warm sunlight. Pass through this paper-white light to reveal the intimate sunlit morning table shown in the final image with exactly two coffee cups, a living red poppy in a glass vase and an open note. End in warm stillness. Emotion is love returning. Physically believable paper and fabric, preserve photographic grain, no people, no words, no flashy effects or abrupt cuts."
+  },
+  "result": {
+    "id": "gR2fBTsfQcVBDnBlK11H",
+    "generation_id": "gen-vid-1788733577-Zd4ppAV5NfepLDKfCuCJ",
+    "polling_url": "https://openrouter.ai/api/v1/videos/gR2fBTsfQcVBDnBlK11H",
+    "status": "completed",
+    "unsigned_urls": [
+      "https://openrouter.ai/api/v1/videos/gR2fBTsfQcVBDnBlK11H/content?index=0"
+    ],
+    "usage": {
+      "cost": 1.2159,
+      "is_byok": false
+    }
+  }
+}
