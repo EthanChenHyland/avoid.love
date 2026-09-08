@@ -37,7 +37,7 @@ function prepareNearby(){
 }
 function setupMotion(){for(const seq of sequences.values())seq.dispose();sequences.clear();document.documentElement.dataset.still=String(still);$('#still-toggle').setAttribute('aria-pressed',String(still));resize()}
 function sequence(name){
- let seq=sequences.get(name);if(!seq){const m=manifest[name];seq=new FrameSequence({base:m.desktop,count:m.count,limit:mobile?8:24,onReady:invalidate});seq.surface=new FilmSurface();sequences.set(name,seq)}
+ let seq=sequences.get(name);if(!seq){const m=manifest[name];seq=new FrameSequence({base:m.desktop,count:m.count,limit:mobile?8:24,onReady:invalidate});seq.surface=new FilmSurface({blendFrames:!['opening','transition'].includes(name)});sequences.set(name,seq)}
  if(sequences.size>2){const old=[...sequences.keys()].find(k=>k!==name);sequences.get(old).dispose();sequences.delete(old)}return seq;
 }
 function warmFilm(name){if(sequences.has(name))return;if(!still&&manifest?.[name])sequence(name).request(0)}
@@ -45,7 +45,7 @@ function prepareFilms(){const name=active===0?'opening':active===2?'waiting':act
 function film(name,t,fallback){
  if(still||!manifest?.[name])return fallback;
  const seq=sequence(name);
- const raw=seq.get(t),image=seq.surface.sample(seq,raw,t);if(seq.surface.moving)filmBlending=true;if(image&&!seq.readyAt)seq.readyAt=performance.now();const blend=image?smooth(clamp((performance.now()-seq.readyAt)/220)):0;if(image&&blend<1)filmBlending=true;frameStats={film:name,frame:seq.drawn,cached:[...sequences.values()].reduce((n,s)=>n+s.frames.size,0)};if(image&&blend===1&&t>=.999&&seq.drawn===seq.count-1&&!seq.surface.moving&&!endpoints.has(name)&&['opening','transition','impossible'].includes(name)){const held=document.createElement('canvas');held.width=image.width;held.height=image.height;held.getContext('2d').drawImage(image,0,0);endpoints.set(name,held)}return image?{filmImage:image,fallback:endpoints.get(name)||fallback,blend}:endpoints.get(name)||fallback;
+ const raw=seq.get(t),image=seq.surface.sample(seq,raw,t);if(seq.surface.moving)filmBlending=true;if(image&&!seq.readyAt)seq.readyAt=performance.now();const blend=image?(['opening','transition'].includes(name)?1:smooth(clamp((performance.now()-seq.readyAt)/220))):0;if(image&&blend<1)filmBlending=true;frameStats={film:name,frame:seq.drawn,cached:[...sequences.values()].reduce((n,s)=>n+s.frames.size,0)};if(image&&blend===1&&t>=.999&&seq.drawn===seq.count-1&&!seq.surface.moving&&!endpoints.has(name)&&['opening','transition','impossible'].includes(name)){const held=document.createElement('canvas');held.width=image.width;held.height=image.height;held.getContext('2d').drawImage(image,0,0);endpoints.set(name,held)}return image?{filmImage:image,fallback:endpoints.get(name)||fallback,blend}:endpoints.get(name)||fallback;
 }
 function filmFocus(max){return mix(.5,max,smooth(progress(h/w,.75,1)))}
 function draw(image,scale=1,alpha=1,focus=.5,dx=0,dy=0,dc=ctx){if(!image||alpha<=0)return;if(image.filmImage){if(image.blend<1)draw(image.fallback,scale,alpha,focus,dx,dy,dc);draw(image.filmImage,scale,alpha*image.blend,focus,dx,dy,dc);return}if(image.previous){const blend=still?1:smooth(clamp((performance.now()-image.readyAt)/400));if(blend<1){filmBlending=true;draw(image.previous,scale,alpha,focus,dx,dy,dc);alpha*=blend}else delete image.previous}const b=cover(image.width,image.height,w,h,focus,scale);dc.globalAlpha=clamp(alpha);dc.drawImage(image,b.x+dx,b.y+dy,b.w,b.h);dc.globalAlpha=1}
@@ -85,16 +85,16 @@ function render(){
   draw(hero,1,1,filmFocus(.77));
   if(still)draw(cafe,1,plateOpacity('hero-cafe',smooth(progress(q,.42,.58))));
   else {
-   // Match the stationary endpoints before the next camera move begins.
+   // The opening uses opaque decoded frames only: no join, loading or catch-up dissolve.
    const handoff=a.handoff,incoming=sequences.get('transition');
-   const ready=incoming?.frames.size&&incoming.readyAt&&performance.now()-incoming.readyAt>=220;
+   const ready=incoming?.frames.size&&incoming.readyAt;
    const outgoing=handoff<1||!ready?film('opening',progress(q,0,.29),hero):endpoints.get('opening')||hero;
    draw(outgoing,1,1,filmFocus(.77));
    if(q>.29)draw(film('transition',a.film,outgoing),1,handoff,filmFocus(.77));
   }
   const op=still?1-smooth(progress(q,.36,.46)):a.hero;show('opening',op);show('opening-foot',op);
   $('#opening').style.transform=`translateY(${still?0:-progress(q,.03,.3)*openingTravel}px) scale(${still?1:1+progress(q,.02,.3)*.025})`;
-  const firstReady=sequences.get('opening')?.readyAt;$('#foreground').style.opacity=still?0:op*(1-(firstReady?smooth(clamp((performance.now()-firstReady)/220)):0));$('#foreground').style.transform='none';$('#foreground').style.objectPosition=`${filmFocus(.77)*100}% center`;
+  $('#foreground').style.opacity=0;$('#foreground').style.transform='none';$('#foreground').style.objectPosition=`${filmFocus(.77)*100}% center`;
   show('bridge-copy',still?0:windowed(q,.43,.47,.54,.59));
   show('notice-copy',(still?smooth(progress(q,.55,.62)):a.cafe)*(1-smooth(progress(q,.91,.98))));
   show('late-copy',smooth(progress(q,.92,.99))*(1-smooth(progress(p,.225,.25))));

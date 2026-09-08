@@ -7,7 +7,7 @@ export function cover(iw,ih,w,h,focus=.5,scale=1){
  return {x:(w-iw*s)*focus,y:(h-ih*s)*.5,w:iw*s,h:ih*s};
 }
 export function firstAct(p){
- return {hero:1-smooth(progress(p,.26,.38)),handoff:smooth(progress(p,.29,.305)),film:progress(p,.305,.74),cafe:smooth(progress(p,.73,.83)),hold:progress(p,.81,1)};
+ return {hero:1-smooth(progress(p,.26,.38)),handoff:p>.29?1:0,film:progress(p,.29,.74),cafe:smooth(progress(p,.73,.83)),hold:progress(p,.81,1)};
 }
 export function nearestFrame(keys,target){
  let best=null,dist=Infinity;

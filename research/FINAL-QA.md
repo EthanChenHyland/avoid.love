@@ -115,3 +115,9 @@ Removed the extended opening `.29–.44` dissolve. The new `.29–.305` join onl
 Added scroll-driven foreground petal spirals, a hand-responsive luminous memory ribbon, ink branches, orbiting sealed letters, and final sunlight motes. These share the existing canvas loop, reduce particle counts on phones, and skip under reduced motion. No additional asset cache or animation timer. Short portrait screens also receive a separate opening title/caption spacing rule.
 
 Validation: production build and nine Node tests pass. Delayed incoming-film and incoming-art pixel checks retain the outgoing images (normalized differences .000906 and .001005). Forward/reverse samples at 390×844, 639×734, and 1280×720 confirm frame zero throughout the join, followed by progressing film frames. Five-size integrated checks passed with no runtime errors, functioning photograph keyboard input, reduced-motion rendering, and zero idle draws after settling. Original film files, frame sequences, and manifest unchanged. Browser checks use Chromium, including the internal-browser viewport size; they are not physical iOS device validation.
+
+### September 8 — remove opening dissolves completely
+
+The preceding stationary-endpoint join still used a short dissolve. Removed that blend entirely and disabled both initial loading fades and FilmSurface interpolation/catch-up dissolves for `opening` and `transition`. Removed the opening foreground opacity animation. The two films now draw opaque decoded frames; the retained outgoing image remains the loading fallback. All spectacle effects and other chapters' interpolation remain intact.
+
+Nine Node tests pass, including binary opening handoff opacity. Browser pixel tests verify that opening adjacent frames never mix and a large frame jump immediately draws the new opaque frame, while other scenes preserve their interpolation behavior.
