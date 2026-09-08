@@ -86,3 +86,17 @@ html[data-still=true] .stage *{transition:none!important}
  .opening{top:100px}.love{font-size:min(62vw,32svh)}
  .opening-foot{bottom:92px}
 }
+/* The added chapters have their own copy zone, separate from the previous scene. */
+.interlude{left:8%;top:var(--safe-top);right:8%;bottom:auto}
+.interlude .interlude-kicker{font:12px Manrope,sans-serif;text-transform:uppercase;letter-spacing:.22em;margin:0 0 22px}
+.interlude h2{font-size:min(9vw,18svh);line-height:1.02}
+.interlude .interlude-caption{font-size:18px;line-height:1.5;margin-top:28px;max-width:360px}
+.kinetic-word{display:inline-block;transform-origin:50% 100%;backface-visibility:hidden}
+.chapter-links>a{position:relative;transition:color .25s,transform .25s}
+.chapter-links>a:hover{color:#ecc597;transform:translateX(8px)}
+@media(max-width:700px){.interlude{left:26px;right:24px}.interlude h2{font-size:min(21vw,14svh)}.interlude .interlude-caption{font-size:17px;max-width:250px}.interlude .interlude-kicker{font-size:11px;margin-bottom:18px}.chapter-links>a{font-size:26px}}
+@media(max-height:600px) and (orientation:landscape){.interlude{top:85px}.interlude h2{font-size:17svh}.interlude .interlude-kicker{margin-bottom:10px}.interlude .interlude-caption{position:absolute;left:62%;top:55px;margin:0;max-width:230px}}
+/* More room to read the three added beats without accelerating the films. */
+.scroll-track{height:3400svh}
+@media(max-width:700px){.scroll-track{height:2400svh}}
+.masthead:before,.on-light .masthead:before{background:linear-gradient(#07100d55,transparent);opacity:var(--mast-shade,1)}

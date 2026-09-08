@@ -1,16 +1,16 @@
 # avoid.love V4
 
-An original ten-chapter cinematic love story, built in a new standalone project. Scarlet poppies, two cups, unsent letters and empty seats recur across photographic worlds. Six generated Seedance films are scrubbed through bounded canvas frame caches. No original-site assets or code are included.
+An original thirteen-chapter cinematic love story, built in a new standalone project. Scarlet poppies, two cups, unsent letters and empty seats recur across photographic worlds. Six generated Seedance films are scrubbed through bounded canvas frame caches. No original-site assets or code are included.
 
 ## Run locally
 
 Node 22.12+ (verified with Node 26). `npm ci`, then `npm run dev -- --port 4174`. Open http://127.0.0.1:4174/. `npm test` checks crop/sequence behavior; `npm run build` creates static `dist/`; `npm run preview` previews it. No deployment has been performed.
 
-Scroll, use the bottom continuation control, or choose a chapter in The story menu. Hold the thought in Almost; hold to put it away in the drawer scene. The menu includes Still-frame mode, and keyboard users can skip directly to the complete reading version. System reduced motion selects still mode automatically.
+Scroll, use the bottom continuation control, or choose a chapter in The story menu. Tap the letter in Almost to keep it open, or swipe the photographs directly. The menu includes Still-frame mode, and keyboard users can skip directly to the complete reading version. System reduced motion selects still mode automatically.
 
 ## Mobile
 
-390px portrait has alternate typography and shorter pacing: 18 viewport heights against desktop's 30. Café and distance use purpose-generated portrait artwork preserving both paired objects. Frame assets are 640px wide; quiet opening, waiting and distance shots use posters. Active film caches hold 12 frames each, at most two sequences. Mobile canvas DPR is capped at 1.25. Landscape receives a compact header/footer composition. Physical-device Safari performance remains to be measured.
+Portrait has alternate typography and 24 viewport heights of pacing against desktop's 34. All six films render their 1280px frames on phones, with continuous crop focus through intermediate aspect ratios. Active film caches hold 8 frames each on mobile (24 on desktop), at most two sequences. Mobile canvas DPR is capped at 1.25. Landscape receives a compact header/footer composition. Physical-device Safari performance remains to be measured.
 
 ## Source and production
 
@@ -37,12 +37,20 @@ Production QA uses `npm run build` and `npm run preview -- --port 4175`, then `n
 
 Petals arrive automatically, photographs fan out and turn over with scrolling, rain clears with scroll/touch, and the red thread follows pointer movement. Photos can be swiped in place. Coffee steam, rain trails and glass ripples respond to your hand. Tap or keyboard-activate the paper itself to keep the letter open, then activate it again to let it fold away. There are no effect launchers or separate dialogs. Reduced motion keeps the composition static.
 
-All six films play on mobile. The café and ending hold their real last video frames, with the same crop through the handoff. The renderer interpolates adjacent frames, smooths late-frame catch-up and retains movies across the mobile breakpoint. Mobile keeps at most 16 decoded 1280px frames across two sequences, plus compositor surfaces. Original movie files remain unchanged.
+All six films play on mobile. The café and ending hold their real last video frames, with the same crop through the handoff. The renderer interpolates adjacent frames, switches late-frame catch-up opaquely and retains movies across the mobile breakpoint. Mobile keeps at most 16 decoded 1280px frames across two sequences, plus compositor surfaces. Original movie files remain unchanged.
 
-Use `QA_URL=http://127.0.0.1:4188/` for preview QA. `scripts/qa-film-surface.mjs` verifies interpolation and catch-up pixels, `scripts/qa-film-continuity.mjs` checks all six films and held endpoints, and `scripts/qa-video-resize.mjs` blocks frame requests while repeatedly crossing the mobile breakpoint. `scripts/qa-playthings.mjs` and `scripts/qa-interaction.mjs` cover scene effects, keyboard/touch, reduced motion and idle rendering.
+Use `QA_URL=http://127.0.0.1:4188/` for preview QA. `scripts/qa-film-surface.mjs` verifies adjacent interpolation and opaque catch-up pixels, `scripts/qa-film-continuity.mjs` checks all six films and held endpoints, and `scripts/qa-video-resize.mjs` blocks frame requests while repeatedly crossing the mobile breakpoint. `scripts/qa-playthings.mjs` and `scripts/qa-interaction.mjs` cover scene effects, keyboard/touch, reduced motion and idle rendering.
 
 The first two handoffs retain their outgoing video until the incoming source is decoded, including delayed-loading cases. Three held endpoints supplement the rolling frame cache. `qa-first-handoffs.mjs` compares displayed outgoing pixels while the incoming film/art is deliberately blocked. New keepsake effects include a curling receipt, a message behind the mist, sunlight refractions and petals that part around your hand.
 
 The opening renders opaque film frames: no crossfade at the film join, no loading fade, no adjacent-frame blending, and no catch-up dissolve. Other chapters retain their existing interpolation. Scroll-driven petals, memory-light ribbons, ink branches, orbiting letters and sunlight motes live in `src/story-spectacle.mjs`; they share the existing renderer, respond to visitor movement, and honor reduced motion.
 
 The opening camera moves in and gently returns to its initial framing, matching the next clip’s starting frame before the opaque handoff. `scripts/qa-opening-match.mjs` checks this join in both scroll directions across phone, panel and desktop sizes.
+
+## Expanded chapters and continuity audit
+
+After hours, The detour, and Let the light in extend the original narrative to 13 selectable chapters without replacing any original film. `src/chapter-effects.mjs` choreographs a winding clock, a perspective street map with a live route, a 3D photograph gallery, soft window projections, rolling heading reveals, and a short-lived pointer ribbon. These complement the petal vortex, physical keepsakes, steam, rain, ink, envelopes and sunlight already present. The extra beats are also available in the reading and no-JavaScript versions.
+
+Everywhere now uses the opening frame of its own film from scene entry, keeping the crop consistent when the camera begins moving. The giant full-screen photo rush has become an edge gallery. The rain-glass sample follows the same continuous crop as the film, and the header shade gradually clears in the ending. Cache catch-up never dissolves unrelated old and new frames.
+
+`qa-boundary-audit.mjs` samples 30 timeline boundaries forward and backward at four viewport sizes. `qa-expansion.mjs` checks new chapter navigation and reduced motion, and `qa-expanded-resilience.mjs` covers all films unavailable, reduced motion and the 13-chapter no-JavaScript reading fallback. Numerical pixel changes identify review candidates; they do not by themselves distinguish intended camera movement from a cut.

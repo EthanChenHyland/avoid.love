@@ -127,3 +127,7 @@ Nine Node tests pass, including binary opening handoff opacity. Browser pixel te
 The opaque join exposed a real source mismatch: opening frame 090 is substantially closer than transition frame 000. Opening frame 000 shares the transition's framing. Retimed the opening into a smooth forward-and-return camera movement, ending on frame 000 before the transition starts. No opacity blend was restored and no original media was changed. Existing effects remain.
 
 Added a source-endpoint timeline regression and a browser pixel comparison across the join in both directions at 320, 390, 639, 700, 701 and 1280 pixel widths. Direct source mean RGB difference drops from 7.41% (090→000) to 0.73% (000→000); the latter frames still have encoding/lighting differences. Build and ten Node tests pass; delayed-loading outgoing-frame retention tests also pass.
+
+### September 8 — full-site audit and 13-chapter expansion
+
+See `SITE-AUDIT-2026-09-08.md` for findings, scene-by-scene corrections, new behavior and verification scope. Removed the poster/film double exposure in Everywhere and unrelated cache catch-up dissolves, matched fog focus through responsive sizes, and removed the ending header shade threshold. Added three integrated chapters, clock/route/gallery/light choreography, rolling typography and a bounded visitor ribbon. Final seven-size layout and 39 real-browser-zoom checks have no reported collisions, clipping or overflow. Original films and frame assets remain unchanged.

@@ -12,3 +12,6 @@ export const chapters=[
 ];
 export const boundaries=[0,.16,.23,.31,.42,.54,.65,.75,.82,.95,1.00001];
 export function chapterIndex(p){return boundaries.findIndex((v,i)=>i<10&&p>=v&&p<boundaries[i+1])}
+
+// Additional story beats share the original film timeline and do not change asset ownership.
+export const narrative=[...chapters,{id:'hours',name:'After hours',at:.218},{id:'detour',name:'The detour',at:.628},{id:'light',name:'Let the light in',at:.934}].sort((a,b)=>a.at-b.at);
