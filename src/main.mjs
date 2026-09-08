@@ -10,7 +10,7 @@ const $=s=>document.querySelector(s),canvas=$('#world'),ctx=canvas.getContext('2
 const wipeCanvas=document.createElement('canvas'),wipeCtx=wipeCanvas.getContext('2d');
 const narrow=matchMedia('(max-width:700px)'),reduced=matchMedia('(prefers-reduced-motion:reduce)');
 let still=reduced.matches,mobile=narrow.matches,w=innerWidth,h=innerHeight,dpr=1,p=0,target=0,raf=0,last=0,dirty=true,holding=false,held=0,active=0,manifest=null,loadVersion=0;
-const plates=new Map(),plateLoads=new Map(),sequences=new Map(),errors=new Set(),abort=new AbortController();
+const endpoints=new Map(),plates=new Map(),plateLoads=new Map(),sequences=new Map(),errors=new Set(),abort=new AbortController();
 const shots=['opening','opening-foot','notice-copy','late-copy','bridge-copy','little-copy','waiting-copy','unsent-copy','us-copy','distance-copy','trying-copy','impossible-copy','love-copy'].map(id=>$('#'+id));
 const nav=$('#chapters'),toggle=$('#chapters-toggle'),holdButton=$('#hold-memory'),letterObject=$('#letter-object');let letterPinned=false;
 let openingTravel=0,layoutReady=false;
@@ -41,11 +41,11 @@ function sequence(name){
  if(sequences.size>2){const old=[...sequences.keys()].find(k=>k!==name);sequences.get(old).dispose();sequences.delete(old)}return seq;
 }
 function warmFilm(name){if(sequences.has(name))return;if(!still&&manifest?.[name])sequence(name).request(0)}
-function prepareFilms(){const name=active===0?'opening':active<=2?'waiting':active===3?'unsent':active===5?'distance':active>=7?'impossible':null;if(name)warmFilm(name)}
+function prepareFilms(){const name=active===0?'opening':active===2?'waiting':active===3?'unsent':active===5?'distance':active>=7?'impossible':null;if(name)warmFilm(name)}
 function film(name,t,fallback){
  if(still||!manifest?.[name])return fallback;
  const seq=sequence(name);
- const raw=seq.get(t),image=seq.surface.sample(seq,raw,t);if(seq.surface.moving)filmBlending=true;if(image&&!seq.readyAt)seq.readyAt=performance.now();const blend=image?smooth(clamp((performance.now()-seq.readyAt)/220)):0;if(image&&blend<1)filmBlending=true;frameStats={film:name,frame:seq.drawn,cached:[...sequences.values()].reduce((n,s)=>n+s.frames.size,0)};return image?{filmImage:image,fallback,blend}:fallback;
+ const raw=seq.get(t),image=seq.surface.sample(seq,raw,t);if(seq.surface.moving)filmBlending=true;if(image&&!seq.readyAt)seq.readyAt=performance.now();const blend=image?smooth(clamp((performance.now()-seq.readyAt)/220)):0;if(image&&blend<1)filmBlending=true;frameStats={film:name,frame:seq.drawn,cached:[...sequences.values()].reduce((n,s)=>n+s.frames.size,0)};if(image&&blend===1&&t>=.999&&seq.drawn===seq.count-1&&!seq.surface.moving&&!endpoints.has(name)&&['opening','transition','impossible'].includes(name)){const held=document.createElement('canvas');held.width=image.width;held.height=image.height;held.getContext('2d').drawImage(image,0,0);endpoints.set(name,held)}return image?{filmImage:image,fallback:endpoints.get(name)||fallback,blend}:endpoints.get(name)||fallback;
 }
 function filmFocus(max){return mix(.5,max,smooth(progress(h/w,.75,1)))}
 function draw(image,scale=1,alpha=1,focus=.5,dx=0,dy=0,dc=ctx){if(!image||alpha<=0)return;if(image.filmImage){if(image.blend<1)draw(image.fallback,scale,alpha,focus,dx,dy,dc);draw(image.filmImage,scale,alpha*image.blend,focus,dx,dy,dc);return}if(image.previous){const blend=still?1:smooth(clamp((performance.now()-image.readyAt)/400));if(blend<1){filmBlending=true;draw(image.previous,scale,alpha,focus,dx,dy,dc);alpha*=blend}else delete image.previous}const b=cover(image.width,image.height,w,h,focus,scale);dc.globalAlpha=clamp(alpha);dc.drawImage(image,b.x+dx,b.y+dy,b.w,b.h);dc.globalAlpha=1}
@@ -78,21 +78,27 @@ function render(){
  const started=performance.now();filmBlending=false;if(p>.03&&p<.065)warmFilm('transition');mistSource=null;canvas.style.opacity=plates.size?'1':'0';for(const el of shots)el.style.opacity=0;$('#foreground').style.opacity=0;ctx.fillStyle='#101b1d';ctx.fillRect(0,0,w,h);frameStats={frame:-1,cached:0,film:''};
  const get=n=>plates.get(n),hero=get('hero-poppy'),cafe=get('hero-cafe'),q=p/.23;
  const portrait=w/h<1,ending=plateOpacity('love-morning',smooth(progress(p,.95,portrait?.982:.966)));
- const cafeView=!still&&p>=.23&&p<.265?film('transition',1,cafe):cafe;
+ const littleAlpha=plateOpacity('little-things',smooth(progress(p,.23,portrait?.272:.264)));
+ const cafeView=!still&&p>=.23&&p<.335&&littleAlpha<1?film('transition',1,cafe):cafe;
  if(p<.255){
   const a=firstAct(q),zoom=still?1:1+smooth(progress(q,.05,.29))*.065;
-  draw(hero,zoom);
-  if(!still&&q>.035&&q<.35){const opening=film('opening',progress(q,.035,.29),hero);draw(opening,1,smooth(progress(q,.035,.065)),filmFocus(.77))}
+  draw(hero,1,1,filmFocus(.77));
   if(still)draw(cafe,1,plateOpacity('hero-cafe',smooth(progress(q,.42,.58))));
-  else if(q>.29){const frame=film('transition',a.film,hero);draw(frame,1,smooth(progress(q,.29,.35)),filmFocus(.77))}
+  else {
+   const handoff=smooth(progress(q,.29,.44)),incoming=sequences.get('transition');
+   const ready=incoming?.frames.size&&incoming.readyAt&&performance.now()-incoming.readyAt>=220;
+   const outgoing=handoff<1||!ready?film('opening',progress(q,0,.29),hero):endpoints.get('opening')||hero;
+   draw(outgoing,1,1,filmFocus(.77));
+   if(q>.29)draw(film('transition',a.film,outgoing),1,handoff,filmFocus(.77));
+  }
   const op=still?1-smooth(progress(q,.36,.46)):a.hero;show('opening',op);show('opening-foot',op);
   $('#opening').style.transform=`translateY(${still?0:-progress(q,.03,.3)*openingTravel}px) scale(${still?1:1+progress(q,.02,.3)*.025})`;
-  $('#foreground').style.opacity=still?0:op*(1-smooth(progress(q,.025,.065)));$('#foreground').style.transform=`scale(${zoom})`;
+  const firstReady=sequences.get('opening')?.readyAt;$('#foreground').style.opacity=still?0:op*(1-(firstReady?smooth(clamp((performance.now()-firstReady)/220)):0));$('#foreground').style.transform='none';$('#foreground').style.objectPosition=`${filmFocus(.77)*100}% center`;
   show('bridge-copy',still?0:windowed(q,.43,.47,.54,.59));
   show('notice-copy',(still?smooth(progress(q,.55,.62)):a.cafe)*(1-smooth(progress(q,.91,.98))));
   show('late-copy',smooth(progress(q,.92,.99))*(1-smooth(progress(p,.225,.25))));
  }
- if(p>=.23&&p<.335){const local=progress(p,.23,.31);if(portrait&&p<.265){draw(cafeView,1,1,filmFocus(.77));depthPlate('little-things',still?1:1+local*.09,smooth(progress(p,.23,.265)))}else if(!portrait&&p<.255){draw(cafeView,1,1,filmFocus(.77));wipe(get('little-things'),progress(p,.23,.255),'diagonal',still?1:1+local*.09)}else depthPlate('little-things',still?1:1+local*.09);
+ if(p>=.23&&p<.335){const local=progress(p,.23,.31);if(littleAlpha<1)draw(cafeView,1,1,filmFocus(.77));depthPlate('little-things',still?1:1+local*.09,littleAlpha);
   show('little-copy',windowed(p,.24,.26,.298,.32));$('#little-copy').style.transform=`translateY(${still?0:-local*20}px)`;
  }
  if(p>=.31&&p<.44){const local=progress(p,.31,.42),rain=film('waiting',local,get('waiting'));mistSource=rain;if(p<.335){wipe(rain,progress(p,.31,.335),'window',1,filmFocus(.77))}else draw(rain,1,1,filmFocus(.77));
@@ -160,7 +166,7 @@ listen(window,'scroll',updateTarget,{passive:true});listen(window,'resize',resiz
 listen(narrow,'change',()=>{mobile=narrow.matches;loadVersion++;for(const name of plates.keys())if(name.endsWith('-depth'))plates.delete(name);plateLoads.clear();prepareNearby();for(const seq of sequences.values()){seq.limit=mobile?8:24;seq.evict()}resize()});
 listen(reduced,'change',()=>{const fraction=p;still=reduced.matches;setupMotion();jump(fraction)});
 listen(document,'visibilitychange',()=>{if(!document.hidden)invalidate();else if(raf){cancelAnimationFrame(raf);raf=0}});
-listen(window,'pagehide',()=>{for(const seq of sequences.values())seq.dispose();sequences.clear()});listen(window,'pageshow',e=>{if(e.persisted)setupMotion()});
+listen(window,'pagehide',()=>{for(const held of endpoints.values()){held.width=held.height=1}endpoints.clear();for(const seq of sequences.values())seq.dispose();sequences.clear()});listen(window,'pageshow',e=>{if(e.persisted)setupMotion()});
 listen(toggle,'click',()=>menu(nav.hidden));listen($('#chapters-close'),'click',()=>menu(false));
 listen(nav,'keydown',e=>{if(e.key==='Escape')menu(false);if(e.key==='Tab'){const items=[...nav.querySelectorAll('a,button')];if(e.shiftKey&&document.activeElement===items[0]){e.preventDefault();items.at(-1).focus()}else if(!e.shiftKey&&document.activeElement===items.at(-1)){e.preventDefault();items[0].focus()}}});
 for(const a of nav.querySelectorAll('a'))listen(a,'click',e=>{e.preventDefault();menu(false);const c=chapters.find(c=>'#'+c.id===a.hash);if(c){history.replaceState(null,'',a.hash);jump(c.at)}});

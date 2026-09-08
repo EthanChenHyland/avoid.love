@@ -30,6 +30,7 @@ export function memories({state,wake,signal}){
  f.globalCompositeOperation='source-over';f.clearRect(0,0,640,480);f.filter='blur(5px)';const paint=(image,alpha=1)=>{if(!image)return;if(image.filmImage){paint(image.fallback,alpha);paint(image.filmImage,alpha*image.blend);return}const b=cover(image.width,image.height,s.w,s.h,s.mobile?.77:.5);f.globalAlpha=alpha;f.drawImage(image,(r.x-b.x)/b.w*image.width,(r.y-b.y)/b.h*image.height,r.w/b.w*image.width,r.h/b.h*image.height,0,0,640,480);f.globalAlpha=1};paint(source);f.filter='none';f.fillStyle='#b6c6c330';f.fillRect(0,0,640,480);f.globalCompositeOperation='destination-in';f.drawImage(mask,0,0);
  // A broad clearing passes across the glass with the story; hovering adds real traces.
  const clear=smooth(progress(s.p,.348,.402));f.globalCompositeOperation='destination-out';const opening=f.createRadialGradient(420,245,0,420,245,50+clear*370);opening.addColorStop(0,`rgba(0,0,0,${clear*.88})`);opening.addColorStop(1,'transparent');f.fillStyle=opening;f.fillRect(0,0,640,480);
+ ctx.save();ctx.globalAlpha=a*smooth(progress(s.p,.357,.391));ctx.fillStyle='#e9e2cd';ctx.font=`italic ${s.mobile?26:34}px Bodoni,serif`;ctx.textAlign='center';ctx.fillText('still here.',s.w*.73,s.h*(s.mobile?.59:.48),s.w*.42);ctx.restore();
  ctx.save();ctx.globalAlpha=a*.72;ctx.drawImage(mist,r.x,r.y,r.w,r.h);ctx.restore();
  },close(){}};
 }
