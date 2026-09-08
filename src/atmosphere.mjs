@@ -22,7 +22,7 @@ export function atmosphere(){
  }
  }else{
  const morning=scene==='morning',a=morning?smooth(progress(p,.973,.992)):envelope(p,.158,.178,.213,.226);
- const cups=mobile?(morning?[[.39,.815],[.72,.817]]:[[.40,.695],[.68,.745]]):(morning?[[.65,.82],[.83,.82]]:[[.73,.69],[.88,.74]]);
+ const cups=mobile?(morning?[[.18,.70],[.90,.73]]:[[.40,.695],[.68,.745]]):(morning?[[.65,.82],[.83,.82]]:[[.73,.69],[.88,.74]]);
  for(const [index,[x,y]] of cups.entries())for(let strand=0;strand<3;strand++){
  const height=h*(mobile?.075:.11),phase=time*.9+strand*1.7+index;
  ctx.beginPath();for(let step=0;step<=24;step++){const t=step/24,xx=w*x+Math.sin(t*5+phase)*w*.009*t+wind*t*t*w*.045,yy=h*y-height*t;step?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy)}

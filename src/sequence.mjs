@@ -6,6 +6,7 @@ export class FrameSequence {
  }
  request(index){
   index=Math.round(clamp(index,0,this.count-1));this.target=index;
+  for(const [i,controller] of this.pending)if(Math.abs(i-index)>8){controller.abort();this.pending.delete(i)}
   const order=[index,index+1,index-1,index+2,index-2,index+4,index-4];
   for(const i of order){if(i<0||i>=this.count||this.frames.has(i)||this.pending.has(i)||this.failed.has(i)||this.pending.size>=4)continue;
    const controller=new AbortController();this.pending.set(i,controller);
@@ -14,10 +15,10 @@ export class FrameSequence {
     .then(b=>createImageBitmap(b))
     .then(frame=>{if(this.dead){frame.close();return}this.frames.set(i,frame);this.evict();this.onReady()})
     .catch(e=>{if(e.name!=='AbortError')this.failed.add(i)})
-    .finally(()=>{this.pending.delete(i);if(!this.dead&&!this.frames.has(this.target)&&!this.failed.has(this.target))this.request(this.target)});
+    .finally(()=>{if(this.pending.get(i)===controller)this.pending.delete(i);if(!this.dead&&!this.frames.has(this.target)&&!this.failed.has(this.target))this.request(this.target)});
   }
  }
  get(t){const i=Math.round(clamp(t)*(this.count-1));this.request(i);const key=nearestFrame(this.frames.keys(),i);this.drawn=key??-1;return key===null?null:this.frames.get(key)}
  evict(){while(this.frames.size>this.limit){const key=[...this.frames.keys()].sort((a,b)=>Math.abs(b-this.target)-Math.abs(a-this.target))[0];this.frames.get(key).close();this.frames.delete(key)}}
- dispose(){this.dead=true;for(const c of this.pending.values())c.abort();for(const f of this.frames.values())f.close();this.frames.clear();this.pending.clear()}
+ dispose(){this.surface?.dispose();this.dead=true;for(const c of this.pending.values())c.abort();for(const f of this.frames.values())f.close();this.frames.clear();this.pending.clear()}
 }

@@ -78,3 +78,6 @@ html[data-still=true] .stage *{transition:none!important}
 /* Fade the mobile exposure veil with the image instead of cutting it at a chapter flag. */
 .stage::after,.on-light .stage::after{opacity:var(--stage-shade,1)}
 @media(max-width:700px) and (min-aspect-ratio:7/10) and (orientation:portrait){#memory-object{bottom:14%;height:26%}}
+#letter-object{position:fixed;z-index:5;left:58%;top:39%;width:34%;height:40%;cursor:pointer;touch-action:pan-y}
+#letter-object[hidden]{display:none}#letter-object:focus-visible{outline:1px solid #f5e4c5;outline-offset:5px;border-radius:5px}
+@media(max-width:700px){#letter-object{left:25%;top:48%;width:65%;height:32%}}
