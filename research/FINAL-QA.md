@@ -121,3 +121,9 @@ Validation: production build and nine Node tests pass. Delayed incoming-film and
 The preceding stationary-endpoint join still used a short dissolve. Removed that blend entirely and disabled both initial loading fades and FilmSurface interpolation/catch-up dissolves for `opening` and `transition`. Removed the opening foreground opacity animation. The two films now draw opaque decoded frames; the retained outgoing image remains the loading fallback. All spectacle effects and other chapters' interpolation remain intact.
 
 Nine Node tests pass, including binary opening handoff opacity. Browser pixel tests verify that opening adjacent frames never mix and a large frame jump immediately draws the new opaque frame, while other scenes preserve their interpolation behavior.
+
+### September 8 — match the source framing at the opening join
+
+The opaque join exposed a real source mismatch: opening frame 090 is substantially closer than transition frame 000. Opening frame 000 shares the transition's framing. Retimed the opening into a smooth forward-and-return camera movement, ending on frame 000 before the transition starts. No opacity blend was restored and no original media was changed. Existing effects remain.
+
+Added a source-endpoint timeline regression and a browser pixel comparison across the join in both directions at 320, 390, 639, 700, 701 and 1280 pixel widths. Direct source mean RGB difference drops from 7.41% (090→000) to 0.73% (000→000); the latter frames still have encoding/lighting differences. Build and ten Node tests pass; delayed-loading outgoing-frame retention tests also pass.

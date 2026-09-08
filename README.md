@@ -44,3 +44,5 @@ Use `QA_URL=http://127.0.0.1:4188/` for preview QA. `scripts/qa-film-surface.mjs
 The first two handoffs retain their outgoing video until the incoming source is decoded, including delayed-loading cases. Three held endpoints supplement the rolling frame cache. `qa-first-handoffs.mjs` compares displayed outgoing pixels while the incoming film/art is deliberately blocked. New keepsake effects include a curling receipt, a message behind the mist, sunlight refractions and petals that part around your hand.
 
 The opening renders opaque film frames: no crossfade at the film join, no loading fade, no adjacent-frame blending, and no catch-up dissolve. Other chapters retain their existing interpolation. Scroll-driven petals, memory-light ribbons, ink branches, orbiting letters and sunlight motes live in `src/story-spectacle.mjs`; they share the existing renderer, respond to visitor movement, and honor reduced motion.
+
+The opening camera moves in and gently returns to its initial framing, matching the next clip’s starting frame before the opaque handoff. `scripts/qa-opening-match.mjs` checks this join in both scroll directions across phone, panel and desktop sizes.

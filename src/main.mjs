@@ -88,7 +88,7 @@ function render(){
    // The opening uses opaque decoded frames only: no join, loading or catch-up dissolve.
    const handoff=a.handoff,incoming=sequences.get('transition');
    const ready=incoming?.frames.size&&incoming.readyAt;
-   const outgoing=handoff<1||!ready?film('opening',progress(q,0,.29),hero):endpoints.get('opening')||hero;
+   const outgoing=handoff<1||!ready?film('opening',a.opening,hero):endpoints.get('opening')||hero;
    draw(outgoing,1,1,filmFocus(.77));
    if(q>.29)draw(film('transition',a.film,outgoing),1,handoff,filmFocus(.77));
   }

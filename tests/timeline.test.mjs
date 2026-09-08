@@ -22,3 +22,9 @@ test('opening film switches opaquely without any partial dissolve',()=>{
  assert.equal(firstAct(.29).handoff,0);assert.equal(firstAct(.29001).handoff,1);
  assert.equal(firstAct(.29).film,0);assert.ok(firstAct(.30).film>0);assert.equal(firstAct(.74).film,1);
 });
+
+test('opening returns to the shared source frame before the next film begins',()=>{
+ assert.equal(firstAct(0).opening,0);assert.equal(firstAct(.145).opening,1);
+ assert.ok(firstAct(.29).opening<1e-12);assert.equal(Math.round(firstAct(.29).opening*90),0);
+ for(const q of [.289,.29,.291])assert.equal(Math.round(firstAct(q).opening*90),0);
+});
