@@ -1,3 +1,4 @@
+import {drawStorySpectacle} from './story-spectacle.mjs';
 import {drawKeepsakes} from './keepsake-effects.mjs';
 import {ripples} from './ripples.mjs';
 import {atmosphere} from './atmosphere.mjs';
@@ -7,7 +8,7 @@ export function playthings({state,wake,signal}){
  let scene='',entered=0,running=false;const air=atmosphere(),water=ripples({state,wake,signal});
  const petals=Array.from({length:28},(_,i)=>({seed:((i*47)%101)/101,size:7+(i%7)*2.3,angle:i*2.399,shade:['#a6172a','#cb293a','#e04849','#8e152a'][i%4]}));
  return {get moving(){return running||air.moving||water.moving},close(){},draw(ctx){
- const current=state();air.draw(ctx,current);water.draw(ctx);drawKeepsakes(ctx,current);const {p,w,h,mobile,still,visitor:v}=current,next=p<.045?'opening':p>.967?'ending':'';
+ const current=state();air.draw(ctx,current);drawStorySpectacle(ctx,current);water.draw(ctx);drawKeepsakes(ctx,current);const {p,w,h,mobile,still,visitor:v}=current,next=p<.045?'opening':p>.967?'ending':'';
  if(next!==scene){scene=next;entered=performance.now()}
  running=false;if(!scene||still)return;
  const elapsed=(performance.now()-entered)/1000;running=elapsed<3.2;

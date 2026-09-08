@@ -81,11 +81,12 @@ function render(){
  const littleAlpha=plateOpacity('little-things',smooth(progress(p,.23,portrait?.272:.264)));
  const cafeView=!still&&p>=.23&&p<.335&&littleAlpha<1?film('transition',1,cafe):cafe;
  if(p<.255){
-  const a=firstAct(q),zoom=still?1:1+smooth(progress(q,.05,.29))*.065;
+  const a=firstAct(q);
   draw(hero,1,1,filmFocus(.77));
   if(still)draw(cafe,1,plateOpacity('hero-cafe',smooth(progress(q,.42,.58))));
   else {
-   const handoff=smooth(progress(q,.29,.44)),incoming=sequences.get('transition');
+   // Match the stationary endpoints before the next camera move begins.
+   const handoff=a.handoff,incoming=sequences.get('transition');
    const ready=incoming?.frames.size&&incoming.readyAt&&performance.now()-incoming.readyAt>=220;
    const outgoing=handoff<1||!ready?film('opening',progress(q,0,.29),hero):endpoints.get('opening')||hero;
    draw(outgoing,1,1,filmFocus(.77));

@@ -16,3 +16,9 @@ test('rapid scrubbing aborts distant requests and prioritizes the new target',()
  const fetch=globalThis.fetch,requests=[];globalThis.fetch=(url,{signal})=>{requests.push({url,signal});return new Promise(()=>{})};
  const s=new FrameSequence({base:'/frames',count:121,limit:8});try{s.request(0);assert.equal(requests.length,4);s.request(100);assert.ok(requests.slice(0,4).every(r=>r.signal.aborted));assert.ok(s.pending.has(100));assert.ok([...s.pending.keys()].every(i=>Math.abs(i-100)<=8))}finally{s.dispose();globalThis.fetch=fetch}
 });
+
+test('opening joins stationary endpoints before the next camera move, in either direction',()=>{
+ for(let q=.29;q<=.305;q+=.0001)assert.equal(firstAct(q).film,0);
+ assert.equal(firstAct(.305).handoff,1);assert.ok(firstAct(.31).film>0);
+ assert.equal(firstAct(.74).film,1);
+});

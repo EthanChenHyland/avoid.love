@@ -107,3 +107,11 @@ A bounded endpoint cache retains three copied final frames separately from rolli
 `qa-first-handoffs.mjs` blocks the entire incoming petal sequence and then the Little Things portrait artwork. At progress .105 and .29, after the former cutoff points, outgoing video pixels still match the original film endpoint within 0.11% normalized difference in an unobstructed region. Eight unit tests, all 48 movie/endpoint samples, and the five-size interaction/idle suite pass. Screenshots reviewed at 320×568, 390×844, 639×734 and 844×390.
 
 New effects: a receipt curls open among the keepsakes and lifts with pointer motion; “still here.” emerges through the waiting-room mist; final-window refractions follow the hand; petals bend away from the pointer/finger. These are in-scene canvas effects with no new modal or launch button, and reduced-motion support. Original videos remain intact.
+
+### September 8 — opening camera join and scroll spectacle
+
+Removed the extended opening `.29–.44` dissolve. The new `.29–.305` join only blends stationary endpoints; the next film starts its camera move after the join and still reaches its original final frame at `.74`. Loading protection and the six original films are retained. Added a regression test that prevents camera movement during the join.
+
+Added scroll-driven foreground petal spirals, a hand-responsive luminous memory ribbon, ink branches, orbiting sealed letters, and final sunlight motes. These share the existing canvas loop, reduce particle counts on phones, and skip under reduced motion. No additional asset cache or animation timer. Short portrait screens also receive a separate opening title/caption spacing rule.
+
+Validation: production build and nine Node tests pass. Delayed incoming-film and incoming-art pixel checks retain the outgoing images (normalized differences .000906 and .001005). Forward/reverse samples at 390×844, 639×734, and 1280×720 confirm frame zero throughout the join, followed by progressing film frames. Five-size integrated checks passed with no runtime errors, functioning photograph keyboard input, reduced-motion rendering, and zero idle draws after settling. Original film files, frame sequences, and manifest unchanged. Browser checks use Chromium, including the internal-browser viewport size; they are not physical iOS device validation.
