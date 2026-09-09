@@ -104,3 +104,6 @@ html[data-still=true] .stage *{transition:none!important}
 .scroll-track{height:3800svh}
 @media(max-width:700px){.scroll-track{height:2800svh}}
 @media(prefers-reduced-motion:reduce){.chapter-links>a{transition:none}}
+#book-object{position:fixed;z-index:6;cursor:grab;touch-action:pan-y}
+#book-object[hidden]{display:none}#book-object:active{cursor:grabbing}
+#book-object:focus-visible{outline:1px solid #eed7ae;outline-offset:6px;border-radius:3px}

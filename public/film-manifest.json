@@ -44,8 +44,8 @@
   "kept": {
     "count": 91,
     "fps": 15,
-    "desktop": "/frames/kept-film/desktop",
-    "mobile": "/frames/kept-film/mobile",
-    "video": "/films/kept-film.mp4"
+    "desktop": "/frames/kept-grounded-film/desktop",
+    "mobile": "/frames/kept-grounded-film/mobile",
+    "video": "/films/kept-grounded-film.mp4"
   }
 }

@@ -2,6 +2,7 @@ import {clamp,progress,smooth,mix,cover,firstAct,motionScale} from './timeline.m
 import {FilmSurface} from './film-surface.mjs';
 import {FrameSequence} from './sequence.mjs';
 import {chapters,chapterIndex,narrative} from './story.mjs';
+import {bookInput} from './book-input.mjs';
 import {materialScenes} from './material-scenes.mjs';
 import {chapterEffects} from './chapter-effects.mjs';
 import {playthings} from './playthings.mjs';
@@ -19,6 +20,7 @@ let openingTravel=0,layoutReady=false;
 let filmBlending=false,mistSource=null;
 const memory=memories({state:()=>({p,w,h,mobile,still}),wake:invalidate,signal:abort.signal});
 const play=playthings({state:()=>({p,w,h,mobile,still,visitor}),wake:invalidate,signal:abort.signal});
+const book=bookInput({state:()=>({turn:smooth(progress(p,.291,.303))}),wake:invalidate,signal:abort.signal});
 const materials=materialScenes();
 const enhancements=chapterEffects({state:()=>({p,w,h,mobile,still,visitor,plates}),wake:invalidate,signal:abort.signal});
 $('.chapter-links').replaceChildren(...narrative.map(c=>{const a=document.createElement('a');a.href='#'+c.id;a.textContent=c.name;return a}));
@@ -135,7 +137,7 @@ function render(){
  }
  if(p>=.95){if(still)depthPlate('love-morning',1,ending);else draw(film('impossible',1,get('hero-letters')),1,1,filmFocus(.72));const local=progress(p,.95,1);show('love-copy',smooth(progress(p,.958,.978)));$('#avoid-word').style.opacity=1-smooth(progress(local,.32,.8));}
  memory.draw(ctx,canvas,mistSource);gradeCopy(ctx,w,h,p);if(!still)letterLight(ctx,w,h,p,visitor,mobile);redThread(ctx,w,h,p,visitor,mobile,still);
- play.draw(ctx);enhancements.draw(ctx);materials.draw(ctx,{p,w,h,mobile,still,visitor});
+ play.draw(ctx);enhancements.draw(ctx);book.update(p>.290&&p<.305?{x:w*(mobile?.20:.56),y:h*(mobile?.58:.43),w:w*(mobile?.78:.40),h:h*.30}:null);materials.draw(ctx,{p,w,h,mobile,still,visitor,bookTurn:book.turn});
  show('hours-copy',windowed(p,.205,.212,.223,.230));show('detour-copy',windowed(p,.614,.621,.641,.649));show('light-copy',windowed(p,.917,.925,.943,.950));show('pressed-copy',windowed(p,.285,.292,.305,.312));show('blue-copy',windowed(p,.390,.399,.414,.421));show('space-copy',windowed(p,.720,.728,.744,.751));show('unsaid-copy',windowed(p,.514,.521,.537,.545));show('kept-copy',windowed(p,.792,.799,.814,.822));
  canvas.dataset.rendition=portrait?'portrait-film':'landscape-film';canvas.dataset.visitor=visitor.presence.toFixed(3);canvas.dataset.depth=String(!still&&depthAmount(p)>0);
  document.documentElement.style.setProperty('--mast-shade',String(1-smooth(progress(p,.95,.98))));const light=p>.963;document.body.classList.toggle('on-light',light);$('.stage').style.setProperty('--stage-shade',String(1-ending));
@@ -153,7 +155,7 @@ function tick(time){raf=0;if(document.hidden||document.querySelector('dialog[ope
  const visitorMoving=visitor.step(dt,!still&&nav.hidden&&!document.body.classList.contains('reading-active')&&([0,1,2,3,4,5,6,7,8,9].includes(active)));
  const next=Math.max(0,chapterIndex(p));if(next!==active){holding=false;holdButton.setAttribute('aria-pressed','false');active=next;prepareNearby();prepareFilms();for(const a of nav.querySelectorAll('a'))a.setAttribute('aria-current',String(a.hash==='#'+([...narrative].reverse().find(c=>c.at<=p+.002)?.id||'before')))}
  if(dirty||visitorMoving||p!==target||held!==Number(holding)){render();dirty=false}
- if(memory.moving||play.moving||enhancements.moving||filmBlending||visitorMoving||p!==target||held!==Number(holding))invalidate();else last=0;
+ if(book.moving||memory.moving||play.moving||enhancements.moving||filmBlending||visitorMoving||p!==target||held!==Number(holding))invalidate();else last=0;
 }
 function updateTarget(){target=clamp(scrollY/Math.max(1,$('.scroll-track').offsetHeight-innerHeight));invalidate()}
 function resize(){w=innerWidth;h=innerHeight;openingTravel=Math.min(40,Math.max(0,$('#opening').offsetTop-82));dpr=Math.min(devicePixelRatio||1,mobile?1.25:1.75);wipeCanvas.width=Math.round(w);wipeCanvas.height=Math.round(h);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);if(layoutReady&&!document.body.classList.contains('reading-active'))window.scrollTo({top:target*Math.max(1,$('.scroll-track').offsetHeight-innerHeight),behavior:'instant'});layoutReady=true;updateTarget();invalidate()}
@@ -162,7 +164,7 @@ function menu(open){visitor.leave();invalidate();nav.hidden=!open;toggle.setAttr
 function route(){memory.close();play.close();document.body.classList.toggle('reading-active',location.hash==='#reading');if(location.hash==='#reading'){$('#reading').focus();return}const c=narrative.find(c=>'#'+c.id===location.hash);if(c)jump(c.at)}
 function listen(el,type,fn,options={}){el.addEventListener(type,fn,{...options,signal:abort.signal})}
 // Passive touch input leaves native vertical scrolling and pinch zoom intact.
-const visitorInput=e=>{if(still||!nav.hidden||e.target.closest('button:not(#memory-object):not(#letter-object),a,.reading')||document.body.classList.contains('reading-active'))return;if(![0,1,2,3,4,5,6,7,8,9].includes(active))return;visitor.move(e.clientX,e.clientY,w,h);invalidate()};
+const visitorInput=e=>{if(still||!nav.hidden||e.target.closest('button:not(#memory-object):not(#letter-object):not(#book-object),a,.reading')||document.body.classList.contains('reading-active'))return;if(![0,1,2,3,4,5,6,7,8,9].includes(active))return;visitor.move(e.clientX,e.clientY,w,h);invalidate()};
 listen(window,'pointermove',visitorInput,{passive:true});listen(window,'pointerdown',visitorInput,{passive:true});
 listen(window,'pointerup',e=>{if(e.pointerType!=='mouse'){visitor.leave();invalidate()}},{passive:true});
 listen(window,'blur',()=>{visitor.leave();setHold(false);invalidate()});
