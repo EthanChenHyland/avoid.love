@@ -40,5 +40,12 @@
     "desktop": "/frames/impossible-film/desktop",
     "mobile": "/frames/impossible-film/mobile",
     "video": "/films/impossible-film.mp4"
+  },
+  "kept": {
+    "count": 91,
+    "fps": 15,
+    "desktop": "/frames/kept-film/desktop",
+    "mobile": "/frames/kept-film/mobile",
+    "video": "/films/kept-film.mp4"
   }
 }

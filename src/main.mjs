@@ -13,7 +13,7 @@ const wipeCanvas=document.createElement('canvas'),wipeCtx=wipeCanvas.getContext(
 const narrow=matchMedia('(max-width:700px)'),reduced=matchMedia('(prefers-reduced-motion:reduce)');
 let still=reduced.matches,mobile=narrow.matches,w=innerWidth,h=innerHeight,dpr=1,p=0,target=0,raf=0,last=0,dirty=true,holding=false,held=0,active=0,manifest=null,loadVersion=0;
 const endpoints=new Map(),plates=new Map(),plateLoads=new Map(),sequences=new Map(),errors=new Set(),abort=new AbortController();
-const shots=['opening','opening-foot','notice-copy','late-copy','bridge-copy','little-copy','waiting-copy','unsent-copy','us-copy','distance-copy','trying-copy','impossible-copy','love-copy','hours-copy','detour-copy','light-copy','pressed-copy','blue-copy','space-copy'].map(id=>$('#'+id));
+const shots=['opening','opening-foot','notice-copy','late-copy','bridge-copy','little-copy','waiting-copy','unsent-copy','us-copy','distance-copy','trying-copy','impossible-copy','love-copy','hours-copy','detour-copy','light-copy','pressed-copy','blue-copy','space-copy','unsaid-copy','kept-copy'].map(id=>$('#'+id));
 const nav=$('#chapters'),toggle=$('#chapters-toggle'),holdButton=$('#hold-memory'),letterObject=$('#letter-object');let letterPinned=false;
 let openingTravel=0,layoutReady=false;
 let filmBlending=false,mistSource=null;
@@ -46,7 +46,7 @@ function sequence(name){
  if(sequences.size>2){const old=[...sequences.keys()].find(k=>k!==name);sequences.get(old).dispose();sequences.delete(old)}return seq;
 }
 function warmFilm(name){if(sequences.has(name))return;if(!still&&manifest?.[name])sequence(name).request(0)}
-function prepareFilms(){const name=active===0?'opening':active===2?'waiting':active===3?'unsent':active===5?'distance':active>=7?'impossible':null;if(name)warmFilm(name)}
+function prepareFilms(){const name=active===0?'opening':active===2?'waiting':active===3?'unsent':active===5?'distance':active===6||active===7?'kept':active>=8?'impossible':null;if(name)warmFilm(name)}
 function film(name,t,fallback){
  if(still||!manifest?.[name])return fallback;
  const seq=sequence(name);
@@ -79,7 +79,7 @@ const copyRanges={'notice-copy':[.13,.226],'late-copy':[.226,.242],'little-copy'
 const show=(id,opacity)=>{const bounds=copyRanges[id];const gate=bounds?smooth(progress(p,bounds[0],bounds[0]+.003))*(1-smooth(progress(p,bounds[1]-.003,bounds[1]))):1;$('#'+id).style.opacity=clamp(opacity*gate);};
 const windowed=(x,a,b,c,d)=>smooth(progress(x,a,b))*(1-smooth(progress(x,c,d)));
 function render(){
- const started=performance.now();filmBlending=false;if(p>.03&&p<.065)warmFilm('transition');mistSource=null;canvas.style.opacity=plates.size?'1':'0';for(const el of shots)el.style.opacity=0;$('#foreground').style.opacity=0;ctx.fillStyle='#101b1d';ctx.fillRect(0,0,w,h);frameStats={frame:-1,cached:0,film:''};
+ const started=performance.now();filmBlending=false;if(p>.03&&p<.065)warmFilm('transition');if(p>.79&&p<.82)warmFilm('impossible');mistSource=null;canvas.style.opacity=plates.size?'1':'0';for(const el of shots)el.style.opacity=0;$('#foreground').style.opacity=0;ctx.fillStyle='#101b1d';ctx.fillRect(0,0,w,h);frameStats={frame:-1,cached:0,film:''};
  const get=n=>plates.get(n),hero=get('hero-poppy'),cafe=get('hero-cafe'),q=p/.23;
  const portrait=w/h<1,ending=plateOpacity('love-morning',smooth(progress(p,.95,portrait?.982:.966)));
  const littleAlpha=plateOpacity('little-things',smooth(progress(p,.23,portrait?.272:.264)));
@@ -110,7 +110,7 @@ function render(){
   show('waiting-copy',windowed(p,.32,.34,.379,.389));$('#clock-time').textContent='1:'+String(13+Math.floor(local*4)).padStart(2,'0');$('.waiting-line').textContent=local>.63?'Still nothing.':'Nothing yet.';
  }
  if(p>=.42&&p<.56){const local=progress(p,.42,.54),letter=film('unsent',mix(local,.05,smooth(held)),get('unsent'));if(p<.44){wipe(letter,progress(p,.42,.44),'diagonal',1,filmFocus(.76))}else draw(letter,1,1,filmFocus(.76));
-  show('unsent-copy',windowed(p,.426,.445,.522,.547));let text='';
+  show('unsent-copy',windowed(p,.426,.445,.500,.512));let text='';
   if(still||held>.3)text='I wish you were here.';
   else if(local<.38){const t=local<.23?progress(local,.04,.23):1-progress(local,.25,.38);text='made it home?'.slice(0,Math.round(t*13))}
   else if(local<.86){const t=local<.65?progress(local,.42,.65):1-progress(local,.7,.86);text='I miss you.'.slice(0,Math.round(t*11))}
@@ -125,10 +125,9 @@ function render(){
  if(p>=.65&&p<.77){const local=progress(p,.65,.75),image=film('distance',local,get('distance'));if(p<.67){wipe(image,progress(p,.65,.67),'window')}else if(!still&&w>h){const gap=smooth(progress(p,.67,.75))*w*.055*smooth(progress(w/h,1,1.5));ctx.save();ctx.beginPath();ctx.rect(0,0,w/2-gap,h);ctx.clip();draw(image,1,1,.5,-gap);ctx.restore();ctx.save();ctx.beginPath();ctx.rect(w/2+gap,0,w/2,h);ctx.clip();draw(image,1,1,.5,gap);ctx.restore()}else draw(image);
   show('distance-copy',windowed(p,.658,.68,.708,.718));$('#your-word').style.transform=`translateX(${-local*(mobile?5:35)}px)`;$('#side-word').style.transform=`translateX(${local*(mobile?5:35)}px)`;
  }
- if(p>=.75&&p<.84){const local=progress(p,.75,.82);draw(get('drawer'),still?1:1+local*.07,smooth(progress(p,.75,.766)));
-  const shut=still?0:smooth(progress(local,.24,.58))*(1-smooth(progress(local,.7,.9)));const height=(h*.49)*Math.max(shut,held*.96);ctx.fillStyle='#07100f';ctx.fillRect(0,0,w,height);ctx.fillRect(0,h-height,w,height);
-  if(!still&&local>.6){ctx.save();ctx.beginPath();ctx.rect(0,h*.5-h*.5*smooth(progress(local,.6,.86)),w,h*smooth(progress(local,.6,.86)));ctx.clip();draw(cafe,1.08,smooth(progress(local,.6,.84)));ctx.restore()}
-  show('trying-copy',windowed(p,.753,.765,.809,.833));$('#trying-line').textContent=local>.63?'But there it was again.':'That should have been that.';
+ if(p>=.75&&p<.84){const local=progress(p,.75,.82),drawer=film('kept',local,get('drawer'));
+  if(p<.77)wipe(drawer,progress(p,.75,.77),'window',1,filmFocus(.72));else draw(drawer,1,1,filmFocus(.72));
+  show('trying-copy',windowed(p,.753,.765,.782,.791));$('#trying-line').textContent=local>.63?'But there it was again.':'That should have been that.';
  }
  if(p>=.82&&p<.95){const local=progress(p,.82,.95),room=film('impossible',progress(local,.43,1),get('hero-letters'));
   if(p<.84)wipe(room,progress(p,.82,.84),'diagonal',1,filmFocus(.72));else draw(room,1,1,filmFocus(.72));
@@ -137,7 +136,7 @@ function render(){
  if(p>=.95){if(still)depthPlate('love-morning',1,ending);else draw(film('impossible',1,get('hero-letters')),1,1,filmFocus(.72));const local=progress(p,.95,1);show('love-copy',smooth(progress(p,.958,.978)));$('#avoid-word').style.opacity=1-smooth(progress(local,.32,.8));}
  memory.draw(ctx,canvas,mistSource);gradeCopy(ctx,w,h,p);if(!still)letterLight(ctx,w,h,p,visitor,mobile);redThread(ctx,w,h,p,visitor,mobile,still);
  play.draw(ctx);enhancements.draw(ctx);materials.draw(ctx,{p,w,h,mobile,still,visitor});
- show('hours-copy',windowed(p,.205,.212,.223,.230));show('detour-copy',windowed(p,.614,.621,.641,.649));show('light-copy',windowed(p,.917,.925,.943,.950));show('pressed-copy',windowed(p,.285,.292,.305,.312));show('blue-copy',windowed(p,.390,.399,.414,.421));show('space-copy',windowed(p,.720,.728,.744,.751));
+ show('hours-copy',windowed(p,.205,.212,.223,.230));show('detour-copy',windowed(p,.614,.621,.641,.649));show('light-copy',windowed(p,.917,.925,.943,.950));show('pressed-copy',windowed(p,.285,.292,.305,.312));show('blue-copy',windowed(p,.390,.399,.414,.421));show('space-copy',windowed(p,.720,.728,.744,.751));show('unsaid-copy',windowed(p,.514,.521,.537,.545));show('kept-copy',windowed(p,.792,.799,.814,.822));
  canvas.dataset.rendition=portrait?'portrait-film':'landscape-film';canvas.dataset.visitor=visitor.presence.toFixed(3);canvas.dataset.depth=String(!still&&depthAmount(p)>0);
  document.documentElement.style.setProperty('--mast-shade',String(1-smooth(progress(p,.95,.98))));const light=p>.963;document.body.classList.toggle('on-light',light);$('.stage').style.setProperty('--stage-shade',String(1-ending));
  const beat=[...narrative].reverse().find(c=>c.at<=p+.002)||narrative[0];$('#chapter-label').textContent=beat.name;canvas.dataset.beat=beat.id;for(const a of nav.querySelectorAll('a'))a.setAttribute('aria-current',String(a.hash==='#'+beat.id));

@@ -14,4 +14,4 @@ export const boundaries=[0,.16,.23,.31,.42,.54,.65,.75,.82,.95,1.00001];
 export function chapterIndex(p){return boundaries.findIndex((v,i)=>i<10&&p>=v&&p<boundaries[i+1])}
 
 // Additional story beats share the original film timeline and do not change asset ownership.
-export const narrative=[...chapters,{id:'hours',name:'After hours',at:.218},{id:'detour',name:'The detour',at:.628},{id:'light',name:'Let the light in',at:.934},{id:'pressed',name:'Between the pages',at:.298},{id:'blue',name:'Blue hour',at:.405},{id:'space',name:'The space between',at:.736}].sort((a,b)=>a.at-b.at);
+export const narrative=[...chapters,{id:'hours',name:'After hours',at:.218},{id:'detour',name:'The detour',at:.628},{id:'light',name:'Let the light in',at:.934},{id:'pressed',name:'Between the pages',at:.298},{id:'blue',name:'Blue hour',at:.405},{id:'space',name:'The space between',at:.736},{id:'unsaid',name:'All the unsaid things',at:.526},{id:'kept',name:'What stayed',at:.802}].sort((a,b)=>a.at-b.at);

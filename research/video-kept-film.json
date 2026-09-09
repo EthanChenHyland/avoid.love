@@ -1,0 +1,21 @@
+{
+  "job": {
+    "name": "kept-film",
+    "model": "bytedance/seedance-2.0",
+    "duration": 6,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "generate_audio": false,
+    "first": "drawer.png",
+    "last": "drawer.png",
+    "prompt": "One continuous photorealistic cinematic shot of this exact keepsake drawer. Locked camera, preserve the reference composition and all existing objects. A gentle draft lifts the corner of the letter and makes the faded ribbon curl naturally above the paper, then settle. Warm late-afternoon window light moves softly across the grain of the wood. The dried red flower trembles slightly. Subtle tangible materials, intimate analog film texture, no new objects, no people, no hands, no words, no zoom, no scene changes, no cuts, no dissolve. Begin and end in the exact reference framing; hold still for the final second."
+  },
+  "result": {
+    "status": "completed",
+    "usage": {
+      "cost": 0.9135,
+      "is_byok": false
+    }
+  },
+  "asset": "public/films/kept-film.mp4"
+}

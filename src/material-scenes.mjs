@@ -1,3 +1,4 @@
+import {drawPageTurn} from './page-turn.mjs';
 import {progress,smooth,mix} from './timeline.mjs';
 const gate=(p,a,b,c,d)=>smooth(progress(p,a,b))*(1-smooth(progress(p,c,d)));
 const seeds=Array.from({length:64},(_,i)=>({a:i*2.399963,s:((i*47)%67)/67,z:((i*31)%61)/61}));
@@ -10,16 +11,24 @@ function flower(c,r,wind){
 function paper(c,x,y,w,h){const g=c.createLinearGradient(x,y,x+w,y);g.addColorStop(0,'#c8b590');g.addColorStop(.12,'#eadabe');g.addColorStop(.8,'#e3d1b0');g.addColorStop(1,'#b6a17d');c.fillStyle=g;c.fillRect(x,y,w,h);c.strokeStyle='#6f58381c';c.lineWidth=.5;for(let i=0;i<18;i++){c.beginPath();c.moveTo(x+w*.1,y+h*(.12+i*.045));c.lineTo(x+w*.9,y+h*(.12+i*.045));c.stroke()}}
 export function materialScenes(){
  // A single small sampling surface keeps droplet refraction independent of canvas DPR.
+ const book=document.createElement('canvas'),bookContext=book.getContext('2d');
  const lens=document.createElement('canvas');lens.width=lens.height=96;const lc=lens.getContext('2d');
  return {draw(c,{p,w,h,mobile,still,visitor:v}){const wind=still?0:v.x*v.presence,hand=still?0:v.presence;
  // A book opens in place; the pressed poppy retains the story's red material palette.
  let alpha=gate(p,.283,.293,.304,.313);
- if(alpha){const t=still?1:smooth(progress(p,.283,.301)),bw=Math.min(w*(mobile?.70:.34),h*.50),bh=bw*.60,x=w*(mobile?.61:.76),y=h*(mobile?.72:.62);
- c.save();c.globalAlpha=alpha;c.translate(x,y);c.rotate(-.11+wind*.08);c.transform(1,.04,wind*.05,1,0,0);c.shadowColor='#0c0808bb';c.shadowBlur=24;c.shadowOffsetY=12;c.fillStyle='#594638';c.fillRect(-bw*.52,-bh*.53,bw*1.04,bh*1.07);c.shadowColor='transparent';paper(c,-bw/2,-bh/2,bw/2,bh);paper(c,0,-bh/2,bw/2,bh);
+ if(alpha){const t=still?1:smooth(progress(p,.291,.303)),bw=Math.min(w*(mobile?.70:.34),h*.50),bh=bw*.60,x=w*(mobile?.61:.76),y=h*(mobile?.72:.62);
+ const stage=c,bwCanvas=Math.ceil(bw*1.7),bhCanvas=Math.ceil(bh*2+70);if(book.width!==bwCanvas*2||book.height!==bhCanvas*2){book.width=bwCanvas*2;book.height=bhCanvas*2}c=bookContext;c.setTransform(2,0,0,2,0,0);c.clearRect(0,0,bwCanvas,bhCanvas);
+ c.save();c.globalAlpha=1;c.translate(bwCanvas/2,bhCanvas*.4);c.rotate(-.11+wind*.08);c.transform(1,.04,wind*.05,1,0,0);c.shadowColor='#0c0808bb';c.shadowBlur=24;c.shadowOffsetY=12;c.fillStyle='#594638';c.fillRect(-bw*.52,-bh*.53,bw*1.04,bh*1.07);c.shadowColor='transparent';paper(c,-bw/2,-bh/2,bw/2,bh);paper(c,0,-bh/2,bw/2,bh);
  c.save();c.translate(bw*.24,-bh*.09);flower(c,bh*.22,wind);c.restore();c.fillStyle='#745b43';c.font=`italic ${Math.max(10,bw*.037)}px Bodoni,serif`;c.textAlign='center';c.fillText('one small thing.',-bw*.25,bh*.18,bw*.41);c.fillStyle='#977b5366';c.fillRect(-1,-bh/2,2,bh);
- const fold=Math.cos(t*Math.PI);if(t<1){c.save();c.scale(fold,1);paper(c,0,-bh/2,bw/2,bh);c.strokeStyle='#a79067';c.strokeRect(0,-bh/2,bw/2,bh);c.restore()}
- c.strokeStyle='#9e3935';c.lineWidth=2;c.beginPath();c.moveTo(-bw*.06,bh*.08);c.bezierCurveTo(-bw*.04,bh*.4,-bw*.09,bh*.6,bw*.02,bh*.75);c.stroke();c.restore();}
+ drawPageTurn(c,t,bw/2,bh,wind);
+ c.strokeStyle='#9e3935';c.lineWidth=2;c.beginPath();c.moveTo(-bw*.06,bh*.08);c.bezierCurveTo(-bw*.04,bh*.4,-bw*.09,bh*.6,bw*.02,bh*.75);c.stroke();c.restore();c=stage;c.save();c.globalAlpha=1;c.drawImage(book,x-bwCanvas/2,y-bhCanvas*.4+(1-alpha)*(h+bh),bwCanvas,bhCanvas);c.restore();}
  if(still)return;
+ // A wax seal gathers over the words that never left the room.
+ alpha=gate(p,.511,.523,.537,.547);
+ if(alpha){const t=smooth(progress(p,.511,.531)),r=Math.min(w*.11,52),x=w*(mobile?.76:.79),y=h*.72;c.save();c.translate(x,y);c.rotate(wind*.12);c.globalAlpha=alpha;c.shadowColor='#26121077';c.shadowBlur=10;c.shadowOffsetY=4;const wax=c.createRadialGradient(-r*.35,-r*.4,r*.1,0,0,r);wax.addColorStop(0,'#c47963');wax.addColorStop(.35,'#a84840');wax.addColorStop(1,'#632c30');c.fillStyle=wax;c.beginPath();for(let i=0;i<=80;i++){const a=i*Math.PI/40,edge=r*(.95+.04*Math.sin(a*11));i?c.lineTo(Math.cos(a)*edge,Math.sin(a)*edge):c.moveTo(edge,0)}c.closePath();c.fill();c.shadowColor='transparent';c.strokeStyle='#e2a78588';c.lineWidth=1;c.beginPath();c.arc(0,0,r*.72,-Math.PI/2,-Math.PI/2+t*Math.PI*2);c.stroke();c.strokeStyle='#532127';c.lineWidth=2;c.beginPath();c.moveTo(0,r*.34);c.bezierCurveTo(-r*.85,-r*.12,-r*.35,-r*.58,0,-r*.21);c.bezierCurveTo(r*.35,-r*.58,r*.85,-r*.12,0,r*.34);c.stroke();c.restore();}
+ // A small brass key turns in the returning light, its shadow anchored to the drawer.
+ alpha=gate(p,.788,.799,.813,.824);
+ if(alpha){const t=progress(p,.788,.824),size=Math.min(w*.14,70),x=w*(mobile?.76:.80),y=h*.72;c.save();c.globalAlpha=alpha;c.translate(x,y);c.rotate(-.5+t*.9+wind*.25);c.scale(.65+.35*Math.cos(t*Math.PI),1);c.shadowColor='#100d0c88';c.shadowBlur=8;c.shadowOffsetY=6;const metal=c.createLinearGradient(-size/2,0,size/2,0);metal.addColorStop(0,'#8c6132');metal.addColorStop(.45,'#ebd3a0');metal.addColorStop(.6,'#a77b42');metal.addColorStop(1,'#d5ad6e');c.strokeStyle=metal;c.lineWidth=size*.13;c.beginPath();c.ellipse(0,-size*.44,size*.25,size*.32,0,0,Math.PI*2);c.moveTo(0,-size*.12);c.lineTo(0,size*.76);c.moveTo(0,size*.65);c.lineTo(size*.26,size*.65);c.moveTo(0,size*.42);c.lineTo(size*.20,size*.42);c.stroke();c.restore();}
  // Rain droplets genuinely magnify the film underneath, without a fullscreen image swap.
  alpha=gate(p,.350,.366,.411,.422);
  if(alpha){const t=progress(p,.35,.422),sx=c.canvas.width/w,sy=c.canvas.height/h;
