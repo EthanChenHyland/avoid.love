@@ -2,6 +2,7 @@ import {clamp,progress,smooth,mix,cover,firstAct,motionScale} from './timeline.m
 import {FilmSurface} from './film-surface.mjs';
 import {FrameSequence} from './sequence.mjs';
 import {chapters,chapterIndex,narrative} from './story.mjs';
+import {materialScenes} from './material-scenes.mjs';
 import {chapterEffects} from './chapter-effects.mjs';
 import {playthings} from './playthings.mjs';
 import {memories} from './memory.mjs';
@@ -12,12 +13,13 @@ const wipeCanvas=document.createElement('canvas'),wipeCtx=wipeCanvas.getContext(
 const narrow=matchMedia('(max-width:700px)'),reduced=matchMedia('(prefers-reduced-motion:reduce)');
 let still=reduced.matches,mobile=narrow.matches,w=innerWidth,h=innerHeight,dpr=1,p=0,target=0,raf=0,last=0,dirty=true,holding=false,held=0,active=0,manifest=null,loadVersion=0;
 const endpoints=new Map(),plates=new Map(),plateLoads=new Map(),sequences=new Map(),errors=new Set(),abort=new AbortController();
-const shots=['opening','opening-foot','notice-copy','late-copy','bridge-copy','little-copy','waiting-copy','unsent-copy','us-copy','distance-copy','trying-copy','impossible-copy','love-copy','hours-copy','detour-copy','light-copy'].map(id=>$('#'+id));
+const shots=['opening','opening-foot','notice-copy','late-copy','bridge-copy','little-copy','waiting-copy','unsent-copy','us-copy','distance-copy','trying-copy','impossible-copy','love-copy','hours-copy','detour-copy','light-copy','pressed-copy','blue-copy','space-copy'].map(id=>$('#'+id));
 const nav=$('#chapters'),toggle=$('#chapters-toggle'),holdButton=$('#hold-memory'),letterObject=$('#letter-object');let letterPinned=false;
 let openingTravel=0,layoutReady=false;
 let filmBlending=false,mistSource=null;
 const memory=memories({state:()=>({p,w,h,mobile,still}),wake:invalidate,signal:abort.signal});
 const play=playthings({state:()=>({p,w,h,mobile,still,visitor}),wake:invalidate,signal:abort.signal});
+const materials=materialScenes();
 const enhancements=chapterEffects({state:()=>({p,w,h,mobile,still,visitor,plates}),wake:invalidate,signal:abort.signal});
 $('.chapter-links').replaceChildren(...narrative.map(c=>{const a=document.createElement('a');a.href='#'+c.id;a.textContent=c.name;return a}));
 let samples=[],frameStats={frame:-1,cached:0,film:''};
@@ -102,10 +104,10 @@ function render(){
   show('late-copy',0);
  }
  if(p>=.23&&p<.335){const local=progress(p,.23,.31);if(littleAlpha<1)draw(cafeView,1,1,filmFocus(.77));depthPlate('little-things',still?1:1+local*.09,littleAlpha);
-  show('little-copy',windowed(p,.24,.26,.298,.32));$('#little-copy').style.transform=`translateY(${still?0:-local*20}px)`;
+  show('little-copy',windowed(p,.24,.26,.276,.284));$('#little-copy').style.transform=`translateY(${still?0:-local*20}px)`;
  }
  if(p>=.31&&p<.44){const local=progress(p,.31,.42),rain=film('waiting',local,get('waiting'));mistSource=rain;if(p<.335){wipe(rain,progress(p,.31,.335),'window',1,filmFocus(.77))}else draw(rain,1,1,filmFocus(.77));
-  show('waiting-copy',windowed(p,.32,.34,.409,.435));$('#clock-time').textContent='1:'+String(13+Math.floor(local*4)).padStart(2,'0');$('.waiting-line').textContent=local>.63?'Still nothing.':'Nothing yet.';
+  show('waiting-copy',windowed(p,.32,.34,.379,.389));$('#clock-time').textContent='1:'+String(13+Math.floor(local*4)).padStart(2,'0');$('.waiting-line').textContent=local>.63?'Still nothing.':'Nothing yet.';
  }
  if(p>=.42&&p<.56){const local=progress(p,.42,.54),letter=film('unsent',mix(local,.05,smooth(held)),get('unsent'));if(p<.44){wipe(letter,progress(p,.42,.44),'diagonal',1,filmFocus(.76))}else draw(letter,1,1,filmFocus(.76));
   show('unsent-copy',windowed(p,.426,.445,.522,.547));let text='';
@@ -121,7 +123,7 @@ function render(){
   show('us-copy',windowed(p,.549,.565,.600,.613));
  }
  if(p>=.65&&p<.77){const local=progress(p,.65,.75),image=film('distance',local,get('distance'));if(p<.67){wipe(image,progress(p,.65,.67),'window')}else if(!still&&w>h){const gap=smooth(progress(p,.67,.75))*w*.055*smooth(progress(w/h,1,1.5));ctx.save();ctx.beginPath();ctx.rect(0,0,w/2-gap,h);ctx.clip();draw(image,1,1,.5,-gap);ctx.restore();ctx.save();ctx.beginPath();ctx.rect(w/2+gap,0,w/2,h);ctx.clip();draw(image,1,1,.5,gap);ctx.restore()}else draw(image);
-  show('distance-copy',windowed(p,.658,.68,.74,.76));$('#your-word').style.transform=`translateX(${-local*(mobile?5:35)}px)`;$('#side-word').style.transform=`translateX(${local*(mobile?5:35)}px)`;
+  show('distance-copy',windowed(p,.658,.68,.708,.718));$('#your-word').style.transform=`translateX(${-local*(mobile?5:35)}px)`;$('#side-word').style.transform=`translateX(${local*(mobile?5:35)}px)`;
  }
  if(p>=.75&&p<.84){const local=progress(p,.75,.82);draw(get('drawer'),still?1:1+local*.07,smooth(progress(p,.75,.766)));
   const shut=still?0:smooth(progress(local,.24,.58))*(1-smooth(progress(local,.7,.9)));const height=(h*.49)*Math.max(shut,held*.96);ctx.fillStyle='#07100f';ctx.fillRect(0,0,w,height);ctx.fillRect(0,h-height,w,height);
@@ -134,8 +136,8 @@ function render(){
  }
  if(p>=.95){if(still)depthPlate('love-morning',1,ending);else draw(film('impossible',1,get('hero-letters')),1,1,filmFocus(.72));const local=progress(p,.95,1);show('love-copy',smooth(progress(p,.958,.978)));$('#avoid-word').style.opacity=1-smooth(progress(local,.32,.8));}
  memory.draw(ctx,canvas,mistSource);gradeCopy(ctx,w,h,p);if(!still)letterLight(ctx,w,h,p,visitor,mobile);redThread(ctx,w,h,p,visitor,mobile,still);
- play.draw(ctx);enhancements.draw(ctx);
- show('hours-copy',windowed(p,.205,.212,.223,.230));show('detour-copy',windowed(p,.614,.621,.641,.649));show('light-copy',windowed(p,.917,.925,.943,.950));
+ play.draw(ctx);enhancements.draw(ctx);materials.draw(ctx,{p,w,h,mobile,still,visitor});
+ show('hours-copy',windowed(p,.205,.212,.223,.230));show('detour-copy',windowed(p,.614,.621,.641,.649));show('light-copy',windowed(p,.917,.925,.943,.950));show('pressed-copy',windowed(p,.285,.292,.305,.312));show('blue-copy',windowed(p,.390,.399,.414,.421));show('space-copy',windowed(p,.720,.728,.744,.751));
  canvas.dataset.rendition=portrait?'portrait-film':'landscape-film';canvas.dataset.visitor=visitor.presence.toFixed(3);canvas.dataset.depth=String(!still&&depthAmount(p)>0);
  document.documentElement.style.setProperty('--mast-shade',String(1-smooth(progress(p,.95,.98))));const light=p>.963;document.body.classList.toggle('on-light',light);$('.stage').style.setProperty('--stage-shade',String(1-ending));
  const beat=[...narrative].reverse().find(c=>c.at<=p+.002)||narrative[0];$('#chapter-label').textContent=beat.name;canvas.dataset.beat=beat.id;for(const a of nav.querySelectorAll('a'))a.setAttribute('aria-current',String(a.hash==='#'+beat.id));

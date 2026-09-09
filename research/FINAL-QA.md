@@ -131,3 +131,11 @@ Added a source-endpoint timeline regression and a browser pixel comparison acros
 ### September 8 — full-site audit and 13-chapter expansion
 
 See `SITE-AUDIT-2026-09-08.md` for findings, scene-by-scene corrections, new behavior and verification scope. Removed the poster/film double exposure in Everywhere and unrelated cache catch-up dissolves, matched fog focus through responsive sizes, and removed the ending header shade threshold. Added three integrated chapters, clock/route/gallery/light choreography, rolling typography and a bounded visitor ribbon. Final seven-size layout and 39 real-browser-zoom checks have no reported collisions, clipping or overflow. Original films and frame assets remain unchanged.
+
+### September 9 — sixteen chapters and live material effects
+
+Added Between the pages (.298), Blue hour (.405), and The space between (.736), including navigation, exclusive copy windows and reading/no-JavaScript content. The original films and their timing remain; overall pacing now spans 38 desktop / 28 mobile viewport heights. New canvas material scenes include an unfolding book with a pressed poppy, true film-sampling rain lenses, drifting bokeh and a rain constellation, visitor-responsive thread fields, folded-paper birds and final petal shadows. The prior photo stack clears before the book opens.
+
+Visual review also caught a styling regression from heading word wrappers: the CSS intended for the small `avoid.` prefix applied to the wrapped final `love` too. Scoped that rule to `#avoid-word` and verified the final word retains a font size of at least 150px in all four material-scene viewport checks.
+
+Validation: production build and 10 Node tests pass; 91 final layout samples across seven sizes report no collisions, clipping or overflow. Four-size new-chapter navigation and material-scene checks pass. Film regression covers 48 movie/endpoint samples, letter activation and reduced motion. Five-size integrated effects checks have no runtime errors and zero idle draws after settling. Reduced motion, all films unavailable and the 16-chapter no-JavaScript fallback pass. Screenshots of the new book, rain, thread and ending compositions were inspected on portrait and desktop. All original film and frame files remain unchanged. No external generation was needed for these procedural additions.

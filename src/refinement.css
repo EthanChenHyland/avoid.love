@@ -32,7 +32,7 @@
 .love-copy{inset:20% auto auto 8%;display:flex;flex-direction:column;gap:18px}
 .love-copy>p{position:static;margin:0;font-size:clamp(26px,2.8vw,48px);max-width:80vw}
 .love-copy h2{position:relative;inset:auto;font-size:min(24vw,40svh)}
-.love-copy h2>span{font-size:clamp(26px,4vw,64px);line-height:1.1}
+.love-copy h2>#avoid-word{font-size:clamp(26px,4vw,64px);line-height:1.1}
 .hold-memory{bottom:max(82px,env(safe-area-inset-bottom));min-height:46px}
 .masthead:before,.film-footer:before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(#07100d55,transparent)}
 .film-footer:before{background:linear-gradient(transparent,#07100d88)}
@@ -51,7 +51,7 @@
  .unsent-copy h2,.trying-copy h2,.impossible-copy h2{font-size:min(20vw,14svh)}
  .unsent-copy #typed-thought{left:25%;top:54%;width:64%;font-size:clamp(27px,8vw,40px)}
  .us-copy h2{font-size:min(52vw,36svh)}.distance-copy h2{font-size:20vw}
- .love-copy{top:18%;left:26px;gap:22px}.love-copy>p{font-size:26px;max-width:260px}.love-copy h2{font-size:min(53vw,36svh)}.love-copy h2>span{font-size:12vw}
+ .love-copy{top:18%;left:26px;gap:22px}.love-copy>p{font-size:26px;max-width:260px}.love-copy h2{font-size:min(53vw,36svh)}.love-copy h2>#avoid-word{font-size:12vw}
  .hold-memory{font-size:15px}.trying-copy p{font-size:17px;bottom:max(155px,18svh)}
 }
 @media(max-height:600px) and (orientation:landscape){
@@ -63,7 +63,7 @@
  .waiting-copy>p,.us-copy p,.distance-copy p,.impossible-copy p{bottom:80px;font-size:19px}.waiting-line{top:30%;font-size:30px}
  .unsent-copy h2,.trying-copy h2,.impossible-copy h2{font-size:17svh}.unsent-copy #typed-thought{top:40%;font-size:30px}
  .trying-copy p{left:62%;bottom:110px;right:5%;max-width:250px}.hold-memory{bottom:65px}
- .love-copy{top:85px;gap:8px}.love-copy>p{font-size:26px}.love-copy h2{font-size:35svh}.love-copy h2>span{font-size:26px}
+ .love-copy{top:85px;gap:8px}.love-copy>p{font-size:26px}.love-copy h2{font-size:35svh}.love-copy h2>#avoid-word{font-size:26px}
  .late-copy{left:7.5%;bottom:100px;font-size:30px}
 }
 html[data-still=true] .stage *{transition:none!important}
@@ -100,3 +100,7 @@ html[data-still=true] .stage *{transition:none!important}
 .scroll-track{height:3400svh}
 @media(max-width:700px){.scroll-track{height:2400svh}}
 .masthead:before,.on-light .masthead:before{background:linear-gradient(#07100d55,transparent);opacity:var(--mast-shade,1)}
+/* Six added interludes now have room alongside the original ten scenes. */
+.scroll-track{height:3800svh}
+@media(max-width:700px){.scroll-track{height:2800svh}}
+@media(prefers-reduced-motion:reduce){.chapter-links>a{transition:none}}

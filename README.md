@@ -1,6 +1,6 @@
 # avoid.love V4
 
-An original thirteen-chapter cinematic love story, built in a new standalone project. Scarlet poppies, two cups, unsent letters and empty seats recur across photographic worlds. Six generated Seedance films are scrubbed through bounded canvas frame caches. No original-site assets or code are included.
+An original sixteen-chapter cinematic love story, built in a new standalone project. Scarlet poppies, two cups, unsent letters and empty seats recur across photographic worlds. Six generated Seedance films are scrubbed through bounded canvas frame caches. No original-site assets or code are included.
 
 ## Run locally
 
@@ -10,7 +10,7 @@ Scroll, use the bottom continuation control, or choose a chapter in The story me
 
 ## Mobile
 
-Portrait has alternate typography and 24 viewport heights of pacing against desktop's 34. All six films render their 1280px frames on phones, with continuous crop focus through intermediate aspect ratios. Active film caches hold 8 frames each on mobile (24 on desktop), at most two sequences. Mobile canvas DPR is capped at 1.25. Landscape receives a compact header/footer composition. Physical-device Safari performance remains to be measured.
+Portrait has alternate typography and 28 viewport heights of pacing against desktop's 38. All six films render their 1280px frames on phones, with continuous crop focus through intermediate aspect ratios. Active film caches hold 8 frames each on mobile (24 on desktop), at most two sequences. Mobile canvas DPR is capped at 1.25. Landscape receives a compact header/footer composition. Physical-device Safari performance remains to be measured.
 
 ## Source and production
 
@@ -54,3 +54,9 @@ After hours, The detour, and Let the light in extend the original narrative to 1
 Everywhere now uses the opening frame of its own film from scene entry, keeping the crop consistent when the camera begins moving. The giant full-screen photo rush has become an edge gallery. The rain-glass sample follows the same continuous crop as the film, and the header shade gradually clears in the ending. Cache catch-up never dissolves unrelated old and new frames.
 
 `qa-boundary-audit.mjs` samples 30 timeline boundaries forward and backward at four viewport sizes. `qa-expansion.mjs` checks new chapter navigation and reduced motion, and `qa-expanded-resilience.mjs` covers all films unavailable, reduced motion and the 13-chapter no-JavaScript reading fallback. Numerical pixel changes identify review candidates; they do not by themselves distinguish intended camera movement from a cut.
+
+## Sixteen-chapter material expansion
+
+Between the pages, Blue hour, and The space between add three more complete beats, including navigation and reading fallbacks. `src/material-scenes.mjs` draws an opening book and pressed poppy, actual film-sampling rain lenses, drifting city bokeh, a rain constellation, touch-responsive thread fields, folded-paper birds, and soft petal shadows on the final table. All are procedural live canvas effects and use the original background films. The new layers are scroll-driven and do not add a perpetual animation loop. The final display word keeps the original large typographic scale; only `#avoid-word` receives the smaller prefix styling.
+
+The photographs yield their space before the book opens, and existing captions end before each new chapter begins. `scripts/qa-material-scenes.mjs` checks the three new beats, chapter navigation, live pointer response screenshots, and the final display-word size on four viewports.
