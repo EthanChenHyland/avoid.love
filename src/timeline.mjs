@@ -22,4 +22,18 @@ export function motionScale(w,h,scale,dx,dy){return Math.max(scale,1+2*Math.max(
 // Entry and exit retain the corresponding endpoint; there is no timed playback.
 // The paper movement occupies the early part of the source clip. Give that
 // movement more of the chapter and compress the mostly stationary tail.
-export function keptFilmProgress(p){const t=smooth(progress(p,.799,.814));return t/(4-3*t)}
+// Source frames 8–25 open the paper; 25–36 close it. Reserve substantially
+// more scroll for closing and a little more for opening, borrowing from holds.
+const keptTiming=[[0,0],[.16,8/90],[.48,25/90],[.82,36/90],[1,1]];
+const keptSlopes=keptTiming.slice(1).map(([x,y],i)=>(y-keptTiming[i][1])/(x-keptTiming[i][0]));
+const keptTangents=keptTiming.map((_,i)=>{
+ if(i===0||i===keptTiming.length-1)return 0;
+ const before=keptTiming[i][0]-keptTiming[i-1][0],after=keptTiming[i+1][0]-keptTiming[i][0];
+ const a=2*after+before,b=after+2*before;
+ return (a+b)/(a/keptSlopes[i-1]+b/keptSlopes[i]);
+});
+export function keptFilmProgress(p){
+ const t=progress(p,.799,.814);let i=0;while(i<keptTiming.length-2&&t>keptTiming[i+1][0])i++;
+ const [x,a]=keptTiming[i],[end,b]=keptTiming[i+1],span=end-x,u=(t-x)/span,u2=u*u,u3=u2*u;
+ return clamp((2*u3-3*u2+1)*a+(u3-2*u2+u)*span*keptTangents[i]+(-2*u3+3*u2)*b+(u3-u2)*span*keptTangents[i+1]);
+}

@@ -209,3 +209,9 @@ Visually reviewed mobile drawer/birds, desktop thread response, and the source-f
 Restored the small red seals on floating envelopes at the user's request; the removed standalone wax seal stays removed. Reduced the drawer's additional scrolling room from 250svh to 210svh, shortening its total visible animation span by roughly 14%. Retimed the existing clip with a continuous monotonic curve: the paper movement in the early source frames takes more of the chapter, and the mostly stationary tail takes less. This uses the existing footage, not a newly generated clip, and retains scroll control, reverse playback, eased endpoints, and held handoffs.
 
 Validation: 15 unit tests, production build, continuous scrolling with delayed frames, resize preservation, and entry/exit/reverse/reduced-motion checks pass on mobile and desktop. Intermediate frame assertions account for physical scroll pixel rounding while endpoint and stationary-frame checks remain strict.
+
+### September 10 — separate opening and closing timing
+
+Retimed the existing drawer footage by phase: source frames 8–25 (opening) now occupy 32% of the visible animation interval, and frames 25–36 (closing) occupy 34%. Closing gets the larger slowdown; both borrow time from the mostly stationary portions. Total chapter scroll length stays unchanged. A monotone cubic curve keeps playback speed continuous at the phase joins, with eased endpoints and reversible scroll control.
+
+Validation: production build and all 15 unit tests pass, including monotonicity and continuous speed at phase joins. Mobile/desktop continuous traversal with delayed frames, resize preservation, entry/exit holds, stationary playback, reverse scrolling, and reduced motion pass. Preview server restarted on port 4188.
