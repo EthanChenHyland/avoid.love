@@ -20,4 +20,4 @@ export function motionScale(w,h,scale,dx,dy){return Math.max(scale,1+2*Math.max(
 
 // Play only under the fully visible What stayed copy (.799–.814).
 // Entry and exit retain the corresponding endpoint; there is no timed playback.
-export const keptFilmProgress=p=>progress(p,.799,.814);
+export const keptFilmProgress=p=>smooth(progress(p,.799,.814));

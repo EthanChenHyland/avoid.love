@@ -72,3 +72,9 @@ All the unsaid things and What stayed bring the narrative to 18 chapters, with a
 The entire wax seal has been removed from All the unsaid things. The faulty ribbon footage is superseded by `kept-grounded-film`: a newly generated six-second shot of the existing drawer, with paper movement and no ribbon. The old export is removed from public assets; the original six films are unchanged. Generation cost: $0.9135.
 
 The book supports horizontal mouse dragging, native touch swipes, and arrow keys through a focusable hit area on the book itself. Vertical touch scrolling remains native; the default page turn still follows scrolling, and manual state clears when leaving the chapter. The bookmark bends with the page and pointer. `scripts/qa-book-input.mjs` checks keyboard, dragging, native touch, vertical scrolling, and chapter cleanup.
+
+## Tactile scene responses and full-story audit
+
+Brushing the threads in The space between sends short ripples along them. Moving a pointer or touch near the drawer key gives it a damped rocking response. The closing paper birds steer away from nearby pointer/touch input. These are integrated decorative responses with passive touch listeners; no effect launchers or wax seals are added. Thread/key motion settles and is disabled by reduced motion.
+
+The drawer keeps its expanded scrolling distance and now eases into and out of its frame sequence. It remains scroll-controlled, reversible, and stationary when scrolling stops. Audit navigation uses `scripts/qa-scroll.mjs`, which accounts for the drawer's extra scrolling room.

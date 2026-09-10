@@ -33,7 +33,7 @@ export function drawStorySpectacle(c,{p,w,h,mobile,still,visitor:v}){
  if(alpha>0){const t=p<.8?progress(p,.675,.749):progress(p,.834,.889);c.save();
  for(let i=0;i<(mobile?14:24);i++){const s=seeds[i],angle=s.a+t*5,depth=.25+s.z*.75,side=i%2?1:-1;
  const x=w*(side>0?.94:.06)+Math.cos(angle)*w*.12+wind*w*.065*depth,y=h*((s.s+t*.75)%1.4-.2),size=(mobile?54:85)*depth*(1+t*.6);
- c.save();c.translate(x,y);c.rotate(Math.sin(angle)*.8+side*t);c.scale(.35+Math.abs(Math.cos(angle))*.65,1);c.globalAlpha=alpha*(.35+depth*.55);c.shadowColor='#100b0a55';c.shadowBlur=depth*10;c.shadowOffsetY=depth*5;c.fillStyle=i%3?'#e5cba5':'#f4e5ca';c.fillRect(-size/2,-size*.34,size,size*.68);c.shadowColor='transparent';c.strokeStyle='#89624d';c.lineWidth=.65;c.beginPath();c.moveTo(-size/2,-size*.34);c.lineTo(0,size*.06);c.lineTo(size/2,-size*.34);c.stroke();c.fillStyle='#aa3945';c.beginPath();c.arc(0,size*.06,size*.055,0,Math.PI*2);c.fill();c.restore();
+ c.save();c.translate(x,y);c.rotate(Math.sin(angle)*.8+side*t);c.scale(.35+Math.abs(Math.cos(angle))*.65,1);c.globalAlpha=alpha*(.35+depth*.55);c.shadowColor='#100b0a55';c.shadowBlur=depth*10;c.shadowOffsetY=depth*5;c.fillStyle=i%3?'#e5cba5':'#f4e5ca';c.fillRect(-size/2,-size*.34,size,size*.68);c.shadowColor='transparent';c.strokeStyle='#89624d';c.lineWidth=.65;c.beginPath();c.moveTo(-size/2,-size*.34);c.lineTo(0,size*.06);c.lineTo(size/2,-size*.34);c.stroke();c.restore();
  }c.restore();}
  // The final sunlight breaks into a field of warm, hand-responsive motes.
  alpha=smooth(progress(p,.966,.988));

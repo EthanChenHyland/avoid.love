@@ -1,4 +1,5 @@
 import {scrollToChapter} from './qa-scroll.mjs';
+import {keptFilmProgress} from '../src/timeline.mjs';
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 const browser=await chromium.launch({channel:'chrome'});
@@ -8,7 +9,7 @@ try{for(const [width,height] of [[390,844],[1280,720]]){
  const frame=()=>page.locator('#world').evaluate(e=>+e.dataset.frame);
  for(const at of [.785,.798]){await go(at);assert.equal(await frame(),0,'Entry holds first frame')}
  for(const at of [.802,.8065,.811,.814,.818,.811,.8065,.802]){
-  await go(at);const expected=Math.round(Math.max(0,Math.min(1,(at-.799)/.015))*90);
+  await go(at);const expected=Math.round(keptFilmProgress(at)*90);
   await page.waitForFunction(expected=>+document.querySelector('#world').dataset.frame===expected,expected);
   if(at<.814)assert.ok(await page.locator('#kept-copy').evaluate(e=>+getComputedStyle(e).opacity)>.99,'Motion must occur under fully visible chapter copy');
   await page.waitForTimeout(400);assert.equal(await frame(),expected,'No timed motion after scrolling stops');

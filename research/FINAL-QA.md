@@ -185,3 +185,21 @@ Added 200svh of scroll distance exclusively to What stayed's fully visible inter
 The new continuous-scroll browser check traverses the complete animation over seven seconds with 80ms frame latency. Both mobile and desktop retain decoded footage under fully visible copy, with maximum adjacent observed frame step 1, and preserve story position on resize. Film and drawer regression scripts use the shared `scripts/qa-scroll.mjs` helper to navigate logical chapter positions through the new physical mapping. Historical QA scripts that calculate linear track fractions directly need this helper when rerun.
 
 Final validation: all 56 movie/endpoint checks, mobile/desktop chapter playback checks, and delayed-loading drawer continuity checks pass. All 14 unit tests and the production build pass.
+
+### September 10 — whole-story audit and tactile interactions
+
+Added passive pointer/touch responses: localized thread ripples in The space between, damped rocking of the brass drawer key, and nearby paper birds drifting away from the visitor. The responses are bounded, settle to rest, and respect reduced motion. Removed the small red wax-seal dots that remained on floating envelopes. The drawer's scroll-controlled frame position now uses smooth easing at both endpoints, retaining the expanded scroll span and the first/last-frame holds. No timed autoplay or new media generation was introduced.
+
+Migrated historical QA navigators from linear physical track fractions to the shared logical-scroll helper so they inspect the intended chapters after the drawer expansion.
+
+Validation:
+- 18 narrative positions × 6 viewports (320×740, 390×844, 639×734, 701×900, 844×390, 1280×720): no reported text collisions, clipping, or horizontal overflow.
+- 30 boundaries × 4 viewports: 120 comparisons with forward/reverse sampling. The largest image difference, 4.62% at .16, was inspected at finer intervals and traced to original café source frames 108→109, not a missing frame or fallback swap. Original footage and its opaque opening treatment remain unchanged. Other larger changes coincide with existing wipes or moving source footage; numerical image differences alone do not prove perceptual continuity.
+- Seven-second continuous drawer traversal with 80ms frame delay: maximum adjacent decoded-frame step 1, no blank frames, resize position preserved on mobile and desktop.
+- Drawer entry/exit, stationary hold, reversal and reduced motion pass at both sizes. Delayed-loading regression: 319 mobile and 306 desktop samples retain decoded footage.
+- 56 existing film/endpoint checks, letter controls, book mouse/keyboard/native-touch controls, and native vertical touch scrolling pass.
+- Effects checks at 5 sizes pass with zero idle draws after settling.
+- Film-unavailable fallback, reduced motion, and all 18 no-JavaScript chapters pass.
+- 15 unit tests and the production build pass.
+
+Visually reviewed mobile drawer/birds, desktop thread response, and the source-frame pair behind the largest boundary difference. Browser verification used Chromium; it is not a recording of the embedded app browser.

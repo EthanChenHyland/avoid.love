@@ -1,3 +1,4 @@
+import {scrollToChapter} from './qa-scroll.mjs';
 import {chromium} from 'playwright';import fs from 'node:fs/promises';
 const browser=await chromium.launch({channel:'chrome'});const report=[];
 for(const mode of ['reduced','offline-films','no-js','landscape']){
@@ -6,7 +7,7 @@ for(const mode of ['reduced','offline-films','no-js','landscape']){
  await page.goto(process.env.QA_URL||'http://127.0.0.1:4188/');await page.waitForTimeout(300);
  if(mode==='no-js'){const h=await page.locator('article h2').allTextContents();if(h.length!==17)throw Error('Missing no-JS story');report.push({mode,headings:h.length});await page.close();continue}
  if(mode==='landscape'){await page.screenshot({path:'qa/landscape-opening.png'});await page.getByRole('button',{name:'The story',exact:true}).click();await page.screenshot({path:'qa/landscape-menu.png'});await page.keyboard.press('Escape')}
- await page.evaluate(()=>window.scrollTo({top:(document.querySelector('.scroll-track').offsetHeight-innerHeight)*.485,behavior:'instant'}));await page.waitForTimeout(800);
+ await scrollToChapter(page,.485);await page.waitForTimeout(800);
  const state=await page.locator('#world').evaluate(e=>({...e.dataset,still:document.documentElement.dataset.still,overflow:document.documentElement.scrollWidth>innerWidth}));
  if(mode==='reduced'&&(state.still!=='true'||state.cached!=='0'))throw Error('Reduced motion used frames');
  if(mode==='offline-films'&&state.frame!=='-1')throw Error('Expected poster fallback');

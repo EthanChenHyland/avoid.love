@@ -13,7 +13,7 @@ export function materialScenes(){
  // A single small sampling surface keeps droplet refraction independent of canvas DPR.
  const book=document.createElement('canvas'),bookContext=book.getContext('2d');
  const lens=document.createElement('canvas');lens.width=lens.height=96;const lc=lens.getContext('2d');
- return {draw(c,{p,w,h,mobile,still,visitor:v,bookTurn=null}){const wind=still?0:v.x*v.presence,hand=still?0:v.presence;
+ return {draw(c,{p,w,h,mobile,still,visitor:v,bookTurn=null,tactile=null}){const wind=still?0:v.x*v.presence,hand=still?0:v.presence;
  // A book opens in place; the pressed poppy retains the story's red material palette.
  let alpha=gate(p,.283,.293,.304,.313);
  if(alpha){const t=bookTurn??(still?1:smooth(progress(p,.291,.303))),bw=Math.min(w*(mobile?.70:.34),h*.50),bh=bw*.60,x=w*(mobile?.61:.76),y=h*(mobile?.72:.62);
@@ -25,7 +25,7 @@ export function materialScenes(){
  if(still)return;
  // A small brass key turns in the returning light, its shadow anchored to the drawer.
  alpha=gate(p,.788,.799,.813,.824);
- if(alpha){const t=progress(p,.788,.824),size=Math.min(w*.14,70),x=w*(mobile?.76:.80),y=h*.72;c.save();c.globalAlpha=alpha;c.translate(x,y);c.rotate(-.5+t*.9+wind*.25);c.scale(.65+.35*Math.cos(t*Math.PI),1);c.shadowColor='#100d0c88';c.shadowBlur=8;c.shadowOffsetY=6;const metal=c.createLinearGradient(-size/2,0,size/2,0);metal.addColorStop(0,'#8c6132');metal.addColorStop(.45,'#ebd3a0');metal.addColorStop(.6,'#a77b42');metal.addColorStop(1,'#d5ad6e');c.strokeStyle=metal;c.lineWidth=size*.13;c.beginPath();c.ellipse(0,-size*.44,size*.25,size*.32,0,0,Math.PI*2);c.moveTo(0,-size*.12);c.lineTo(0,size*.76);c.moveTo(0,size*.65);c.lineTo(size*.26,size*.65);c.moveTo(0,size*.42);c.lineTo(size*.20,size*.42);c.stroke();c.restore();}
+ if(alpha){const t=progress(p,.788,.824),size=Math.min(w*.14,70),x=w*(mobile?.76:.80),y=h*.72;c.save();c.globalAlpha=alpha;c.translate(x,y);c.rotate(-.5+t*.9+wind*.25+(tactile?.key??0));c.scale(.65+.35*Math.cos(t*Math.PI),1);c.shadowColor='#100d0c88';c.shadowBlur=8;c.shadowOffsetY=6;const metal=c.createLinearGradient(-size/2,0,size/2,0);metal.addColorStop(0,'#8c6132');metal.addColorStop(.45,'#ebd3a0');metal.addColorStop(.6,'#a77b42');metal.addColorStop(1,'#d5ad6e');c.strokeStyle=metal;c.lineWidth=size*.13;c.beginPath();c.ellipse(0,-size*.44,size*.25,size*.32,0,0,Math.PI*2);c.moveTo(0,-size*.12);c.lineTo(0,size*.76);c.moveTo(0,size*.65);c.lineTo(size*.26,size*.65);c.moveTo(0,size*.42);c.lineTo(size*.20,size*.42);c.stroke();c.restore();}
  // Rain droplets genuinely magnify the film underneath, without a fullscreen image swap.
  alpha=gate(p,.350,.366,.411,.422);
  if(alpha){const t=progress(p,.35,.422),sx=c.canvas.width/w,sy=c.canvas.height/h;
@@ -39,11 +39,11 @@ export function materialScenes(){
  c.globalAlpha=alpha*.3;c.strokeStyle='#d8dfd4';c.lineWidth=.6;c.beginPath();for(let i=0;i<8;i++){const u=i/7,x=w*(.1+u*.8),y=h*(.68+Math.sin(u*8+t*2)*.07);i?c.lineTo(x,y):c.moveTo(x,y);c.moveTo(x+2,y);c.arc(x,y,2,0,Math.PI*2);c.moveTo(x,y)}c.stroke();c.restore();}
  // Two fields of thread bow around the empty seat: touch pulls them toward one another.
  alpha=gate(p,.714,.730,.743,.754);
- if(alpha){const t=progress(p,.714,.754);c.save();c.lineWidth=.8;for(let i=0;i<(mobile?16:26);i++){const u=i/(mobile?15:25),y=h*(.56+u*.28),reach=w*(.24+hand*.08),curl=Math.sin(u*6+t*4)*h*.035;c.globalAlpha=alpha*(.12+Math.sin(u*Math.PI)*.25);c.strokeStyle=i%4?'#c18c79':'#efc99b';c.beginPath();c.moveTo(-10,y);c.bezierCurveTo(w*.14,y-h*.07,reach+wind*20,y+curl,reach,y);c.moveTo(w+10,y);c.bezierCurveTo(w*.86,y+h*.07,w-reach+wind*20,y-curl,w-reach,y);c.stroke()}c.restore();}
+ if(alpha){const t=progress(p,.714,.754);c.save();c.lineWidth=.8;for(let i=0;i<(mobile?16:26);i++){const u=i/(mobile?15:25),y=h*(.56+u*.28),reach=w*(.24+hand*.08),curl=Math.sin(u*6+t*4)*h*.035+(tactile?.thread(y/h,u)??0)*h*.055;c.globalAlpha=alpha*(.12+Math.sin(u*Math.PI)*.25);c.strokeStyle=i%4?'#c18c79':'#efc99b';c.beginPath();c.moveTo(-10,y);c.bezierCurveTo(w*.14,y-h*.07,reach+wind*20,y+curl,reach,y);c.moveTo(w+10,y);c.bezierCurveTo(w*.86,y+h*.07,w-reach+wind*20,y-curl,w-reach,y);c.stroke()}c.restore();}
  // Paper birds leave the letters behind and travel into the final light.
  alpha=gate(p,.902,.924,.974,.995);
  if(alpha){const t=progress(p,.902,.995),birds=seeds.slice(0,mobile?10:18).map((s,i)=>({s,i,depth:.2+s.z*.8})).sort((a,b)=>a.depth-b.depth);c.save();
- for(const {s,i,depth} of birds){const x=w*(s.s*.9+.05)+Math.sin(s.a+t*2)*w*.05+wind*w*.08*depth,y=h*(.87-s.z*.24-t*.68),size=(mobile?18:28)*depth,flap=Math.sin(t*24+s.a)*.45;c.save();c.translate(x,y);c.rotate(-.3+Math.sin(s.a+t)*.3);c.globalAlpha=alpha*(.18+depth*.46);c.fillStyle=i%2?'#eadfc9':'#cbbfaa';c.beginPath();c.moveTo(-size,0);c.lineTo(-size*.25,-size*(.7+flap));c.lineTo(size*.08,0);c.lineTo(size,-size*(.45-flap));c.lineTo(size*.22,size*.15);c.lineTo(0,size*.09);c.closePath();c.fill();c.fillStyle='#9f8c7377';c.beginPath();c.moveTo(-size,0);c.lineTo(0,size*.09);c.lineTo(-size*.25,-size*(.7+flap));c.closePath();c.fill();c.restore()}c.restore();}
+ for(const {s,i,depth} of birds){const x=w*(s.s*.9+.05)+Math.sin(s.a+t*2)*w*.05+wind*w*.08*depth,y=h*(.87-s.z*.24-t*.68),size=(mobile?18:28)*depth,near=hand*Math.max(0,1-Math.hypot(x/w-(v.x+1)/2,y/h-(v.y+1)/2)/.28),flap=Math.sin(t*24+s.a)*.45;c.save();c.translate(x+(x/w-(v.x+1)/2)*near*w*.3,y-near*h*.045);c.rotate(-.3+Math.sin(s.a+t)*.3+near*.18);c.globalAlpha=alpha*(.18+depth*.46);c.fillStyle=i%2?'#eadfc9':'#cbbfaa';c.beginPath();c.moveTo(-size,0);c.lineTo(-size*.25,-size*(.7+flap));c.lineTo(size*.08,0);c.lineTo(size,-size*(.45-flap));c.lineTo(size*.22,size*.15);c.lineTo(0,size*.09);c.closePath();c.fill();c.fillStyle='#9f8c7377';c.beginPath();c.moveTo(-size,0);c.lineTo(0,size*.09);c.lineTo(-size*.25,-size*(.7+flap));c.closePath();c.fill();c.restore()}c.restore();}
  // Petal-shaped shadows echo the flower across the final table, moving with the visitor.
  alpha=smooth(progress(p,.980,1));if(alpha){c.save();c.globalCompositeOperation='multiply';for(let i=0;i<6;i++){const a=i*.71+wind*.3;c.save();c.translate(w*(.7+Math.cos(a)*.15),h*(.86+Math.sin(a)*.055));c.rotate(a);c.scale(1,.23);c.globalAlpha=alpha*.07;c.fillStyle='#7d503e';c.beginPath();c.ellipse(0,0,w*.12,h*.055,0,0,Math.PI*2);c.fill();c.restore()}c.restore();}
  }};
