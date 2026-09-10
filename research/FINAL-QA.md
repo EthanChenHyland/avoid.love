@@ -177,3 +177,11 @@ Removed the visible-time playback experiment after user review found the animati
 Updated the mobile/desktop playback regression to verify first-frame entry, movement only beneath fully visible copy, no timed movement while stationary, last-frame exit, reverse traversal, and reduced motion.
 
 Validation: playback checks pass at 390×844 and 1280×720. Delayed-loading continuity checks pass with 323 mobile and 305 desktop samples and zero missing decoded drawer frames. All 13 unit tests and the production build pass.
+
+### September 10 — give drawer movement physical scrolling room
+
+Added 200svh of scroll distance exclusively to What stayed's fully visible interval (.799–.814), using an invertible mapping between story position and physical scrolling. Other chapters retain their prior physical length. Chapter navigation and resizing use the inverse mapping, and no timed autoplay was reintroduced. The mobile animation span increases from about 342px to 2030px at 390×844; desktop increases from about 400px to 1840px at 1280×720.
+
+The new continuous-scroll browser check traverses the complete animation over seven seconds with 80ms frame latency. Both mobile and desktop retain decoded footage under fully visible copy, with maximum adjacent observed frame step 1, and preserve story position on resize. Film and drawer regression scripts use the shared `scripts/qa-scroll.mjs` helper to navigate logical chapter positions through the new physical mapping. Historical QA scripts that calculate linear track fractions directly need this helper when rerun.
+
+Final validation: all 56 movie/endpoint checks, mobile/desktop chapter playback checks, and delayed-loading drawer continuity checks pass. All 14 unit tests and the production build pass.

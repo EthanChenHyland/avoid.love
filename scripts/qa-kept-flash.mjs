@@ -1,3 +1,4 @@
+import {scrollToChapter} from './qa-scroll.mjs';
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 const browser=await chromium.launch({channel:'chrome'});
@@ -6,7 +7,7 @@ try {
   const page=await browser.newPage({viewport:{width,height}});
   await page.route('**/frames/**',async route=>{await new Promise(r=>setTimeout(r,120));await route.continue()});
   await page.goto(process.env.QA_URL||'http://127.0.0.1:4188/');
-  const go=async at=>{await page.evaluate(at=>scrollTo(0,at*(document.querySelector('.scroll-track').offsetHeight-innerHeight)),at);await page.waitForTimeout(1100)};
+  const go=async at=>{await scrollToChapter(page,at);await page.waitForTimeout(1100)};
   await go(.803);
   await page.waitForFunction(()=>document.querySelector('#world').dataset.film==='kept'&&+document.querySelector('#world').dataset.frame>=0);
   await page.evaluate(()=>{window.flashSamples=[];window.flashObserver=new MutationObserver(()=>{const d=document.querySelector('#world').dataset;if(d.film==='kept'&&+d.progress>.75&&+d.progress<.82)window.flashSamples.push({p:+d.progress,frame:+d.frame})});window.flashObserver.observe(document.querySelector('#world'),{attributes:true,attributeFilter:['data-progress','data-frame']})});
