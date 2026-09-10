@@ -1,5 +1,5 @@
-import {clamp,progress} from './timeline.mjs';
-const start=.799,end=.814;
+import {clamp,progress,keptMotionRange} from './timeline.mjs';
+const [start,end]=keptMotionRange;
 // Extra physical scrolling belongs only to the fully visible drawer chapter.
 export function storyToScroll(p,range,extra){const base=range-extra;return clamp(p)*base+extra*progress(p,start,end)}
 export function scrollToStory(y,range,extra){

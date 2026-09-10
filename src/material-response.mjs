@@ -10,7 +10,7 @@ export function materialResponse({state,wake,signal}){
   if(p>.714&&p<.754&&e.clientY>h*.52&&e.clientY<h*.9&&(!waves.length||now-waves.at(-1).time>70)){
    waves.push({y:e.clientY/h,time:now,power:clamp(Math.abs(speed)+.25,.25,1)});waves=waves.slice(-5);wake();
   }
-  if(p>.788&&p<.824&&Math.hypot((e.clientX/w-.8)*w,(e.clientY/h-.72)*h)<Math.min(w*.22,160)){
+  if(p>.806&&p<.824&&Math.hypot((e.clientX/w-.8)*w,(e.clientY/h-.72)*h)<Math.min(w*.22,160)){
    velocity=clamp(velocity+speed*.4,-2.5,2.5);wake();
   }
  }
@@ -21,7 +21,7 @@ export function materialResponse({state,wake,signal}){
   update(){const {p,still}=state(),now=performance.now(),dt=Math.min(.035,clock?(now-clock)/1000:.016);clock=now;
    if(still){waves=[];angle=velocity=0;return}
    waves=waves.filter(a=>now-a.time<1400&&p>.714&&p<.754);
-   if(p<=.788||p>=.824){angle=velocity=0;return}
+   if(p<=.806||p>=.824){angle=velocity=0;return}
    velocity+=(-angle*45-velocity*11)*dt;angle=clamp(angle+velocity*dt,-.35,.35);
    if(Math.abs(angle)<.0005&&Math.abs(velocity)<.0005)angle=velocity=0;
   },

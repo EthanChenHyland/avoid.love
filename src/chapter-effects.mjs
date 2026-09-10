@@ -1,7 +1,7 @@
 import {progress,smooth,mix,cover} from './timeline.mjs';
 const gate=(p,a,b,c,d)=>smooth(progress(p,a,b))*(1-smooth(progress(p,c,d)));
 const seeds=Array.from({length:48},(_,i)=>({a:i*2.399963,s:((i*47)%53)/53,z:((i*31)%47)/47}));
-const typeRanges=[['#opening .love',0,.015],['#notice-copy h2',.13,.16],['#little-copy h2',.244,.263],['#unsent-copy h2',.432,.452],['#us-copy h2',.55,.569],['#trying-copy h2',.755,.775],['#impossible-copy h2',.83,.85],['#love-copy h2',.958,.982],['#hours-copy h2',.205,.216],['#detour-copy h2',.614,.625],['#light-copy h2',.917,.93],['#pressed-copy h2',.285,.294],['#blue-copy h2',.390,.402],['#space-copy h2',.720,.731],['#unsaid-copy h2',.514,.524],['#kept-copy h2',.792,.803]];
+const typeRanges=[['#opening .love',0,.015],['#notice-copy h2',.13,.16],['#little-copy h2',.244,.263],['#unsent-copy h2',.432,.452],['#us-copy h2',.55,.569],['#trying-copy h2',.755,.775],['#impossible-copy h2',.83,.85],['#love-copy h2',.958,.982],['#hours-copy h2',.205,.216],['#detour-copy h2',.614,.625],['#light-copy h2',.917,.93],['#pressed-copy h2',.285,.294],['#blue-copy h2',.390,.402],['#space-copy h2',.720,.731],['#unsaid-copy h2',.514,.524],['#kept-copy h2',.782,.788]];
 function splitHeading(el){
  const walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT),nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
  for(const node of nodes){const fragment=document.createDocumentFragment();for(const word of node.textContent.split(/(\s+)/)){if(!word)continue;if(/^\s+$/.test(word)){fragment.append(document.createTextNode(word));continue}const span=document.createElement('span');span.className='kinetic-word';span.textContent=word;fragment.append(span)}node.replaceWith(fragment)}return [...el.querySelectorAll('.kinetic-word')];

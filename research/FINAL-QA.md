@@ -215,3 +215,13 @@ Validation: 15 unit tests, production build, continuous scrolling with delayed f
 Retimed the existing drawer footage by phase: source frames 8–25 (opening) now occupy 32% of the visible animation interval, and frames 25–36 (closing) occupy 34%. Closing gets the larger slowdown; both borrow time from the mostly stationary portions. Total chapter scroll length stays unchanged. A monotone cubic curve keeps playback speed continuous at the phase joins, with eased endpoints and reversible scroll control.
 
 Validation: production build and all 15 unit tests pass, including monotonicity and continuous speed at phase joins. Mobile/desktop continuous traversal with delayed frames, resize preservation, entry/exit holds, stationary playback, reverse scrolling, and reduced motion pass. Preview server restarted on port 4188.
+
+### September 10 — envelope first, key second; reference-length comparison
+
+Moved the fully visible envelope animation and its extra physical scroll interval earlier by .01 story progress, from .799–.814 to .789–.804. The interval width, extra scroll distance, and phase-retiming curve are unchanged, preserving animation speed for the same scroll speed. What stayed's text and navigation anchor arrive earlier to match. The first envelope frame remains held briefly on entry.
+
+The key now appears only after .806, after the envelope is held at frame 90. It completes a scroll-driven turn with a pointer-responsive metal glint and a small window-lit dust field. The film stays at its final frame throughout the key phase, including checks at .808, .812, and .818 on mobile and desktop. Envelope seals remain restored.
+
+Comparison with https://pear.no/ on this date: the public site lists four main chapters. Chromium measurements after loading at 390×844 gave about 73 viewport heights for Pear versus 30.1 here; at 1280×720, about 53.5 versus 40.1. These are measurements at those viewports, not universal reading durations. Recommendation: add chapters when there is new story content, rather than padding current scenes solely to match scroll length.
+
+Validation: 15 unit tests and production build pass; 78 layout checkpoints spanning the revised sequence at six sizes show no collisions, clipping, or horizontal overflow. Mobile/desktop continuous delayed-frame traversals and stationary/reverse/reduced-motion tests pass. Visually reviewed the earlier envelope and the separate key moment at mobile size.

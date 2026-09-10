@@ -24,8 +24,13 @@ export function materialScenes(){
  c.strokeStyle='#9e3935';c.lineWidth=2;c.beginPath();c.moveTo(-bw*.06,bh*.08);c.bezierCurveTo(-bw*.04+wind*bw*.04,bh*.4,-bw*.09+Math.sin(t*5)*bw*.04,bh*.6,bw*(.02+wind*.04),bh*(.59+t*.16));c.stroke();c.restore();c=stage;c.save();c.globalAlpha=1;c.drawImage(book,x-bwCanvas/2,y-bhCanvas*.4+(1-alpha)*(h+bh),bwCanvas,bhCanvas);c.restore();}
  if(still)return;
  // A small brass key turns in the returning light, its shadow anchored to the drawer.
- alpha=gate(p,.788,.799,.813,.824);
- if(alpha){const t=progress(p,.788,.824),size=Math.min(w*.14,70),x=w*(mobile?.76:.80),y=h*.72;c.save();c.globalAlpha=alpha;c.translate(x,y);c.rotate(-.5+t*.9+wind*.25+(tactile?.key??0));c.scale(.65+.35*Math.cos(t*Math.PI),1);c.shadowColor='#100d0c88';c.shadowBlur=8;c.shadowOffsetY=6;const metal=c.createLinearGradient(-size/2,0,size/2,0);metal.addColorStop(0,'#8c6132');metal.addColorStop(.45,'#ebd3a0');metal.addColorStop(.6,'#a77b42');metal.addColorStop(1,'#d5ad6e');c.strokeStyle=metal;c.lineWidth=size*.13;c.beginPath();c.ellipse(0,-size*.44,size*.25,size*.32,0,0,Math.PI*2);c.moveTo(0,-size*.12);c.lineTo(0,size*.76);c.moveTo(0,size*.65);c.lineTo(size*.26,size*.65);c.moveTo(0,size*.42);c.lineTo(size*.20,size*.42);c.stroke();c.restore();}
+ alpha=gate(p,.806,.810,.818,.824);
+ if(alpha){const t=progress(p,.806,.824),size=Math.min(w*.14,70),x=w*(mobile?.76:.80),y=h*.72;c.save();c.globalAlpha=alpha;c.translate(x,y);c.rotate(-.5+smooth(t)*Math.PI*2+wind*.25+(tactile?.key??0));c.scale(.65+.35*Math.cos(t*Math.PI),1);c.shadowColor='#100d0c88';c.shadowBlur=8;c.shadowOffsetY=6;const metal=c.createLinearGradient(-size/2,0,size/2,0);metal.addColorStop(0,'#8c6132');metal.addColorStop(.40+wind*.08,'#ebd3a0');metal.addColorStop(.55+wind*.08,'#a77b42');metal.addColorStop(1,'#d5ad6e');c.strokeStyle=metal;c.lineWidth=size*.13;c.beginPath();c.ellipse(0,-size*.44,size*.25,size*.32,0,0,Math.PI*2);c.moveTo(0,-size*.12);c.lineTo(0,size*.76);c.moveTo(0,size*.65);c.lineTo(size*.26,size*.65);c.moveTo(0,size*.42);c.lineTo(size*.20,size*.42);c.stroke();c.restore();}
+ // Window-lit dust moves with the key beat while the envelope remains settled.
+ alpha=gate(p,.805,.811,.818,.825);
+ if(alpha){const t=progress(p,.805,.825);c.save();c.globalCompositeOperation='screen';
+ for(let i=0;i<(mobile?12:22);i++){const s=seeds[i],x=w*(.63+s.s*.31)+wind*w*.02*s.z,y=h*(.78-s.z*.26-t*.055),r=.5+s.z*1.3;
+ c.globalAlpha=alpha*(.12+s.z*.3)*Math.sin(Math.PI*(.15+s.s*.7));c.fillStyle='#efd7a2';c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fill();}c.restore();}
  // Rain droplets genuinely magnify the film underneath, without a fullscreen image swap.
  alpha=gate(p,.350,.366,.411,.422);
  if(alpha){const t=progress(p,.35,.422),sx=c.canvas.width/w,sy=c.canvas.height/h;

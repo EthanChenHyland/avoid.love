@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {materialResponse} from '../src/material-response.mjs';
 test('tactile responses are passive, bounded, settle, and clear for reduced motion',t=>{
  const handlers={},options={},oldWindow=globalThis.window,oldDocument=globalThis.document;
- let now=100,p=.803,still=false,wakes=0;
+ let now=100,p=.813,still=false,wakes=0;
  globalThis.window={addEventListener(name,fn,opts){handlers[name]=fn;options[name]=opts}};
  globalThis.document={querySelector:()=>({hidden:true})};t.mock.method(performance,'now',()=>now);
  try{

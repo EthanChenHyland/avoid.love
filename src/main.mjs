@@ -135,7 +135,7 @@ function render(){
  }
  if(p>=.75&&p<.84){const local=progress(p,.75,.82),drawer=film('kept',keptFilmProgress(p),get('drawer'));
   if(p<.77)wipe(drawer,progress(p,.75,.77),'window',1,filmFocus(.72));else draw(drawer,1,1,filmFocus(.72));
-  show('trying-copy',windowed(p,.753,.765,.782,.791));$('#trying-line').textContent=local>.63?'But there it was again.':'That should have been that.';
+  show('trying-copy',windowed(p,.753,.765,.775,.782));$('#trying-line').textContent=local>.63?'But there it was again.':'That should have been that.';
  }
  if(p>=.82&&p<.95){const local=progress(p,.82,.95),room=film('impossible',progress(local,.43,1),get('hero-letters'));
   if(p<.84)wipe(room,progress(p,.82,.84),'diagonal',1,filmFocus(.72));else draw(room,1,1,filmFocus(.72));
@@ -144,7 +144,7 @@ function render(){
  if(p>=.95){if(still)depthPlate('love-morning',1,ending);else draw(film('impossible',1,get('hero-letters')),1,1,filmFocus(.72));const local=progress(p,.95,1);show('love-copy',smooth(progress(p,.958,.978)));$('#avoid-word').style.opacity=1-smooth(progress(local,.32,.8));}
  memory.draw(ctx,canvas,mistSource);gradeCopy(ctx,w,h,p);if(!still)letterLight(ctx,w,h,p,visitor,mobile);redThread(ctx,w,h,p,visitor,mobile,still);
  tactile.update();play.draw(ctx);enhancements.draw(ctx);book.update(p>.290&&p<.305?{x:w*(mobile?.20:.56),y:h*(mobile?.58:.43),w:w*(mobile?.78:.40),h:h*.30}:null);materials.draw(ctx,{p,w,h,mobile,still,visitor,bookTurn:book.turn,tactile});
- show('hours-copy',windowed(p,.205,.212,.223,.230));show('detour-copy',windowed(p,.614,.621,.641,.649));show('light-copy',windowed(p,.917,.925,.943,.950));show('pressed-copy',windowed(p,.285,.292,.305,.312));show('blue-copy',windowed(p,.390,.399,.414,.421));show('space-copy',windowed(p,.720,.728,.744,.751));show('unsaid-copy',windowed(p,.514,.521,.537,.545));show('kept-copy',windowed(p,.792,.799,.814,.822));
+ show('hours-copy',windowed(p,.205,.212,.223,.230));show('detour-copy',windowed(p,.614,.621,.641,.649));show('light-copy',windowed(p,.917,.925,.943,.950));show('pressed-copy',windowed(p,.285,.292,.305,.312));show('blue-copy',windowed(p,.390,.399,.414,.421));show('space-copy',windowed(p,.720,.728,.744,.751));show('unsaid-copy',windowed(p,.514,.521,.537,.545));show('kept-copy',windowed(p,.782,.788,.814,.822));
  canvas.dataset.rendition=portrait?'portrait-film':'landscape-film';canvas.dataset.visitor=visitor.presence.toFixed(3);canvas.dataset.depth=String(!still&&depthAmount(p)>0);
  document.documentElement.style.setProperty('--mast-shade',String(1-smooth(progress(p,.95,.98))));const light=p>.963;document.body.classList.toggle('on-light',light);$('.stage').style.setProperty('--stage-shade',String(1-ending));
  const beat=[...narrative].reverse().find(c=>c.at<=p+.002)||narrative[0];$('#chapter-label').textContent=beat.name;canvas.dataset.beat=beat.id;for(const a of nav.querySelectorAll('a'))a.setAttribute('aria-current',String(a.hash==='#'+beat.id));
