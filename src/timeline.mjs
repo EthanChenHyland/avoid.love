@@ -17,3 +17,7 @@ export function nearestFrame(keys,target){
 
 // Centered cover must retain enough overscan for the entire translated viewport.
 export function motionScale(w,h,scale,dx,dy){return Math.max(scale,1+2*Math.max((Math.abs(dx)+1)/w,(Math.abs(dy)+1)/h))}
+
+// Play only under the fully visible What stayed copy (.799–.814).
+// Entry and exit retain the corresponding endpoint; there is no timed playback.
+export const keptFilmProgress=p=>progress(p,.799,.814);

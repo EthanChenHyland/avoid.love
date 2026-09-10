@@ -3,14 +3,16 @@ import assert from 'node:assert/strict';
 const browser=await chromium.launch({channel:'chrome'});
 try{for(const [width,height] of [[390,844],[1280,720]]){
  const page=await browser.newPage({viewport:{width,height}});await page.goto(process.env.QA_URL||'http://127.0.0.1:4188/');
- const go=async at=>{await page.evaluate(at=>scrollTo(0,at*(document.querySelector('.scroll-track').offsetHeight-innerHeight)),at);await page.waitForTimeout(1000)};
+ const go=async at=>{await page.evaluate(at=>scrollTo(0,at*(document.querySelector('.scroll-track').offsetHeight-innerHeight)),at);await page.waitForFunction(at=>Math.abs(+document.querySelector('#world').dataset.progress-at)<.00005,at);await page.waitForTimeout(500)};
  const frame=()=>page.locator('#world').evaluate(e=>+e.dataset.frame);
- await go(.785);assert.equal(await frame(),0,'Drawer must wait for What stayed');await page.waitForTimeout(500);assert.equal(await frame(),0);
- await go(.803);const start=await frame(),y=await page.evaluate(()=>scrollY);assert.ok(start<30);
- await page.waitForTimeout(1800);assert.ok(await frame()>start+10,'Film must advance while scroll is stationary');assert.equal(await page.evaluate(()=>scrollY),y);
- await page.waitForFunction(()=>+document.querySelector('#world').dataset.frame===90,{},{timeout:15000});
- await go(.785);assert.equal(await frame(),90,'Reverse handoff must retain the displayed frame');
- await go(.85);await go(.785);assert.equal(await frame(),0,'New visit begins from the first frame');
+ for(const at of [.785,.798]){await go(at);assert.equal(await frame(),0,'Entry holds first frame')}
+ for(const at of [.802,.8065,.811,.814,.818,.811,.8065,.802]){
+  await go(at);const expected=Math.round(Math.max(0,Math.min(1,(at-.799)/.015))*90);
+  await page.waitForFunction(expected=>+document.querySelector('#world').dataset.frame===expected,expected);
+  if(at<.814)assert.ok(await page.locator('#kept-copy').evaluate(e=>+getComputedStyle(e).opacity)>.99,'Motion must occur under fully visible chapter copy');
+  await page.waitForTimeout(400);assert.equal(await frame(),expected,'No timed motion after scrolling stops');
+ }
+ await go(.785);assert.equal(await frame(),0);
  await page.emulateMedia({reducedMotion:'reduce'});await go(.803);assert.equal(await page.locator('#world').getAttribute('data-film'),'');
- console.log(`${width}: delayed chapter start, stationary playback, held handoff, replay and reduced motion pass`);await page.close();
+ console.log(`${width}: entry hold, visible scroll animation, stationary hold, exit hold, reverse and reduced motion pass`);await page.close();
 }}finally{await browser.close()}

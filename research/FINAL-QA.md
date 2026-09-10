@@ -169,3 +169,11 @@ The drawer clip previously consumed its six seconds across scroll progress .75�
 Added a playback state test and a browser regression covering delayed start, stationary playback, reverse handoff retention, replay, and reduced motion at mobile and desktop sizes.
 
 Validation: stationary-playback browser checks pass at 390×844 and 1280×720, including reverse navigation without premature playback. The delayed-loading flash regression passes on both sizes. All 13 unit tests and the production build pass.
+
+### September 10 — replace late autoplay with chapter-aligned scrubbing
+
+Removed the visible-time playback experiment after user review found the animation continued as the viewer left. Drawer footage now maps exclusively to progress .799–.814, the interval where What stayed's copy is fully opaque. Entry holds frame 0; exit holds frame 90 before the next wipe begins at .82. Stopping scrolling holds the current frame, and reversing scroll reverses the footage. The cache continuity fix remains in place.
+
+Updated the mobile/desktop playback regression to verify first-frame entry, movement only beneath fully visible copy, no timed movement while stationary, last-frame exit, reverse traversal, and reduced motion.
+
+Validation: playback checks pass at 390×844 and 1280×720. Delayed-loading continuity checks pass with 323 mobile and 305 desktop samples and zero missing decoded drawer frames. All 13 unit tests and the production build pass.
