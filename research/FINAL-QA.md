@@ -161,3 +161,11 @@ Reproduced a decoded-frame loss in What stayed under 120 ms frame-request latenc
 Added `scripts/qa-kept-flash.mjs` to exercise repeated forward/reverse traversal of the drawer and both neighboring handoffs at 390×844 and 1280×720 with delayed requests. It asserts that decoded drawer frames never disappear after the film is ready.
 
 Validation: the new regression passes with 319 mobile and 313 desktop sampled drawer renders; no decoded-frame losses. All 56 existing movie/endpoint checks, letter interaction, reduced motion, and 12 unit tests pass. Production build succeeds.
+
+### September 10 — let viewers see the drawer animation
+
+The drawer clip previously consumed its six seconds across scroll progress .75–.82, before What stayed became fully visible at .799. It now holds its first frame through the preceding chapter and plays automatically in visible time once What stayed is fully on screen. It advances even when the viewer stops scrolling, waits for decoded frames, pauses outside the chapter, and retains its displayed frame through both handoffs. A new visit after leaving the drawer region resets playback. Reduced motion uses the existing still presentation.
+
+Added a playback state test and a browser regression covering delayed start, stationary playback, reverse handoff retention, replay, and reduced motion at mobile and desktop sizes.
+
+Validation: stationary-playback browser checks pass at 390×844 and 1280×720, including reverse navigation without premature playback. The delayed-loading flash regression passes on both sizes. All 13 unit tests and the production build pass.

@@ -1,4 +1,5 @@
 import {clamp,progress,smooth,mix,cover,firstAct,motionScale} from './timeline.mjs';
+import {ChapterPlayback} from './chapter-playback.mjs';
 import {FilmSurface} from './film-surface.mjs';
 import {FrameSequence} from './sequence.mjs';
 import {chapters,chapterIndex,narrative} from './story.mjs';
@@ -8,7 +9,7 @@ import {chapterEffects} from './chapter-effects.mjs';
 import {playthings} from './playthings.mjs';
 import {memories} from './memory.mjs';
 import {Visitor,depthAmount,gradeCopy,letterLight,redThread} from './interaction.mjs';
-const visitor=new Visitor();
+const visitor=new Visitor(),keptPlayback=new ChapterPlayback();
 const $=s=>document.querySelector(s),canvas=$('#world'),ctx=canvas.getContext('2d',{alpha:false});
 const wipeCanvas=document.createElement('canvas'),wipeCtx=wipeCanvas.getContext('2d');
 const narrow=matchMedia('(max-width:700px)'),reduced=matchMedia('(prefers-reduced-motion:reduce)');
@@ -130,7 +131,7 @@ function render(){
  if(p>=.65&&p<.77){const local=progress(p,.65,.75),image=film('distance',local,get('distance'));if(p<.67){wipe(image,progress(p,.65,.67),'window')}else if(!still&&w>h){const gap=smooth(progress(p,.67,.75))*w*.055*smooth(progress(w/h,1,1.5));ctx.save();ctx.beginPath();ctx.rect(0,0,w/2-gap,h);ctx.clip();draw(image,1,1,.5,-gap);ctx.restore();ctx.save();ctx.beginPath();ctx.rect(w/2+gap,0,w/2,h);ctx.clip();draw(image,1,1,.5,gap);ctx.restore()}else draw(image);
   show('distance-copy',windowed(p,.658,.68,.708,.718));$('#your-word').style.transform=`translateX(${-local*(mobile?5:35)}px)`;$('#side-word').style.transform=`translateX(${local*(mobile?5:35)}px)`;
  }
- if(p>=.75&&p<.84){const local=progress(p,.75,.82),drawer=film('kept',local,get('drawer'));
+ if(p>=.75&&p<.84){const local=progress(p,.75,.82),drawer=film('kept',keptPlayback.value,get('drawer'));
   if(p<.77)wipe(drawer,progress(p,.75,.77),'window',1,filmFocus(.72));else draw(drawer,1,1,filmFocus(.72));
   show('trying-copy',windowed(p,.753,.765,.782,.791));$('#trying-line').textContent=local>.63?'But there it was again.':'That should have been that.';
  }
@@ -154,11 +155,12 @@ function render(){
 }
 function tick(time){raf=0;if(document.hidden||document.querySelector('dialog[open]'))return;const dt=last?Math.min(time-last,50):16;last=time;
  p=still?target:p+(target-p)*(1-Math.exp(-dt/85));if(Math.abs(target-p)<.00005)p=target;
+ const keptSequence=sequences.get('kept');keptPlayback.step(dt,{inside:p>=.75&&p<.84,visible:p>=.799&&p<.82&&target>=.799&&target<.82,enabled:!still,ready:!!keptSequence?.frames.has(Math.round(keptPlayback.value*((manifest?.kept?.count??1)-1)))});
  held+=(Number(holding)-held)*(1-Math.exp(-dt/160));if(Math.abs(Number(holding)-held)<.002)held=Number(holding);
  const visitorMoving=visitor.step(dt,!still&&nav.hidden&&!document.body.classList.contains('reading-active')&&([0,1,2,3,4,5,6,7,8,9].includes(active)));
  const next=Math.max(0,chapterIndex(p));if(next!==active){holding=false;holdButton.setAttribute('aria-pressed','false');active=next;prepareNearby();prepareFilms();for(const a of nav.querySelectorAll('a'))a.setAttribute('aria-current',String(a.hash==='#'+([...narrative].reverse().find(c=>c.at<=p+.002)?.id||'before')))}
  if(dirty||visitorMoving||p!==target||held!==Number(holding)){render();dirty=false}
- if(book.moving||memory.moving||play.moving||enhancements.moving||filmBlending||visitorMoving||p!==target||held!==Number(holding))invalidate();else last=0;
+ if(keptPlayback.moving||book.moving||memory.moving||play.moving||enhancements.moving||filmBlending||visitorMoving||p!==target||held!==Number(holding))invalidate();else last=0;
 }
 function updateTarget(){target=clamp(scrollY/Math.max(1,$('.scroll-track').offsetHeight-innerHeight));invalidate()}
 function resize(){w=innerWidth;h=innerHeight;openingTravel=Math.min(40,Math.max(0,$('#opening').offsetTop-82));dpr=Math.min(devicePixelRatio||1,mobile?1.25:1.75);wipeCanvas.width=Math.round(w);wipeCanvas.height=Math.round(h);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);if(layoutReady&&!document.body.classList.contains('reading-active'))window.scrollTo({top:target*Math.max(1,$('.scroll-track').offsetHeight-innerHeight),behavior:'instant'});layoutReady=true;updateTarget();invalidate()}
