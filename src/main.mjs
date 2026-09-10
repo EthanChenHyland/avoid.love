@@ -45,6 +45,9 @@ function prepareNearby(){
 function setupMotion(){for(const seq of sequences.values())seq.dispose();sequences.clear();document.documentElement.dataset.still=String(still);$('#still-toggle').setAttribute('aria-pressed',String(still));resize()}
 function sequence(name){
  let seq=sequences.get(name);if(!seq){const m=manifest[name];seq=new FrameSequence({base:m.desktop,count:m.count,limit:mobile?8:24,onReady:invalidate});seq.surface=new FilmSurface({blendFrames:!['opening','transition'].includes(name)});sequences.set(name,seq)}
+ // Keep the film we just drew most recent. Insertion order alone evicts a visible
+ // drawer when reverse scrolling brings the distance film back into the cache.
+ sequences.delete(name);sequences.set(name,seq);
  if(sequences.size>2){const old=[...sequences.keys()].find(k=>k!==name);sequences.get(old).dispose();sequences.delete(old)}return seq;
 }
 function warmFilm(name){if(sequences.has(name))return;if(!still&&manifest?.[name])sequence(name).request(0)}

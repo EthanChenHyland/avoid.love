@@ -153,3 +153,11 @@ Final validation: 12 Node tests, the opaque-page browser pixel test, 56 movie/en
 Removed the entire wax seal. Regenerated the drawer film using the same first and last reference and an explicit no-ribbon inventory. Reviewed twelve sampled frames and enlarged frames 020, 025, and 029. The paper lifts and settles; no ribbon appears. Maximum adjacent mean RGB difference at 160×90 was 1.06% at frame 031; this supports the sampled visual review but is not proof against every perceptual discontinuity. The export contains 91 frames over six seconds. Generation cost was $0.9135; provenance is sanitized. Removed the old faulty public export and retained the original six films unchanged.
 
 Added direct horizontal page dragging, native touch swipes, and keyboard turning, with a responsive bookmark. Book controls and native vertical scrolling pass at 390×844 and 1280×720. Film continuity: 56 movie and held-endpoint checks, letter interaction, and reduced motion pass. Effects: 320×740, 390×844, 600×700, 844×390, and 1280×720 pass without errors and with zero idle draws. Automated browser checks use Chromium, not the embedded browser.
+
+### September 10 — drawer flash during reverse scrolling
+
+Reproduced a decoded-frame loss in What stayed under 120 ms frame-request latency: the original cache fell back to a still image for 20 sampled renders in the mobile regression. The sequence cache evicted by creation order, so bringing an earlier film back could discard the drawer while it was still visible. Refreshing cache recency whenever a sequence is used keeps the visible film while retaining the existing two-sequence memory bound. No footage or transition timing changed.
+
+Added `scripts/qa-kept-flash.mjs` to exercise repeated forward/reverse traversal of the drawer and both neighboring handoffs at 390×844 and 1280×720 with delayed requests. It asserts that decoded drawer frames never disappear after the film is ready.
+
+Validation: the new regression passes with 319 mobile and 313 desktop sampled drawer renders; no decoded-frame losses. All 56 existing movie/endpoint checks, letter interaction, reduced motion, and 12 unit tests pass. Production build succeeds.
