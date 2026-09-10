@@ -233,3 +233,20 @@ Restored the key's previous .9-radian scroll turn with its existing pointer rock
 Validation: 16 unit tests, build, mobile/desktop continuous delayed-frame traversal, resize preservation, and playback/hold/reverse/reduced-motion checks pass.
 
 Started OpenRouter production for Stay a little longer, a proposed nineteenth chapter using the existing morning-table reference. The generation request was accepted and the last checked status is pending. It is not yet integrated. See `stay-a-little-longer.md` and the sanitized job status. The production script now keeps polling identifiers and signed media URLs in ignored local storage while writing only job specifications and status/usage into public research records.
+
+### September 10 — 1.5× key interval and new morning film
+
+The key's complete scroll interval, including its original 15svh addition, is lengthened by 50%. The responsive CSS accounts for the underlying story distance rather than simply multiplying the spacer. Measured ratios: 1.5001 at 390×844, 1.5011 at 639×734, and 1.5004 at 1280×720 (scroll pixel rounding). The envelope's original physical duration is preserved.
+
+Integrated Stay a little longer as chapter 19, before the final Love title, with 180svh of dedicated scroll space. Generated footage cost $0.9135. Inspected twelve source frames; existing objects remain consistent. Maximum adjacent mean RGB change at 160×90 was 0.426%. Original film files remain untouched. The preceding endpoint and new first frame differ by approximately 0.84% mean RGB at source size; browser handoff samples measured 0.79–0.95% with the same crop and an opaque switch. There is no loading dissolve; unavailable new footage retains the preceding morning scene. This is an encoding/source difference, not a promise of mathematically identical pixels.
+
+Audit results:
+- 17 unit tests and production build pass.
+- 144 layout checkpoints across six sizes, covering all chapters and additional ending boundaries: no reported collisions, clipping, or horizontal overflow.
+- 60 movie/endpoint checks, letter interaction, reduced motion, and drawer continuous/reverse/hold checks pass.
+- New chapter navigation, matched handoff, final-frame holds and missing-new-film fallback pass; key duration verified at three sizes.
+- Effects at five sizes pass with zero idle draws after settling.
+- All 19 chapters are available in navigation and no-JavaScript reading; film-unavailable and reduced-motion audits pass.
+- New chapter screenshots reviewed at mobile and desktop sizes.
+
+The final Love reveal remains after the new chapter. The original six films and existing envelope/key motion assets remain unchanged.

@@ -114,3 +114,10 @@ html[data-still=true] .stage *{transition:none!important}
 @media(max-width:700px){.scroll-track{height:3025svh}}
 
 .key-scroll-room{position:absolute;visibility:hidden;pointer-events:none;height:15svh;width:1px}
+
+/* 1.5 × the previous full key interval, including its original 15svh extra. */
+:root{--key-room:calc(56.7svh - .9dvh)}
+.scroll-track{height:calc(4190svh + var(--key-room))}
+.key-scroll-room{height:var(--key-room)}
+.stay-scroll-room{position:absolute;visibility:hidden;pointer-events:none;height:180svh;width:1px}
+@media(max-width:700px){:root{--key-room:calc(47.7svh - .9dvh)}.scroll-track{height:calc(3190svh + var(--key-room))}}

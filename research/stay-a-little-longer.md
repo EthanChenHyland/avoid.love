@@ -1,13 +1,13 @@
-# Stay a little longer — chapter in production
+# Stay a little longer — integrated chapter
 
-A proposed nineteenth chapter, following the return to morning light: the two cups remain, the poppy moves gently, and the viewer gets a quiet moment of arrival.
+The nineteenth chapter follows the return to morning light and precedes the final Love title. Two cups remain on the table while the poppy and light move gently.
 
 Kicker: Stay a little longer
 Headline: Nowhere else.
 Supporting line: The coffee could wait.
 
-Footage: a six-second OpenRouter generation using the existing `love-morning.png` as both endpoint references. Fixed camera, subtle steam and attached petal motion, no introduced objects. Job specification: `stay-longer-video-jobs.json`. Public job status: `video-stay-longer-film.json`. Private polling metadata stays in ignored `art-source/stay-longer-film-job.json`.
+The generated six-second OpenRouter film is exported as `public/films/stay-longer-film.mp4`, with 91 decoded frames per rendition and manifest key `stay`. The original morning reference supplied both generation endpoints. Generation cost: $0.9135.
 
-This is in production, not yet a live chapter. Review the generated motion and both endpoints before choosing its final place in the timeline. Preserve the original films and the current envelope/key sequence. No new scroll duration is added until the footage has been reviewed.
+The chapter is reachable at `#stay`. Its dedicated scroll interval is .966–.986, with the final Love title following at .990–1. The new film shares the preceding film’s crop, switches opaquely after decoding, and holds its final frame through the ending. Missing footage retains the preceding morning scene. Reduced motion and the reading/no-JavaScript versions include the chapter.
 
-Resume/check production with `.venv/bin/python scripts/video.py poll`.
+Job specification: `stay-longer-video-jobs.json`. Sanitized production record: `video-stay-longer-film.json`. Private polling metadata remains in ignored local production storage.

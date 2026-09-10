@@ -11,6 +11,11 @@
     "prompt": "One quiet photorealistic uninterrupted shot, exactly the supplied morning cafe table composition. Camera locked completely still, no reframing, no zoom, no cuts and no dissolve. Preserve every existing object and its exact identity and location: both ceramic cups and saucers, their handles, the clear glass vase and the single scarlet poppy, tabletop and background. Motion comes only from very faint natural steam from the existing hot coffee, a small physically plausible sway of the existing poppy petals on their attached stem, and a very slow soft shift of existing morning illumination. The coffee must not rise or spill; cups, vase, tabletop and furniture are absolutely stationary. Nothing appears or disappears. No new flowers, ribbons, strings, letters, seals, hands, people or objects. No folding or morphing. This is a warm held breath after a long night: subtle motion, intimate material detail. Return gently to the exact supplied original composition and lighting, settling to the reference for the final second."
   },
   "result": {
-    "status": "pending"
-  }
+    "status": "completed",
+    "usage": {
+      "cost": 0.9135,
+      "is_byok": false
+    }
+  },
+  "asset": "public/films/stay-longer-film.mp4"
 }

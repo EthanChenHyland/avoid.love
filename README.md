@@ -78,3 +78,9 @@ The book supports horizontal mouse dragging, native touch swipes, and arrow keys
 Brushing the threads in The space between sends short ripples along them. Moving a pointer or touch near the drawer key gives it a damped rocking response. The closing paper birds steer away from nearby pointer/touch input. These are integrated decorative responses with passive touch listeners; no effect launchers or wax seals are added. Thread/key motion settles and is disabled by reduced motion.
 
 The drawer keeps its expanded scrolling distance and now eases into and out of its frame sequence. It remains scroll-controlled, reversible, and stationary when scrolling stops. Audit navigation uses `scripts/qa-scroll.mjs`, which accounts for the drawer's extra scrolling room.
+
+## Nineteenth chapter: Stay a little longer
+
+The new six-second morning-table film is integrated before the final Love title. Its chapter link is `#stay`; it includes reading, no-JavaScript, and reduced-motion versions. The original morning endpoint remains visible until new footage decodes, both films use the same crop, and the new endpoint is held through the final title. Generation cost: $0.9135.
+
+The key's full physical scroll interval is now 1.5 times its previous length. The envelope's timing remains unchanged. The added morning chapter has its own scroll space.
