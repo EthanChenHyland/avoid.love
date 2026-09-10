@@ -14,3 +14,8 @@ test('drawer motion occupies the fully visible chapter and holds during both han
  const positions=[.789,.792,.796,.800,.804];
  assert.deepEqual(positions.map(keptFilmProgress),positions.toReversed().map(keptFilmProgress).toReversed());
 });
+test('key completes exactly one full turn while the envelope is held',async()=>{
+ const {keyTurn}=await import('../src/timeline.mjs');
+ assert.equal(keyTurn(.804),0);assert.equal(keyTurn(.820),2*Math.PI);
+ for(let i=0;i<=100;i++){const p=.804+i*.016/100;assert.equal(keptFilmProgress(p),1);assert.ok(keyTurn(p)>=0&&keyTurn(p)<=Math.PI*2)}
+});

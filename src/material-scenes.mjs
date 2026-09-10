@@ -1,3 +1,5 @@
+import {drawPostcard} from './postcard.mjs';
+import {keyTurn} from './timeline.mjs';
 import {drawPageTurn} from './page-turn.mjs';
 import {progress,smooth,mix} from './timeline.mjs';
 const gate=(p,a,b,c,d)=>smooth(progress(p,a,b))*(1-smooth(progress(p,c,d)));
@@ -14,6 +16,7 @@ export function materialScenes(){
  const book=document.createElement('canvas'),bookContext=book.getContext('2d');
  const lens=document.createElement('canvas');lens.width=lens.height=96;const lc=lens.getContext('2d');
  return {draw(c,{p,w,h,mobile,still,visitor:v,bookTurn=null,tactile=null}){const wind=still?0:v.x*v.presence,hand=still?0:v.presence;
+ drawPostcard(c,{p,w,h,mobile,still,visitor:v});
  // A book opens in place; the pressed poppy retains the story's red material palette.
  let alpha=gate(p,.283,.293,.304,.313);
  if(alpha){const t=bookTurn??(still?1:smooth(progress(p,.291,.303))),bw=Math.min(w*(mobile?.70:.34),h*.50),bh=bw*.60,x=w*(mobile?.61:.76),y=h*(mobile?.72:.62);
@@ -24,8 +27,8 @@ export function materialScenes(){
  c.strokeStyle='#9e3935';c.lineWidth=2;c.beginPath();c.moveTo(-bw*.06,bh*.08);c.bezierCurveTo(-bw*.04+wind*bw*.04,bh*.4,-bw*.09+Math.sin(t*5)*bw*.04,bh*.6,bw*(.02+wind*.04),bh*(.59+t*.16));c.stroke();c.restore();c=stage;c.save();c.globalAlpha=1;c.drawImage(book,x-bwCanvas/2,y-bhCanvas*.4+(1-alpha)*(h+bh),bwCanvas,bhCanvas);c.restore();}
  if(still)return;
  // A small brass key turns in the returning light, its shadow anchored to the drawer.
- alpha=gate(p,.806,.810,.818,.824);
- if(alpha){const t=progress(p,.806,.824),size=Math.min(w*.14,70),x=w*(mobile?.76:.80),y=h*.72;c.save();c.globalAlpha=alpha;c.translate(x,y);c.rotate(-.5+t*.9+wind*.25+(tactile?.key??0));c.scale(.65+.35*Math.cos(t*Math.PI),1);c.shadowColor='#100d0c88';c.shadowBlur=8;c.shadowOffsetY=6;const metal=c.createLinearGradient(-size/2,0,size/2,0);metal.addColorStop(0,'#8c6132');metal.addColorStop(.40+wind*.08,'#ebd3a0');metal.addColorStop(.55+wind*.08,'#a77b42');metal.addColorStop(1,'#d5ad6e');c.strokeStyle=metal;c.lineWidth=size*.13;c.beginPath();c.ellipse(0,-size*.44,size*.25,size*.32,0,0,Math.PI*2);c.moveTo(0,-size*.12);c.lineTo(0,size*.76);c.moveTo(0,size*.65);c.lineTo(size*.26,size*.65);c.moveTo(0,size*.42);c.lineTo(size*.20,size*.42);c.stroke();c.restore();}
+ alpha=gate(p,.802,.804,.820,.824);
+ if(alpha){const t=progress(p,.804,.820),size=Math.min(w*.14,70),x=w*(mobile?.76:.80),y=h*.72;c.save();c.globalAlpha=alpha;c.translate(x,y);c.rotate(-.5+keyTurn(p)+wind*.25* Math.sin(Math.PI*t)+(tactile?.key??0));c.scale(.82+.18*Math.cos(t*Math.PI*2),1);c.shadowColor='#100d0c88';c.shadowBlur=8;c.shadowOffsetY=6;const metal=c.createLinearGradient(-size/2,0,size/2,0);metal.addColorStop(0,'#8c6132');metal.addColorStop(.40+wind*.08,'#ebd3a0');metal.addColorStop(.55+wind*.08,'#a77b42');metal.addColorStop(1,'#d5ad6e');c.strokeStyle=metal;c.lineWidth=size*.13;c.beginPath();c.ellipse(0,-size*.44,size*.25,size*.32,0,0,Math.PI*2);c.moveTo(0,-size*.12);c.lineTo(0,size*.76);c.moveTo(0,size*.65);c.lineTo(size*.26,size*.65);c.moveTo(0,size*.42);c.lineTo(size*.20,size*.42);c.stroke();c.restore();}
  // Window-lit dust moves with the key beat while the envelope remains settled.
  alpha=gate(p,.805,.811,.818,.825);
  if(alpha){const t=progress(p,.805,.825);c.save();c.globalCompositeOperation='screen';

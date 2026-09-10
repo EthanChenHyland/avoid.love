@@ -7,11 +7,11 @@ const diff=(a,b)=>a.reduce((v,n,i)=>v+(i%4===3?0:Math.abs(n-b[i])),0)/(a.length*
 try{for(const [width,height] of [[390,844],[639,734],[1280,720]]){
  const page=await browser.newPage({viewport:{width,height}});await page.goto(process.env.QA_URL||'http://127.0.0.1:4188/');
  const go=async at=>{await scrollToChapter(page,at);await page.waitForTimeout(750)};
- const ratio=await page.evaluate(()=>{const track=document.querySelector('.scroll-track'),extra=document.querySelector('.kept-scroll-room').offsetHeight,key=document.querySelector('.key-scroll-room').offsetHeight,stay=document.querySelector('.stay-scroll-room').offsetHeight,base=track.offsetHeight-innerHeight-extra-key-stay,oldKey=extra/210*15;return (base*.018+key)/(base*.018+oldKey)});
+ const ratio=await page.evaluate(()=>{const track=document.querySelector('.scroll-track'),extra=document.querySelector('.kept-scroll-room').offsetHeight,key=document.querySelector('.key-scroll-room').offsetHeight,stay=document.querySelector('.stay-scroll-room').offsetHeight,base=track.offsetHeight-innerHeight-extra-key-stay-document.querySelector('.clock-scroll-room').offsetHeight-document.querySelector('.address-scroll-room').offsetHeight,oldKey=extra/210*15;return (base*.018+key)/(base*.018+oldKey)});
  assert.ok(Math.abs(ratio-1.5)<.004,`Key interval ratio ${ratio}`);
  await go(.9658);const outgoing=await pixels(page);await go(.9662);const delta=diff(outgoing,await pixels(page));assert.ok(delta<.03,`Morning handoff difference ${delta}`);
  await go(.976);await page.waitForFunction(()=>document.querySelector('#world').dataset.film==='stay'&&+document.querySelector('#world').dataset.frame>0);
- assert.equal(await page.locator('.chapter-links a').count(),19);
+ assert.equal(await page.locator('.chapter-links a').count(),20);
  assert.equal(await page.locator('#world').getAttribute('data-beat'),'stay');
  await page.screenshot({path:`qa/${width}-stay-live.png`});
  for(const at of [.986,1,.987]){await go(at);await page.waitForFunction(()=>+document.querySelector('#world').dataset.frame===90);}

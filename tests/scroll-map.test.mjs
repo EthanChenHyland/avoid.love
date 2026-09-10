@@ -25,3 +25,7 @@ test('the expanded key is exactly 1.5 times its old full interval and the new ch
   for(let i=0;i<=1000;i++){const p=i/1000;assert.ok(Math.abs(scrollToStory(at(p),range,extra,keyExtra,stayExtra)-p)<1e-12)}
  }
 });
+test('clock and address extensions round trip without changing the envelope interval',()=>{
+ const geometry=[33000,1772,410,1519,380,1013];
+ for(let i=0;i<=1000;i++){const p=i/1000;assert.ok(Math.abs(scrollToStory(storyToScroll(p,...geometry),...geometry)-p)<1e-12)}
+});

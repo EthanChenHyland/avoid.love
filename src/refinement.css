@@ -121,3 +121,8 @@ html[data-still=true] .stage *{transition:none!important}
 .key-scroll-room{height:var(--key-room)}
 .stay-scroll-room{position:absolute;visibility:hidden;pointer-events:none;height:180svh;width:1px}
 @media(max-width:700px){:root{--key-room:calc(47.7svh - .9dvh)}.scroll-track{height:calc(3190svh + var(--key-room))}}
+
+.scroll-track{height:calc(4355svh + var(--key-room))}
+.clock-scroll-room{position:absolute;visibility:hidden;pointer-events:none;height:45svh;width:1px}
+.address-scroll-room{position:absolute;visibility:hidden;pointer-events:none;height:120svh;width:1px}
+@media(max-width:700px){.scroll-track{height:calc(3355svh + var(--key-room))}}

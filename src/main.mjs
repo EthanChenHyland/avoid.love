@@ -16,7 +16,7 @@ const wipeCanvas=document.createElement('canvas'),wipeCtx=wipeCanvas.getContext(
 const narrow=matchMedia('(max-width:700px)'),reduced=matchMedia('(prefers-reduced-motion:reduce)');
 let still=reduced.matches,mobile=narrow.matches,w=innerWidth,h=innerHeight,dpr=1,p=0,target=0,raf=0,last=0,dirty=true,holding=false,held=0,active=0,manifest=null,loadVersion=0;
 const endpoints=new Map(),plates=new Map(),plateLoads=new Map(),sequences=new Map(),errors=new Set(),abort=new AbortController();
-const shots=['opening','opening-foot','notice-copy','late-copy','bridge-copy','little-copy','waiting-copy','unsent-copy','us-copy','distance-copy','trying-copy','impossible-copy','love-copy','hours-copy','detour-copy','light-copy','pressed-copy','blue-copy','space-copy','unsaid-copy','kept-copy','stay-copy'].map(id=>$('#'+id));
+const shots=['opening','opening-foot','notice-copy','late-copy','bridge-copy','little-copy','waiting-copy','unsent-copy','us-copy','distance-copy','trying-copy','impossible-copy','love-copy','hours-copy','detour-copy','light-copy','pressed-copy','blue-copy','space-copy','unsaid-copy','kept-copy','stay-copy','address-copy'].map(id=>$('#'+id));
 const nav=$('#chapters'),toggle=$('#chapters-toggle'),holdButton=$('#hold-memory'),letterObject=$('#letter-object');let letterPinned=false;
 let openingTravel=0,layoutReady=false;
 let filmBlending=false,mistSource=null;
@@ -144,7 +144,7 @@ function render(){
  if(p>=.95){if(still)depthPlate('love-morning',1,ending);else{const morning=film('impossible',1,get('hero-letters'));draw(p>=.966?film('stay',smooth(progress(p,.969,.986)),morning):morning,1,1,filmFocus(.72));}show('stay-copy',windowed(p,.958,.966,.985,.990));show('love-copy',smooth(progress(p,.990,.999)));$('#avoid-word').style.opacity=1-smooth(progress(p,.992,.998));}
  memory.draw(ctx,canvas,mistSource);gradeCopy(ctx,w,h,p);if(!still)letterLight(ctx,w,h,p,visitor,mobile);redThread(ctx,w,h,p,visitor,mobile,still);
  tactile.update();play.draw(ctx);enhancements.draw(ctx);book.update(p>.290&&p<.305?{x:w*(mobile?.20:.56),y:h*(mobile?.58:.43),w:w*(mobile?.78:.40),h:h*.30}:null);materials.draw(ctx,{p,w,h,mobile,still,visitor,bookTurn:book.turn,tactile});
- show('hours-copy',windowed(p,.205,.212,.223,.230));show('detour-copy',windowed(p,.614,.621,.641,.649));show('light-copy',windowed(p,.917,.925,.943,.950));show('pressed-copy',windowed(p,.285,.292,.305,.312));show('blue-copy',windowed(p,.390,.399,.414,.421));show('space-copy',windowed(p,.720,.728,.744,.751));show('unsaid-copy',windowed(p,.514,.521,.537,.545));show('kept-copy',windowed(p,.782,.788,.814,.822));
+ show('hours-copy',windowed(p,.205,.212,.223,.230));show('detour-copy',windowed(p,.614,.621,.641,.649));show('light-copy',windowed(p,.917,.925,.943,.950));show('pressed-copy',windowed(p,.285,.292,.305,.312));show('blue-copy',windowed(p,.390,.399,.414,.421));show('space-copy',windowed(p,.720,.728,.744,.751));show('unsaid-copy',windowed(p,.514,.520,.524,.530));show('address-copy',windowed(p,.530,.534,.543,.548));show('kept-copy',windowed(p,.782,.788,.814,.822));
  canvas.dataset.rendition=portrait?'portrait-film':'landscape-film';canvas.dataset.visitor=visitor.presence.toFixed(3);canvas.dataset.depth=String(!still&&depthAmount(p)>0);
  document.documentElement.style.setProperty('--mast-shade',String(1-smooth(progress(p,.95,.98))));const light=p>.963;document.body.classList.toggle('on-light',light);$('.stage').style.setProperty('--stage-shade',String(1-ending));
  const beat=[...narrative].reverse().find(c=>c.at<=p+.002)||narrative[0];$('#chapter-label').textContent=beat.name;canvas.dataset.beat=beat.id;for(const a of nav.querySelectorAll('a'))a.setAttribute('aria-current',String(a.hash==='#'+beat.id));
@@ -163,7 +163,7 @@ function tick(time){raf=0;if(document.hidden||document.querySelector('dialog[ope
  if(dirty||visitorMoving||p!==target||held!==Number(holding)){render();dirty=false}
  if(tactile.moving||book.moving||memory.moving||play.moving||enhancements.moving||filmBlending||visitorMoving||p!==target||held!==Number(holding))invalidate();else last=0;
 }
-function scrollGeometry(){return [Math.max(1,$('.scroll-track').offsetHeight-innerHeight),$('.kept-scroll-room').offsetHeight,$('.key-scroll-room').offsetHeight,$('.stay-scroll-room').offsetHeight]}
+function scrollGeometry(){return [Math.max(1,$('.scroll-track').offsetHeight-innerHeight),$('.kept-scroll-room').offsetHeight,$('.key-scroll-room').offsetHeight,$('.stay-scroll-room').offsetHeight,$('.clock-scroll-room').offsetHeight,$('.address-scroll-room').offsetHeight]}
 function updateTarget(){target=scrollToStory(scrollY,...scrollGeometry());invalidate()}
 function resize(){w=innerWidth;h=innerHeight;openingTravel=Math.min(40,Math.max(0,$('#opening').offsetTop-82));dpr=Math.min(devicePixelRatio||1,mobile?1.25:1.75);wipeCanvas.width=Math.round(w);wipeCanvas.height=Math.round(h);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);if(layoutReady&&!document.body.classList.contains('reading-active'))window.scrollTo({top:storyToScroll(target,...scrollGeometry()),behavior:'instant'});layoutReady=true;updateTarget();invalidate()}
 function jump(value){window.scrollTo({top:storyToScroll(value,...scrollGeometry()),behavior:still?'instant':'smooth'})}

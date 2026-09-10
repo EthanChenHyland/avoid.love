@@ -84,3 +84,9 @@ The drawer keeps its expanded scrolling distance and now eases into and out of i
 The new six-second morning-table film is integrated before the final Love title. Its chapter link is `#stay`; it includes reading, no-JavaScript, and reduced-motion versions. The original morning endpoint remains visible until new footage decodes, both films use the same crop, and the new endpoint is held through the final title. Generation cost: $0.9135.
 
 The key's full physical scroll interval is now 1.5 times its previous length. The envelope's timing remains unchanged. The added morning chapter has its own scroll space.
+
+## Twentieth chapter: The address
+
+A new postcard chapter sits between the unsaid letter and the shared memories. Its opaque paper carries a scroll-drawn red route and a postmark reveal; pointer/touch movement tilts the card and lifts its corner. The chapter has dedicated scroll space, a navigation anchor (`#address`), and reading/reduced-motion versions.
+
+The brass key enters as the envelope settles and completes one full rotation from .804 to .820, before its exit. The circular clock and digital waiting moment each receive 22.5svh of additional scrolling room, and the circular clock gains a sweeping red hand. Existing footage is unchanged.

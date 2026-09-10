@@ -1,7 +1,7 @@
 import {progress,smooth,mix,cover} from './timeline.mjs';
 const gate=(p,a,b,c,d)=>smooth(progress(p,a,b))*(1-smooth(progress(p,c,d)));
 const seeds=Array.from({length:48},(_,i)=>({a:i*2.399963,s:((i*47)%53)/53,z:((i*31)%47)/47}));
-const typeRanges=[['#opening .love',0,.015],['#notice-copy h2',.13,.16],['#little-copy h2',.244,.263],['#unsent-copy h2',.432,.452],['#us-copy h2',.55,.569],['#trying-copy h2',.755,.775],['#impossible-copy h2',.83,.85],['#love-copy h2',.990,.999],['#stay-copy h2',.958,.966],['#hours-copy h2',.205,.216],['#detour-copy h2',.614,.625],['#light-copy h2',.917,.93],['#pressed-copy h2',.285,.294],['#blue-copy h2',.390,.402],['#space-copy h2',.720,.731],['#unsaid-copy h2',.514,.524],['#kept-copy h2',.782,.788]];
+const typeRanges=[['#address-copy h2',.530,.535],['#opening .love',0,.015],['#notice-copy h2',.13,.16],['#little-copy h2',.244,.263],['#unsent-copy h2',.432,.452],['#us-copy h2',.55,.569],['#trying-copy h2',.755,.775],['#impossible-copy h2',.83,.85],['#love-copy h2',.990,.999],['#stay-copy h2',.958,.966],['#hours-copy h2',.205,.216],['#detour-copy h2',.614,.625],['#light-copy h2',.917,.93],['#pressed-copy h2',.285,.294],['#blue-copy h2',.390,.402],['#space-copy h2',.720,.731],['#unsaid-copy h2',.514,.524],['#kept-copy h2',.782,.788]];
 function splitHeading(el){
  const walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT),nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
  for(const node of nodes){const fragment=document.createDocumentFragment();for(const word of node.textContent.split(/(\s+)/)){if(!word)continue;if(/^\s+$/.test(word)){fragment.append(document.createTextNode(word));continue}const span=document.createElement('span');span.className='kinetic-word';span.textContent=word;fragment.append(span)}node.replaceWith(fragment)}return [...el.querySelectorAll('.kinetic-word')];
@@ -22,6 +22,7 @@ export function chapterEffects({state,wake,signal}){
  c.strokeStyle='#d9bc88';c.lineWidth=1;c.beginPath();c.arc(0,0,r,0,Math.PI*2);c.stroke();c.beginPath();c.arc(0,0,r*.91,-Math.PI/2,-Math.PI/2+Math.PI*2*smooth(t));c.stroke();
  for(let i=0;i<60;i++){const a=i*Math.PI/30;c.beginPath();c.moveTo(Math.sin(a)*r,Math.cos(a)*r);c.lineTo(Math.sin(a)*r*(i%5?.97:.9),Math.cos(a)*r*(i%5?.97:.9));c.globalAlpha=alpha*(i%5?.25:.8);c.stroke()}
  for(const [length,angle,width] of [[.73,t*Math.PI*5,1],[.45,t*Math.PI*.6,2]]){c.save();c.rotate(angle);c.lineWidth=width;c.globalAlpha=alpha*.85;c.beginPath();c.moveTo(0,r*.1);c.lineTo(0,-r*length);c.stroke();c.restore()}
+ c.save();c.rotate(t*Math.PI*12);c.strokeStyle='#bf5948';c.lineWidth=.8;c.globalAlpha=alpha*.8;c.beginPath();c.moveTo(0,r*.18);c.lineTo(0,-r*.83);c.stroke();c.restore();
  c.fillStyle='#e3caa0';c.beginPath();c.arc(0,0,3,0,Math.PI*2);c.fill();c.restore();}
  // A street plan builds itself beneath the detour, and a moving red route finds its way home.
  alpha=gate(p,.610,.621,.641,.650);

@@ -250,3 +250,20 @@ Audit results:
 - New chapter screenshots reviewed at mobile and desktop sizes.
 
 The final Love reveal remains after the new chapter. The original six films and existing envelope/key motion assets remain unchanged.
+
+### September 10 — full key rotation, The address, and clock pacing
+
+The key enters earlier (.802–.804), makes one complete eased 2π rotation from .804 to .820, then exits by .824. The envelope is held at frame 90 throughout the rotation. The key returns to its initial projected scale and orientation at the end; the tactile response remains available.
+
+Added The address as chapter 20, using original canvas-drawn postcard artwork over the existing letter setting. The card remains opaque, slides into view, traces its ink route with scrolling, reveals a postmark, and responds to pointer/touch with tilt and a lifted corner. No new footage was generated for this chapter. Added 120svh only to this chapter. Both clock moments gain 22.5svh each (45svh total), with a new red sweeping hand on the circular clock. Other scene timing remains unchanged.
+
+Validation:
+- 19 unit tests and production build pass, including a full-rotation assertion, held-envelope timing, and invertible multi-interval scroll mapping.
+- 150 chapter/layout checkpoints at six viewport sizes: no reported text collisions, clipping, or horizontal overflow.
+- 60 movie/endpoint checks, letter controls, continuous drawer traversal, reverse/fallback morning handoff and final frame holds pass.
+- The address navigation, fully visible copy, native vertical touch scrolling, and reduced motion pass at 390×844, 844×390, and 1280×720; screenshots visually reviewed at all three sizes.
+- Seven revised boundaries sampled forward/reverse at two sizes without runtime errors.
+- Effects at five sizes settle with zero idle draws; original book keyboard/drag/touch/cleanup checks pass.
+- All 20 chapters pass expanded navigation and no-JavaScript checks. Offline-film and reduced-motion fallback audits pass.
+
+Browser checks use Chromium. Existing eight film assets remain unchanged.

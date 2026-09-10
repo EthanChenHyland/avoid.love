@@ -38,3 +38,5 @@ export function keptFilmProgress(p){
  const [x,a]=keptTiming[i],[end,b]=keptTiming[i+1],span=end-x,u=(t-x)/span,u2=u*u,u3=u2*u;
  return clamp((2*u3-3*u2+1)*a+(u3-2*u2+u)*span*keptTangents[i]+(-2*u3+3*u2)*b+(u3-u2)*span*keptTangents[i+1]);
 }
+
+export const keyTurn=p=>Math.PI*2*smooth(progress(p,.804,.820));
