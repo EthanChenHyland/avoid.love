@@ -54,5 +54,26 @@
     "desktop": "/frames/stay-longer-film/desktop",
     "mobile": "/frames/stay-longer-film/mobile",
     "video": "/films/stay-longer-film.mp4"
+  },
+  "proof": {
+    "count": 91,
+    "fps": 15,
+    "desktop": "/frames/small-proof-film/desktop",
+    "mobile": "/frames/small-proof-film/mobile",
+    "video": "/films/small-proof-film.mp4"
+  },
+  "home": {
+    "count": 91,
+    "fps": 15,
+    "desktop": "/frames/almost-home-film/desktop",
+    "mobile": "/frames/almost-home-film/mobile",
+    "video": "/films/almost-home-film.mp4"
+  },
+  "pause": {
+    "count": 91,
+    "fps": 15,
+    "desktop": "/frames/pause-film/desktop",
+    "mobile": "/frames/pause-film/mobile",
+    "video": "/films/pause-film.mp4"
   }
 }

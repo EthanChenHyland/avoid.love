@@ -90,3 +90,11 @@ The key's full physical scroll interval is now 1.5 times its previous length. Th
 A new postcard chapter sits between the unsaid letter and the shared memories. Its opaque paper carries a scroll-drawn red route and a postmark reveal; pointer/touch movement tilts the card and lifts its corner. The chapter has dedicated scroll space, a navigation anchor (`#address`), and reading/reduced-motion versions.
 
 The brass key enters as the envelope settles and completes one full rotation from .804 to .820, before its exit. The circular clock and digital waiting moment each receive 22.5svh of additional scrolling room, and the circular clock gains a sweeping red hand. Existing footage is unchanged.
+
+## Twenty-five chapters and a looping finale
+
+Added The pause, Small proof, Almost home, Between trains, and Again. Three new six-second OpenRouter films animate the café, paper keepsakes, and rainy street. Each has 91 scrubbed frames and a mobile export; its action is timed to the visible new chapter. Existing eight film assets are unchanged. The five chapters share 650svh of additional scrolling, with the drawer/key pacing preserved.
+
+New integrated effects include a folding keepsake, touch-responsive station markers, reflected street lights, and a projected petal bloom. At the ending, petals gather, rest, and drift apart in an indefinite 11-second cycle. It starts automatically, responds to pointer/touch, pauses outside the ending, and is disabled in still/reduced-motion mode. The compact still timeline clears cinematic spacers so every chapter remains reachable.
+
+Generation job specifications and sanitized cost/status records are in `research/five-chapters-video-jobs.json` and the three corresponding `video-*.json` files. Total reported generation cost: $2.7405. Raw polling records remain ignored. New browser checks: `scripts/qa-finale.mjs` and `scripts/qa-new-film-loading.mjs`.

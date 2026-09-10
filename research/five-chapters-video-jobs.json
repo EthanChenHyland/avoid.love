@@ -1,0 +1,35 @@
+[
+  {
+    "name": "pause-film",
+    "model": "bytedance/seedance-2.0",
+    "duration": 6,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "generate_audio": false,
+    "first": "hero-cafe.png",
+    "last": "hero-cafe.png",
+    "prompt": "A continuous restrained photorealistic six-second shot using precisely the supplied composition. Completely locked camera, identical framing and focus throughout. Very faint steam rises naturally from the existing coffee. Existing window reflections drift gently and existing flower petals breathe almost imperceptibly on their attached stem. Preserve the exact inventory, geometry, colors and placement of the supplied scene. No new objects, people, vehicles, hands, ribbons or text. No appearance or disappearance, no morphing, no camera motion, no cut or dissolve. Material movement is subtle and slow. Return to the exact initial reference composition and lighting by the final second, then hold."
+  },
+  {
+    "name": "small-proof-film",
+    "model": "bytedance/seedance-2.0",
+    "duration": 6,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "generate_audio": false,
+    "first": "little-things.png",
+    "last": "little-things.png",
+    "prompt": "A continuous restrained photorealistic six-second shot using precisely the supplied composition. Completely locked camera, identical framing and focus throughout. A minute, physically believable breeze lifts only an existing loose paper corner and gently settles it again. The existing pressed flower stays in place; the other objects never move. Preserve the exact inventory, geometry, colors and placement of the supplied scene. No new objects, people, vehicles, hands, ribbons or text. No appearance or disappearance, no morphing, no camera motion, no cut or dissolve. Material movement is subtle and slow. Return to the exact initial reference composition and lighting by the final second, then hold."
+  },
+  {
+    "name": "almost-home-film",
+    "model": "bytedance/seedance-2.0",
+    "duration": 6,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "generate_audio": false,
+    "first": "us-street.png",
+    "last": "us-street.png",
+    "prompt": "A continuous restrained photorealistic six-second shot using precisely the supplied composition. Completely locked camera, identical framing and focus throughout. Only existing light reflections in the wet street shimmer gently. If rain is visible it falls softly and consistently. Buildings, street furniture and every existing object remain absolutely stationary. Preserve the exact inventory, geometry, colors and placement of the supplied scene. No new objects, people, vehicles, hands, ribbons or text. No appearance or disappearance, no morphing, no camera motion, no cut or dissolve. Material movement is subtle and slow. Return to the exact initial reference composition and lighting by the final second, then hold."
+  }
+]

@@ -5,7 +5,7 @@ const browser=await chromium.launch({channel:'chrome'});
 try{for(const [width,height] of [[390,844],[844,390],[1280,720]]){
  const p=await browser.newPage({viewport:{width,height},hasTouch:true}),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto(process.env.QA_URL||'http://127.0.0.1:4188/');
  await p.getByRole('button',{name:'The story',exact:true}).click();await p.locator('.chapter-links a[href="#address"]').click();await p.waitForFunction(()=>document.querySelector('#world').dataset.beat==='address');await p.waitForTimeout(800);
- assert.equal(await p.locator('.chapter-links a').count(),20);
+ assert.equal(await p.locator('.chapter-links a').count(),25);
  assert.ok(await p.locator('#address-copy').evaluate(e=>+getComputedStyle(e).opacity)>.99);
  await p.mouse.move(width*.75,height*.73);await p.waitForTimeout(400);await p.screenshot({path:`qa/${width}-address-live.png`});
  const y=await p.evaluate(()=>scrollY),cdp=await p.context().newCDPSession(p);

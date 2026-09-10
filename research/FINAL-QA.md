@@ -267,3 +267,24 @@ Validation:
 - All 20 chapters pass expanded navigation and no-JavaScript checks. Offline-film and reduced-motion fallback audits pass.
 
 Browser checks use Chromium. Existing eight film assets remain unchanged.
+
+### September 10 — five new chapters, three films, and a continuous finale
+
+Added The pause, Small proof, Almost home, Between trains, and Again: 25 narrative chapters, with 650svh distributed across their own intervals. The existing drawer/key physical timing is preserved. Three generated six-second films use the existing café, keepsake, and rainy-street references; each exports 91 frames. Their movement is concentrated in their visible chapter intervals. All eight previously accepted public film/frame assets remain unchanged.
+
+OpenRouter reported $0.9135 per new film ($2.7405 total). The first café submission returned HTTP 500; a retry was accepted and completed. Contact sheets inspected for object continuity. Maximum adjacent mean RGB changes at 160×90: café 0.376%, keepsake 0.930%, street 0.708%. The original café endpoint and new first frame differ by 1.371% mean RGB at source size; they share framing and switch opaquely. Encoding/source differences remain; these figures do not imply pixel-identical footage.
+
+New effects: folding keepsake, responsive station markers, reflected street lights, kinetic chapter headings, and a projected petal bloom. At the user's request the final bloom loops indefinitely on an 11-second gather/rest/release cycle. Geometry and opacity meet at the cycle boundary. It responds to pointer/touch and suspends outside the ending, in hidden tabs, and for reduced motion. Other scenes still settle when idle.
+
+Audit found and fixed a duplicate Waiting caption, compact reduced-motion spacers exceeding the page height, and the 25-link menu centering its first links above the viewport.
+
+Validation:
+- 22 unit tests and production build pass, including loop continuity, pause/reduced-motion behavior, invertible chapter mapping and unchanged drawer duration.
+- 246 layout checkpoints across 320×740, 390×844, 639×734, 701×900, 844×390 and 1280×720: no remaining text collisions, clipping or horizontal overflow.
+- 68 film/held-endpoint checks pass, with letter interaction and reduced-motion checks.
+- Ten delayed-frame new-film checks at mobile/desktop sizes pass forward and backward; stationary footage holds and the two-sequence cache budget is retained.
+- Finale continues beyond the first cycle at mobile/desktop sizes; zero idle draws outside the ending and in reduced motion.
+- Expanded navigation at four sizes, 25 no-JavaScript chapters, offline-film fallback and reduced motion pass.
+- Drawer continuous traversal with delayed frames passes at mobile/desktop sizes (largest decoded step 3 / 2); resize preserves position. Book keyboard, dragging and cleanup pass.
+- Integrated effects and photograph keyboard controls pass at five sizes, with zero idle draws away from the looping ending.
+- New film contact sheets, added chapters, and finale visually reviewed at mobile/desktop sizes. Browser automation uses Chromium, not the embedded browser.

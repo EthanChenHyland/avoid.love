@@ -126,3 +126,11 @@ html[data-still=true] .stage *{transition:none!important}
 .clock-scroll-room{position:absolute;visibility:hidden;pointer-events:none;height:45svh;width:1px}
 .address-scroll-room{position:absolute;visibility:hidden;pointer-events:none;height:120svh;width:1px}
 @media(max-width:700px){.scroll-track{height:calc(3355svh + var(--key-room))}}
+
+.expansion-scroll-room{position:absolute;visibility:hidden;pointer-events:none;height:650svh;width:1px}
+.scroll-track{height:calc(5005svh + var(--key-room))}
+@media(max-width:700px){.scroll-track{height:calc(4005svh + var(--key-room))}}
+/* The compact still timeline must not retain cinematic spacers larger than itself. */
+html[data-still=true] .scroll-track :is(.kept-scroll-room,.key-scroll-room,.stay-scroll-room,.clock-scroll-room,.address-scroll-room,.expansion-scroll-room){height:0}
+/* An expanded chapter list scrolls from its first link instead of centering above the viewport. */
+#chapters:not([hidden]){justify-content:flex-start;padding-top:max(80px,8vh)}
