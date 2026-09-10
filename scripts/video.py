@@ -11,6 +11,12 @@ def api(url,body=None):
  if urllib.parse.urlparse(url).hostname!='openrouter.ai':raise ValueError('Untrusted credential destination')
  req=urllib.request.Request(url,data=json.dumps(body).encode() if body else None,headers={'Authorization':'Bearer '+credential(),'Content-Type':'application/json'})
  return opener.open(req,timeout=180)
+def save_job(path,data):
+ # Keep polling identifiers and signed URLs in ignored local production storage.
+ private=ROOT/'art-source'/f"{data['job']['name']}-job.json"
+ private.write_text(json.dumps(data,indent=2))
+ public={'job':data['job'],'result':{k:data['result'][k] for k in ['status','usage'] if k in data['result']}}
+ path.write_text(json.dumps(public,indent=2))
 mode=sys.argv[1]
 if mode=='submit':
  jobs=json.load(open(sys.argv[2]))
@@ -23,7 +29,7 @@ if mode=='submit':
    if job.get(label):body['frame_images'].append({'type':'image_url','frame_type':label+'_frame','image_url':{'url':'data:image/png;base64,'+base64.b64encode((ROOT/'art-source'/job[label]).read_bytes()).decode()}})
   try:
    with api('https://openrouter.ai/api/v1/videos',body) as r:result=json.load(r)
-   path.write_text(json.dumps({'job':job,'result':result},indent=2));print(name,result['status'])
+   save_job(path,{'job':job,'result':result});print(name,result['status'])
   except urllib.error.HTTPError as e:print(name,'HTTP',e.code)
 elif mode=='poll':
  for path in sorted((ROOT/'research').glob('video-*.json')):
@@ -31,9 +37,12 @@ elif mode=='poll':
   if 'result' not in data:continue
   name=data['job']['name'];out=ROOT/'art-source'/f'{name}.mp4'
   if out.exists():print(name,'downloaded');continue
+  private=ROOT/'art-source'/f'{name}-job.json'
+  if 'polling_url' not in data['result'] and private.exists():data=json.loads(private.read_text())
+  if 'polling_url' not in data['result']:print(name,'no local polling record');continue
   try:
    with api(data['result']['polling_url']) as r:result=json.load(r)
-   data['result']=result;path.write_text(json.dumps(data,indent=2));print(name,result['status'],result.get('usage',{}))
+   data['result']=result;save_job(path,data);print(name,result['status'],result.get('usage',{}))
    if result['status']=='completed':
     # Use the documented trusted content endpoint; strip auth on cross-origin redirect.
     with api('https://openrouter.ai/api/v1/videos/'+result['id']+'/content?index=0') as r:out.write_bytes(r.read())

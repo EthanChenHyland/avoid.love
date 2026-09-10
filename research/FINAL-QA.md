@@ -225,3 +225,11 @@ The key now appears only after .806, after the envelope is held at frame 90. It 
 Comparison with https://pear.no/ on this date: the public site lists four main chapters. Chromium measurements after loading at 390×844 gave about 73 viewport heights for Pear versus 30.1 here; at 1280×720, about 53.5 versus 40.1. These are measurements at those viewports, not universal reading durations. Recommendation: add chapters when there is new story content, rather than padding current scenes solely to match scroll length.
 
 Validation: 15 unit tests and production build pass; 78 layout checkpoints spanning the revised sequence at six sizes show no collisions, clipping, or horizontal overflow. Mobile/desktop continuous delayed-frame traversals and stationary/reverse/reduced-motion tests pass. Visually reviewed the earlier envelope and the separate key moment at mobile size.
+
+### September 10 — restore gentle key motion and begin next chapter
+
+Restored the key's previous .9-radian scroll turn with its existing pointer rocking, replacing the full revolution. The key still appears only after the envelope settles. Added 15svh of physical scroll space exclusively to the key interval (.806–.824); envelope duration and other chapter pacing are unchanged. The scroll map and test navigation account for both extra intervals.
+
+Validation: 16 unit tests, build, mobile/desktop continuous delayed-frame traversal, resize preservation, and playback/hold/reverse/reduced-motion checks pass.
+
+Started OpenRouter production for Stay a little longer, a proposed nineteenth chapter using the existing morning-table reference. The generation request was accepted and the last checked status is pending. It is not yet integrated. See `stay-a-little-longer.md` and the sanitized job status. The production script now keeps polling identifiers and signed media URLs in ignored local storage while writing only job specifications and status/usage into public research records.

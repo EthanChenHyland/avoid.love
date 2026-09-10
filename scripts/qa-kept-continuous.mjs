@@ -8,7 +8,7 @@ try {for(const [width,height] of [[390,844],[1280,720]]){
  await page.goto(process.env.QA_URL||'http://127.0.0.1:4188/');
  await scrollToChapter(page,.789);await page.waitForTimeout(1000);
  const result=await page.evaluate(async()=>{
-  const world=document.querySelector('#world'),start=scrollY,extra=document.querySelector('.kept-scroll-room').offsetHeight,range=document.querySelector('.scroll-track').offsetHeight-innerHeight,span=.015*(range-extra)+extra,samples=[];
+  const world=document.querySelector('#world'),start=scrollY,extra=document.querySelector('.kept-scroll-room').offsetHeight,range=document.querySelector('.scroll-track').offsetHeight-innerHeight,span=.015*(range-extra-document.querySelector('.key-scroll-room').offsetHeight)+extra,samples=[];
   await new Promise(resolve=>{let begin;function step(now){begin??=now;const t=Math.min(1,(now-begin)/7000);scrollTo(0,start+span*t);samples.push({p:+world.dataset.progress,frame:+world.dataset.frame,opacity:+getComputedStyle(document.querySelector('#kept-copy')).opacity});if(t<1)requestAnimationFrame(step);else resolve()}requestAnimationFrame(step)});
   return {span,samples};
  });

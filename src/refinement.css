@@ -109,6 +109,8 @@ html[data-still=true] .stage *{transition:none!important}
 #book-object:focus-visible{outline:1px solid #eed7ae;outline-offset:6px;border-radius:3px}
 
 /* Extra scrolling room belongs exclusively to What stayed. */
-.scroll-track{height:4010svh}
+.scroll-track{height:4025svh}
 .kept-scroll-room{position:absolute;visibility:hidden;pointer-events:none;height:210svh;width:1px}
-@media(max-width:700px){.scroll-track{height:3010svh}}
+@media(max-width:700px){.scroll-track{height:3025svh}}
+
+.key-scroll-room{position:absolute;visibility:hidden;pointer-events:none;height:15svh;width:1px}
