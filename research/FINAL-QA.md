@@ -203,3 +203,9 @@ Validation:
 - 15 unit tests and the production build pass.
 
 Visually reviewed mobile drawer/birds, desktop thread response, and the source-frame pair behind the largest boundary difference. Browser verification used Chromium; it is not a recording of the embedded app browser.
+
+### September 10 — restore envelope details and rebalance drawer pacing
+
+Restored the small red seals on floating envelopes at the user's request; the removed standalone wax seal stays removed. Reduced the drawer's additional scrolling room from 250svh to 210svh, shortening its total visible animation span by roughly 14%. Retimed the existing clip with a continuous monotonic curve: the paper movement in the early source frames takes more of the chapter, and the mostly stationary tail takes less. This uses the existing footage, not a newly generated clip, and retains scroll control, reverse playback, eased endpoints, and held handoffs.
+
+Validation: 15 unit tests, production build, continuous scrolling with delayed frames, resize preservation, and entry/exit/reverse/reduced-motion checks pass on mobile and desktop. Intermediate frame assertions account for physical scroll pixel rounding while endpoint and stationary-frame checks remain strict.
