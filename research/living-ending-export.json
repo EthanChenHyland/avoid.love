@@ -1,0 +1,10 @@
+{
+  "source": "morning-living-film",
+  "duration": 18,
+  "fps": 24,
+  "frames": 432,
+  "firstSourceFrame": 0,
+  "lastSourceFrame": 0,
+  "maximumSourceFrameStep": 2,
+  "retiming": "cosine forward/reverse; same frame at seam; zero-speed turns"
+}

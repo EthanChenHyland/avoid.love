@@ -1,0 +1,20 @@
+{
+  "job": {
+    "name": "morning-living-film",
+    "model": "bytedance/seedance-2.0",
+    "duration": 6,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "generate_audio": false,
+    "first": "morning-loop-reference.png",
+    "last": "morning-loop-reference.png",
+    "prompt": "Photorealistic living photograph of this exact warm morning cafe table. Completely locked camera, no zoom or reframing. A gentle breeze visibly rocks the existing attached red poppy petals a little from side to side. Soft existing window light and shadows slowly breathe across the table. The free corner of the existing cream envelope lifts slightly and settles softly. Keep motion slow, legible, continuous and physically believable. Both cups, saucers, glass vase, flower stem base, chair and table remain absolutely fixed in their exact original geometry and locations. Do not add any objects, plants, curtains, ribbons, seals, letters, people or text. No coffee movement, no steam plumes, no cuts, no fade, no dissolve, no morphing or object appearance. Finish in the exact supplied reference composition. This is a gently alive background, with natural back-and-forth motion suitable for an indefinitely repeating ambient film."
+  },
+  "result": {
+    "status": "completed",
+    "usage": {
+      "cost": 0.9135,
+      "is_byok": false
+    }
+  }
+}

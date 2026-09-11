@@ -307,3 +307,18 @@ Validation completed during this pass:
 - All five extended chapters settle to zero idle draws after pointer interaction on mobile and desktop. Their dedicated scroll measurement is 11 viewport heights; the reduced-motion ending remains reachable.
 - Screenshots of the new atmosphere layers reviewed at mobile and desktop sizes. Browser automation uses Chromium.
 - Continuous delayed-frame drawer traversal remains stable after the cache fix: maximum decoded step 2 on mobile / 3 on desktop, no blank frames, and resize preserves story position.
+
+### September 11 — generated living background for the finale
+
+Generated a new six-second morning-table film from the exact accepted Stay endpoint. The poppy, envelope corner and window illumination move within the background. Existing foreground petals remain. Reported OpenRouter cost: $0.9135; job metadata is sanitized in research, with raw polling data ignored.
+
+Encoded an 18-second, 24fps cosine forward/reverse loop (432 frames), with the same source frame at both sides of the seam and zero-speed turns. Native muted inline video uses a 1280px desktop encode or 960px mobile encode and no additional frame-sequence cache. It warms near the ending, reveals through a feathered window mask in Again (.988–.994), and continues while the final title is stationary. Reverse scrolling closes the same reveal before pausing/resetting the video. Chapter menu, hidden-page and reduced-motion states pause playback. Missing footage and blocked autoplay retain the accepted morning fallback.
+
+Source contact sheet and mobile/desktop screenshots reviewed. Loop-edge mean RGB difference at 160×90 is 0.129% desktop and 0.224% mobile after encoding; incoming source/reference difference is 1.485%. The shared crop and feathered reveal handle the handoff; these are not claims of pixel-identical encodings. Existing films remain untouched.
+
+Validation:
+- 26 unit tests and production build pass.
+- 54 ending/layout checkpoints across six viewport sizes show no collisions, clipping or overflow.
+- Native background advances without scrolling and loops past its endpoint on portrait mobile, landscape and desktop; all are muted.
+- Reverse handoff, pause/reset on departure, menu pause/resume, reduced motion, and missing-film fallback pass in Chromium.
+- Blocked-autoplay simulation retains the Stay fallback. The combined background/foreground finale continues beyond one full cycle; both mobile and desktop settle to zero draws after departure and with reduced motion.

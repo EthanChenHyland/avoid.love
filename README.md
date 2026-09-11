@@ -104,3 +104,11 @@ Generation job specifications and sanitized cost/status records are in `research
 The five newest chapters now share 1,100svh of dedicated space (previously 650svh), adding 4.5 viewport heights to the story while preserving the original chapter, envelope, and key intervals. Their existing generated films unfold more slowly through the added space. The final petal loop now takes 18 seconds, including a three-second bloom hold.
 
 `src/scene-atmosphere.mjs` adds café steam, a developing embossed impression, puddle ripples, passing train-window light, and soft morning leaf shadows. These draw beneath the foreground objects and copy, respond to scroll/pointer movement, reverse with scrolling, and disable in still mode. No additional footage was generated for this pass.
+
+## A living background at the ending
+
+A new OpenRouter-generated morning film animates the background itself: the poppy rocks, the envelope corner lifts, and window light travels across the room. The existing foreground petal loop remains. The background enters through the existing feathered window reveal in Again and continues automatically behind the final Love title, including when scrolling stops.
+
+The native muted inline video loops over 18 seconds. A cosine forward/reverse retiming returns to the same source frame with zero-speed turns; desktop and mobile encodes are provided. It warms only near the ending, pauses outside it or behind the chapter menu, resets on departure, and disables in still/reduced-motion mode. Failed loading or blocked autoplay keeps the original morning film as fallback. No original film assets were changed. Generation cost: $0.9135.
+
+Production: `scripts/prepare-living-film.py`. Playback: `src/living-background.mjs`. Browser coverage: `scripts/qa-living-background.mjs`.

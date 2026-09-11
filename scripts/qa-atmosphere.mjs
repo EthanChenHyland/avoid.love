@@ -7,7 +7,7 @@ for(const [width,height] of [[390,844],[1280,720]]){
  for(const [id,at] of [['pause',.233],['proof',.317],['home',.605],['platform',.712],['again',.992]]){
   await scrollToChapter(p,at);await p.waitForFunction(at=>Math.abs(+document.querySelector('#world').dataset.progress-at)<.0002,at);await p.waitForTimeout(900);
   await p.mouse.move(width*.85,height*.7);await p.waitForTimeout(5000);await p.screenshot({path:`qa/atmosphere/${width}-${id}.png`});
-  const draws=await p.evaluate(async()=>{const c=document.querySelector('#world').getContext('2d'),fill=c.fillRect;let n=0;c.fillRect=function(...args){n++;return fill.apply(this,args)};await new Promise(r=>setTimeout(r,400));c.fillRect=fill;return n});if(draws)throw Error(`Idle redraws in ${id}: ${draws}`);
+  const draws=await p.evaluate(async()=>{const c=document.querySelector('#world').getContext('2d'),fill=c.fillRect;let n=0;c.fillRect=function(...args){n++;return fill.apply(this,args)};await new Promise(r=>setTimeout(r,400));c.fillRect=fill;return n});if(id==='again'&&!draws)throw Error('Living ending did not animate');if(id!=='again'&&draws)throw Error(`Idle redraws in ${id}: ${draws}`);
   report.push({width,id,idleDraws:draws});
  }
  // Check that new physical space does not leak into the accepted envelope interval.

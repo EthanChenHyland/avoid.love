@@ -1,6 +1,7 @@
 import {drawSceneAtmosphere} from './scene-atmosphere.mjs';
 import {expansionBeats} from './expansion.mjs';
 import {drawExpansionScenes} from './expansion-scenes.mjs';
+import {livingBackground} from './living-background.mjs';
 import {finale} from './finale.mjs';
 import {clamp,progress,smooth,mix,cover,firstAct,motionScale,keptFilmProgress} from './timeline.mjs';
 import {storyToScroll,scrollToStory} from './scroll-map.mjs';
@@ -28,6 +29,7 @@ const memory=memories({state:()=>({p,w,h,mobile,still}),wake:invalidate,signal:a
 const play=playthings({state:()=>({p,w,h,mobile,still,visitor}),wake:invalidate,signal:abort.signal});
 const book=bookInput({state:()=>({turn:smooth(progress(p,.291,.303))}),wake:invalidate,signal:abort.signal});
 const materials=materialScenes();
+const living=livingBackground({state:()=>({p,still,mobile,obscured:!nav.hidden||document.body.classList.contains('reading-active')}),wake:invalidate,signal:abort.signal});
 const bloom=finale({state:()=>({p,w,h,mobile,still,visitor})});
 const tactile=materialResponse({state:()=>({p,w,h,still}),wake:invalidate,signal:abort.signal});
 const enhancements=chapterEffects({state:()=>({p,w,h,mobile,still,visitor,plates}),wake:invalidate,signal:abort.signal});
@@ -148,6 +150,7 @@ function render(){
   show('impossible-copy',windowed(p,.83,.848,.89,.916));
  }
  if(p>=.95){if(still)depthPlate('love-morning',1,ending);else{const morning=film('impossible',1,get('hero-letters'));draw(p>=.966?film('stay',smooth(progress(p,.969,.986)),morning):morning,1,1,filmFocus(.72));}show('stay-copy',windowed(p,.958,.966,.984,.988));show('love-copy',smooth(progress(p,.997,1)));$('#avoid-word').style.opacity=1-smooth(progress(p,.997,.9998));}
+ const livingFrame=living.sample();if(livingFrame)wipe(livingFrame,progress(p,.988,.994),'window',1,filmFocus(.72));canvas.dataset.background=living.status;canvas.dataset.backgroundTime=living.time.toFixed(3);
  drawSceneAtmosphere(ctx,{p,w,h,mobile,still,visitor});memory.draw(ctx,canvas,mistSource);gradeCopy(ctx,w,h,p);if(!still)letterLight(ctx,w,h,p,visitor,mobile);redThread(ctx,w,h,p,visitor,mobile,still);
  tactile.update();play.draw(ctx);enhancements.draw(ctx);book.update(p>.290&&p<.305?{x:w*(mobile?.20:.56),y:h*(mobile?.58:.43),w:w*(mobile?.78:.40),h:h*.30}:null);materials.draw(ctx,{p,w,h,mobile,still,visitor,bookTurn:book.turn,tactile});drawExpansionScenes(ctx,{p,w,h,mobile,still,visitor});bloom.draw(ctx);for(const beat of expansionBeats)show(beat.id+'-copy',windowed(p,...beat.range));
  show('hours-copy',windowed(p,.205,.212,.220,.225));show('detour-copy',windowed(p,.614,.621,.641,.649));show('light-copy',windowed(p,.917,.925,.943,.950));show('pressed-copy',windowed(p,.285,.292,.303,.309));show('blue-copy',windowed(p,.390,.399,.414,.421));show('space-copy',windowed(p,.720,.728,.744,.751));show('unsaid-copy',windowed(p,.514,.520,.524,.530));show('address-copy',windowed(p,.530,.534,.543,.548));show('kept-copy',windowed(p,.782,.788,.814,.822));
@@ -167,7 +170,7 @@ function tick(time){raf=0;if(document.hidden||document.querySelector('dialog[ope
  const visitorMoving=visitor.step(dt,!still&&nav.hidden&&!document.body.classList.contains('reading-active')&&([0,1,2,3,4,5,6,7,8,9].includes(active)));
  const next=Math.max(0,chapterIndex(p));if(next!==active){holding=false;holdButton.setAttribute('aria-pressed','false');active=next;prepareNearby();prepareFilms();for(const a of nav.querySelectorAll('a'))a.setAttribute('aria-current',String(a.hash==='#'+([...narrative].reverse().find(c=>c.at<=p+.002)?.id||'before')))}
  if(dirty||visitorMoving||p!==target||held!==Number(holding)){render();dirty=false}
- if(bloom.moving||tactile.moving||book.moving||memory.moving||play.moving||enhancements.moving||filmBlending||visitorMoving||p!==target||held!==Number(holding))invalidate();else last=0;
+ if(living.moving||bloom.moving||tactile.moving||book.moving||memory.moving||play.moving||enhancements.moving||filmBlending||visitorMoving||p!==target||held!==Number(holding))invalidate();else last=0;
 }
 function scrollGeometry(){return [Math.max(1,$('.scroll-track').offsetHeight-innerHeight),$('.kept-scroll-room').offsetHeight,$('.key-scroll-room').offsetHeight,$('.stay-scroll-room').offsetHeight,$('.clock-scroll-room').offsetHeight,$('.address-scroll-room').offsetHeight,$('.expansion-scroll-room').offsetHeight]}
 function updateTarget(){target=scrollToStory(scrollY,...scrollGeometry());invalidate()}
