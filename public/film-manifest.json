@@ -75,5 +75,12 @@
     "desktop": "/frames/pause-film/desktop",
     "mobile": "/frames/pause-film/mobile",
     "video": "/films/pause-film.mp4"
+  },
+  "spare": {
+    "count": 91,
+    "fps": 15,
+    "desktop": "/frames/spare-cup-film/desktop",
+    "mobile": "/frames/spare-cup-film/mobile",
+    "video": "/films/spare-cup-film.mp4"
   }
 }

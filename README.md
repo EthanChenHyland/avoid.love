@@ -112,3 +112,9 @@ A new OpenRouter-generated morning film animates the background itself: the popp
 The native muted inline video loops over 18 seconds. A cosine forward/reverse retiming returns to the same source frame with zero-speed turns; desktop and mobile encodes are provided. It warms only near the ending, pauses outside it or behind the chapter menu, resets on departure, and disables in still/reduced-motion mode. Failed loading or blocked autoplay keeps the original morning film as fallback. No original film assets were changed. Generation cost: $0.9135.
 
 Production: `scripts/prepare-living-film.py`. Playback: `src/living-background.mjs`. Browser coverage: `scripts/qa-living-background.mjs`.
+
+## Twenty-eight chapters
+
+Added In the margins, The familiar, and The spare cup, with 200svh each of dedicated scrolling (six additional viewport heights total). In the margins traces handwriting across an opaque sheet; The familiar develops a three-image contact strip. Both respond to pointer motion and follow scrolling automatically. Their longer titles use a smaller phone measure so the paper effects remain separate from the text.
+
+The spare cup adds a six-second OpenRouter morning-table film, with 91 scroll-controlled frames and matching framing. It enters with a feathered window reveal and holds its endpoint before Stay a little longer. The existing animated background at the finale remains. New-film generation cost: $0.9135. All existing film assets and the envelope/key pacing are preserved.

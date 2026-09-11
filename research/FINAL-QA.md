@@ -322,3 +322,20 @@ Validation:
 - Native background advances without scrolling and loops past its endpoint on portrait mobile, landscape and desktop; all are muted.
 - Reverse handoff, pause/reset on departure, menu pause/resume, reduced motion, and missing-film fallback pass in Chromium.
 - Blocked-autoplay simulation retains the Stay fallback. The combined background/foreground finale continues beyond one full cycle; both mobile and desktop settle to zero draws after departure and with reduced motion.
+
+### September 11 — three more sections, bringing the story to 28 chapters
+
+Added In the margins (.457), The familiar (.905), and The spare cup (.957). Each owns 200svh of scrolling; existing expanded chapter allocations and envelope/key timing are unchanged. The first adds an opaque paper sheet with traced handwriting and a lifted corner, the second a developing contact strip, and the third a generated morning-table film with small reflected-light effects. New copy is included in navigation, reading and no-JavaScript versions. The original letter hit area is hidden during the new margins chapter.
+
+OpenRouter generated spare-cup-film from the accepted morning reference at a reported cost of $0.9135. Exported 91 frames plus MP4; all existing film files are unchanged. Six-frame contact sheet reviewed. Maximum adjacent mean RGB change at 160×90: 1.580%; first/last difference: 0.479%. The new film uses the established crop and feathered window reveal, and holds its endpoint before the existing Stay film. Encoding differences are not claimed to be pixel-identical.
+
+Visual review found the two longer headings crowding paper effects on 320×568 phones. Dedicated phone typography corrected this; updated 320px, 390px and landscape screenshots were reviewed.
+
+Validation:
+- 28 unit tests and production build pass, including unique narrative IDs, isolated added scroll allocations, invertible navigation and balanced canvas state.
+- 329 layout checkpoints across seven sizes (including 320×568, 390×844, intermediate portrait, landscape and desktop): no reported text collisions, clipping or overflow.
+- All three new navigation anchors, fully visible copy, pointer effects and reduced-motion navigation pass at mobile, landscape and desktop sizes.
+- New morning-film forward/reverse traversal with delayed frames stays within the two-sequence cache budget.
+- 68 film/held-endpoint checks, letter interaction and reduced motion pass. Continuous delayed-frame drawer traversal has no blank frames, maximum decoded step 3, and stable resize at mobile/desktop sizes.
+- Animated finale still advances without scrolling, loops silently, pauses/resumes with the menu, resets on departure, and respects reduced motion at three sizes.
+- Expanded navigation, offline-film fallback, reduced motion and all 28 no-JavaScript chapters pass. Browser automation uses Chromium.

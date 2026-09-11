@@ -127,10 +127,12 @@ html[data-still=true] .stage *{transition:none!important}
 .address-scroll-room{position:absolute;visibility:hidden;pointer-events:none;height:120svh;width:1px}
 @media(max-width:700px){.scroll-track{height:calc(3355svh + var(--key-room))}}
 
-.expansion-scroll-room{position:absolute;visibility:hidden;pointer-events:none;height:1100svh;width:1px}
-.scroll-track{height:calc(5455svh + var(--key-room))}
-@media(max-width:700px){.scroll-track{height:calc(4455svh + var(--key-room))}}
+.expansion-scroll-room{position:absolute;visibility:hidden;pointer-events:none;height:1700svh;width:1px}
+.scroll-track{height:calc(6055svh + var(--key-room))}
+@media(max-width:700px){.scroll-track{height:calc(5055svh + var(--key-room))}}
 /* The compact still timeline must not retain cinematic spacers larger than itself. */
 html[data-still=true] .scroll-track :is(.kept-scroll-room,.key-scroll-room,.stay-scroll-room,.clock-scroll-room,.address-scroll-room,.expansion-scroll-room){height:0}
 /* An expanded chapter list scrolls from its first link instead of centering above the viewport. */
 #chapters:not([hidden]){justify-content:flex-start;padding-top:max(80px,8vh)}
+/* These longer chapter titles keep a two-line measure above their paper objects on phones. */
+@media(max-width:700px){#margins-copy h2,#familiar-copy h2,#spare-copy h2{font-size:min(16vw,10svh)}}

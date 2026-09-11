@@ -1,3 +1,4 @@
+import {drawNewChapters} from './three-chapters.mjs';
 import {drawSceneAtmosphere} from './scene-atmosphere.mjs';
 import {expansionBeats} from './expansion.mjs';
 import {drawExpansionScenes} from './expansion-scenes.mjs';
@@ -65,7 +66,7 @@ function prepareFilms(){const name=active===0?'opening':active===2?'waiting':act
 function film(name,t,fallback){
  if(still||!manifest?.[name])return fallback;
  const seq=sequence(name);
- const raw=seq.get(t),image=seq.surface.sample(seq,raw,t);if(seq.surface.moving)filmBlending=true;if(image&&!seq.readyAt)seq.readyAt=performance.now();const blend=image?(['opening','transition','stay','pause','proof','home'].includes(name)?1:smooth(clamp((performance.now()-seq.readyAt)/220))):0;if(image&&blend<1)filmBlending=true;frameStats={film:name,frame:seq.drawn,cached:[...sequences.values()].reduce((n,s)=>n+s.frames.size,0)};if(image&&blend===1&&t>=.999&&seq.drawn===seq.count-1&&!seq.surface.moving&&!endpoints.has(name)&&['opening','transition','impossible','stay'].includes(name)){const held=document.createElement('canvas');held.width=image.width;held.height=image.height;held.getContext('2d').drawImage(image,0,0);endpoints.set(name,held)}return image?{filmImage:image,fallback:endpoints.get(name)||fallback,blend}:endpoints.get(name)||fallback;
+ const raw=seq.get(t),image=seq.surface.sample(seq,raw,t);if(seq.surface.moving)filmBlending=true;if(image&&!seq.readyAt)seq.readyAt=performance.now();const blend=image?(['opening','transition','stay','pause','proof','home','spare'].includes(name)?1:smooth(clamp((performance.now()-seq.readyAt)/220))):0;if(image&&blend<1)filmBlending=true;frameStats={film:name,frame:seq.drawn,cached:[...sequences.values()].reduce((n,s)=>n+s.frames.size,0)};if(image&&blend===1&&t>=.999&&seq.drawn===seq.count-1&&!seq.surface.moving&&!endpoints.has(name)&&['opening','transition','impossible','stay','spare'].includes(name)){const held=document.createElement('canvas');held.width=image.width;held.height=image.height;held.getContext('2d').drawImage(image,0,0);endpoints.set(name,held)}return image?{filmImage:image,fallback:endpoints.get(name)||fallback,blend}:endpoints.get(name)||fallback;
 }
 function filmFocus(max){return mix(.5,max,smooth(progress(h/w,.75,1)))}
 function draw(image,scale=1,alpha=1,focus=.5,dx=0,dy=0,dc=ctx){if(!image||alpha<=0)return;if(image.filmImage){if(image.blend<1)draw(image.fallback,scale,alpha,focus,dx,dy,dc);draw(image.filmImage,scale,alpha*image.blend,focus,dx,dy,dc);return}if(image.previous){const blend=still?1:smooth(clamp((performance.now()-image.readyAt)/400));if(blend<1){filmBlending=true;draw(image.previous,scale,alpha,focus,dx,dy,dc);alpha*=blend}else delete image.previous}const b=cover(image.width,image.height,w,h,focus,scale);dc.globalAlpha=clamp(alpha);dc.drawImage(image,b.x+dx,b.y+dy,b.w,b.h);dc.globalAlpha=1}
@@ -94,7 +95,7 @@ const copyRanges={'notice-copy':[.13,.226],'late-copy':[.226,.242],'little-copy'
 const show=(id,opacity)=>{const bounds=copyRanges[id];const gate=bounds?smooth(progress(p,bounds[0],bounds[0]+.003))*(1-smooth(progress(p,bounds[1]-.003,bounds[1]))):1;$('#'+id).style.opacity=clamp(opacity*gate);};
 const windowed=(x,a,b,c,d)=>smooth(progress(x,a,b))*(1-smooth(progress(x,c,d)));
 function render(){
- const started=performance.now();filmBlending=false;if(p>.03&&p<.065)warmFilm('transition');if(p>.79&&p<.82)warmFilm('impossible');if(p>.94)warmFilm('stay');mistSource=null;canvas.style.opacity=plates.size?'1':'0';for(const el of shots)el.style.opacity=0;$('#foreground').style.opacity=0;ctx.fillStyle='#101b1d';ctx.fillRect(0,0,w,h);frameStats={frame:-1,cached:0,film:''};
+ const started=performance.now();filmBlending=false;if(p>.03&&p<.065)warmFilm('transition');if(p>.79&&p<.82)warmFilm('impossible');if(p>.94&&p<.95)warmFilm('spare');if(p>=.966)warmFilm('stay');mistSource=null;canvas.style.opacity=plates.size?'1':'0';for(const el of shots)el.style.opacity=0;$('#foreground').style.opacity=0;ctx.fillStyle='#101b1d';ctx.fillRect(0,0,w,h);frameStats={frame:-1,cached:0,film:''};
  const get=n=>plates.get(n),hero=get('hero-poppy'),cafe=get('hero-cafe'),q=p/.23;
  const portrait=w/h<1,ending=plateOpacity('love-morning',smooth(progress(p,.95,portrait?.982:.966)));
  const littleAlpha=plateOpacity('little-things',smooth(progress(p,.242,portrait?.280:.273)));
@@ -126,7 +127,7 @@ function render(){
   show('waiting-copy',windowed(p,.325,.344,.379,.389));$('#clock-time').textContent='1:'+String(13+Math.floor(local*4)).padStart(2,'0');$('.waiting-line').textContent=local>.63?'Still nothing.':'Nothing yet.';
  }
  if(p>=.42&&p<.56){const local=progress(p,.42,.54),letter=film('unsent',mix(local,.05,smooth(held)),get('unsent'));if(p<.44){wipe(letter,progress(p,.42,.44),'diagonal',1,filmFocus(.76))}else draw(letter,1,1,filmFocus(.76));
-  show('unsent-copy',windowed(p,.426,.445,.500,.512));let text='';
+  show('unsent-copy',windowed(p,.470,.478,.500,.512));let text='';
   if(still||held>.3)text='I wish you were here.';
   else if(local<.38){const t=local<.23?progress(local,.04,.23):1-progress(local,.25,.38);text='made it home?'.slice(0,Math.round(t*13))}
   else if(local<.86){const t=local<.65?progress(local,.42,.65):1-progress(local,.7,.86);text='I miss you.'.slice(0,Math.round(t*11))}
@@ -147,17 +148,18 @@ function render(){
  }
  if(p>=.82&&p<.95){const local=progress(p,.82,.95),room=film('impossible',progress(local,.43,1),get('hero-letters'));
   if(p<.84)wipe(room,progress(p,.82,.84),'diagonal',1,filmFocus(.72));else draw(room,1,1,filmFocus(.72));
-  show('impossible-copy',windowed(p,.83,.848,.89,.916));
+  show('impossible-copy',windowed(p,.83,.848,.890,.896));
  }
- if(p>=.95){if(still)depthPlate('love-morning',1,ending);else{const morning=film('impossible',1,get('hero-letters'));draw(p>=.966?film('stay',smooth(progress(p,.969,.986)),morning):morning,1,1,filmFocus(.72));}show('stay-copy',windowed(p,.958,.966,.984,.988));show('love-copy',smooth(progress(p,.997,1)));$('#avoid-word').style.opacity=1-smooth(progress(p,.997,.9998));}
+ if(p>=.95){if(still)depthPlate('love-morning',1,ending);else{const morning=endpoints.get('spare')||endpoints.get('impossible')||film('impossible',1,get('love-morning')||get('hero-letters'));draw(p>=.966?film('stay',smooth(progress(p,.969,.986)),morning):morning,1,1,filmFocus(.72));}show('stay-copy',windowed(p,.965,.971,.984,.988));show('love-copy',smooth(progress(p,.997,1)));$('#avoid-word').style.opacity=1-smooth(progress(p,.997,.9998));}
+ if(p>=.948&&p<.966)wipe(film('spare',progress(p,.952,.965),endpoints.get('impossible')||get('love-morning')),progress(p,.948,.952),'window',1,filmFocus(.72));
  const livingFrame=living.sample();if(livingFrame)wipe(livingFrame,progress(p,.988,.994),'window',1,filmFocus(.72));canvas.dataset.background=living.status;canvas.dataset.backgroundTime=living.time.toFixed(3);
  drawSceneAtmosphere(ctx,{p,w,h,mobile,still,visitor});memory.draw(ctx,canvas,mistSource);gradeCopy(ctx,w,h,p);if(!still)letterLight(ctx,w,h,p,visitor,mobile);redThread(ctx,w,h,p,visitor,mobile,still);
- tactile.update();play.draw(ctx);enhancements.draw(ctx);book.update(p>.290&&p<.305?{x:w*(mobile?.20:.56),y:h*(mobile?.58:.43),w:w*(mobile?.78:.40),h:h*.30}:null);materials.draw(ctx,{p,w,h,mobile,still,visitor,bookTurn:book.turn,tactile});drawExpansionScenes(ctx,{p,w,h,mobile,still,visitor});bloom.draw(ctx);for(const beat of expansionBeats)show(beat.id+'-copy',windowed(p,...beat.range));
- show('hours-copy',windowed(p,.205,.212,.220,.225));show('detour-copy',windowed(p,.614,.621,.641,.649));show('light-copy',windowed(p,.917,.925,.943,.950));show('pressed-copy',windowed(p,.285,.292,.303,.309));show('blue-copy',windowed(p,.390,.399,.414,.421));show('space-copy',windowed(p,.720,.728,.744,.751));show('unsaid-copy',windowed(p,.514,.520,.524,.530));show('address-copy',windowed(p,.530,.534,.543,.548));show('kept-copy',windowed(p,.782,.788,.814,.822));
+ tactile.update();play.draw(ctx);enhancements.draw(ctx);book.update(p>.290&&p<.305?{x:w*(mobile?.20:.56),y:h*(mobile?.58:.43),w:w*(mobile?.78:.40),h:h*.30}:null);materials.draw(ctx,{p,w,h,mobile,still,visitor,bookTurn:book.turn,tactile});drawExpansionScenes(ctx,{p,w,h,mobile,still,visitor});drawNewChapters(ctx,{p,w,h,mobile,still,visitor,plates});bloom.draw(ctx);for(const beat of expansionBeats)show(beat.id+'-copy',windowed(p,...beat.range));
+ show('hours-copy',windowed(p,.205,.212,.220,.225));show('detour-copy',windowed(p,.614,.621,.641,.649));show('light-copy',windowed(p,.917,.925,.940,.947));show('pressed-copy',windowed(p,.285,.292,.303,.309));show('blue-copy',windowed(p,.390,.399,.414,.421));show('space-copy',windowed(p,.720,.728,.744,.751));show('unsaid-copy',windowed(p,.514,.520,.524,.530));show('address-copy',windowed(p,.530,.534,.543,.548));show('kept-copy',windowed(p,.782,.788,.814,.822));
  canvas.dataset.rendition=portrait?'portrait-film':'landscape-film';canvas.dataset.visitor=visitor.presence.toFixed(3);canvas.dataset.depth=String(!still&&depthAmount(p)>0);
  document.documentElement.style.setProperty('--mast-shade',String(1-smooth(progress(p,.95,.98))));const light=p>.963;document.body.classList.toggle('on-light',light);$('.stage').style.setProperty('--stage-shade',String(1-ending));
  const beat=[...narrative].reverse().find(c=>c.at<=p+.002)||narrative[0];$('#chapter-label').textContent=beat.name;canvas.dataset.beat=beat.id;for(const a of nav.querySelectorAll('a'))a.setAttribute('aria-current',String(a.hash==='#'+beat.id));
- letterObject.hidden=!(p>.445&&p<.53);if(letterObject.hidden&&letterPinned){letterPinned=false;holding=false;letterObject.setAttribute('aria-pressed','false')}
+ letterObject.hidden=!(p>.475&&p<.53);if(letterObject.hidden&&letterPinned){letterPinned=false;holding=false;letterObject.setAttribute('aria-pressed','false')}
  const interaction=[4,7].includes(active);holdButton.hidden=true;holdButton.textContent=active===7?'Hold to put it away':'Hold the thought';
  $('#next-beat').innerHTML=p>.985?'Once more <span aria-hidden="true">↺</span>':p<.05?'Scroll a little closer <span aria-hidden="true">↓</span>':'Keep going <span aria-hidden="true">↓</span>';
  $('#next-beat').setAttribute('aria-label',p>.985?'Replay the story':'Continue the story');$('#progress-fill').style.transform=`scaleX(${p})`;

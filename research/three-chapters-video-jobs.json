@@ -1,0 +1,13 @@
+[
+  {
+    "name": "spare-cup-film",
+    "model": "bytedance/seedance-2.0",
+    "duration": 6,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "generate_audio": false,
+    "first": "morning-loop-reference.png",
+    "last": "morning-loop-reference.png",
+    "prompt": "A photorealistic six-second uninterrupted shot of this exact morning cafe table. Camera absolutely locked, no reframing, zoom, cut or dissolve. Both cups and saucers, vase, poppy stem base, chair, envelope and tabletop remain fixed and identical. Motion is clearly visible but gentle: thin natural steam curls from the two existing coffee cups, a slow warm reflection moves along the existing glass vase, and the attached poppy petals softly rock. No new objects, flowers, ribbons, seals, text, people or hands. No objects disappear or morph. Maintain the entire original composition and end in the exact supplied reference, settling for the final half second. A quiet invitation: someone has already saved the other person a seat."
+  }
+]

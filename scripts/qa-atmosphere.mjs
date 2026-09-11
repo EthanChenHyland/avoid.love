@@ -12,7 +12,7 @@ for(const [width,height] of [[390,844],[1280,720]]){
  }
  // Check that new physical space does not leak into the accepted envelope interval.
  const geom=await p.evaluate(()=>({range:document.querySelector('.scroll-track').offsetHeight-innerHeight,extra:document.querySelector('.expansion-scroll-room').offsetHeight,vh:innerHeight}));
- if(Math.abs(geom.extra/geom.vh-11)>.01)throw Error('New chapters did not receive eleven viewports of dedicated space');
+ if(Math.abs(geom.extra/geom.vh-17)>.01)throw Error('New chapters did not receive seventeen viewports of dedicated space');
  await p.emulateMedia({reducedMotion:'reduce'});await p.waitForTimeout(400);await scrollToChapter(p,1);await p.waitForFunction(()=>+document.querySelector('#world').dataset.progress>.999);
  if(errors.length)throw Error(errors.join());await p.close();
 }await b.close();await fs.writeFile('qa/atmosphere/report.json',JSON.stringify(report,null,2));console.log(report);

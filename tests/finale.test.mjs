@@ -20,8 +20,8 @@ test('finale continues beyond its first cycle, pauses outside the ending and res
  state.still=true;f.draw(c);assert.equal(f.moving,false);
  state.still=false;state.p=.98;f.draw(c);assert.equal(f.moving,false);
 });
-test('five chapter extensions preserve round trips and original drawer timing',()=>{
- assert.equal(expansionBeats.length,5);assert.equal(expansionScrollTotal,1100);
+test('additional chapter extensions preserve round trips and original drawer timing',()=>{
+ assert.equal(expansionBeats.length,8);assert.equal(expansionScrollTotal,1700);
  const prior=[30000,1700,440,1400,360,960],next=[35200,...prior.slice(1),5200];
  for(let i=0;i<=1000;i++){const p=i/1000;assert.ok(Math.abs(scrollToStory(storyToScroll(p,...next),...next)-p)<1e-9)}
  const delta=args=>storyToScroll(.804,...args)-storyToScroll(.789,...args);assert.ok(Math.abs(delta(prior)-delta(next))<1e-8);

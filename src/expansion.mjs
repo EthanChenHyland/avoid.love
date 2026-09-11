@@ -1,4 +1,5 @@
-export const expansionBeats=[
+import {newChapters} from './three-chapters.mjs';
+export const expansionBeats=[...newChapters,
  {id:'pause',name:'The pause',at:.233,range:[.225,.229,.237,.242],scroll:[.225,.242,200],title:'Nothing<br><em>urgent.</em>',caption:'For once, the world could wait.'},
  {id:'proof',name:'Small proof',at:.317,range:[.309,.313,.319,.324],scroll:[.309,.324,240],title:'Small<br><em>proof.</em>',caption:'A whole evening in a pocket.'},
  {id:'home',name:'Almost home',at:.605,range:[.598,.602,.609,.614],scroll:[.598,.614,200],title:'The longer<br><em>way.</em>',caption:'Neither of you took the shortcut.'},
