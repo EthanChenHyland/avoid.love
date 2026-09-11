@@ -1,3 +1,4 @@
+import {morningFilmProgress} from './morning-film.mjs';
 import {drawNewChapters} from './three-chapters.mjs';
 import {drawSceneAtmosphere} from './scene-atmosphere.mjs';
 import {expansionBeats} from './expansion.mjs';
@@ -95,7 +96,7 @@ const copyRanges={'notice-copy':[.13,.226],'late-copy':[.226,.242],'little-copy'
 const show=(id,opacity)=>{const bounds=copyRanges[id];const gate=bounds?smooth(progress(p,bounds[0],bounds[0]+.003))*(1-smooth(progress(p,bounds[1]-.003,bounds[1]))):1;$('#'+id).style.opacity=clamp(opacity*gate);};
 const windowed=(x,a,b,c,d)=>smooth(progress(x,a,b))*(1-smooth(progress(x,c,d)));
 function render(){
- const started=performance.now();filmBlending=false;if(p>.03&&p<.065)warmFilm('transition');if(p>.79&&p<.82)warmFilm('impossible');if(p>.94&&p<.95)warmFilm('spare');if(p>=.966)warmFilm('stay');mistSource=null;canvas.style.opacity=plates.size?'1':'0';for(const el of shots)el.style.opacity=0;$('#foreground').style.opacity=0;ctx.fillStyle='#101b1d';ctx.fillRect(0,0,w,h);frameStats={frame:-1,cached:0,film:''};
+ const started=performance.now();filmBlending=false;if(p>.03&&p<.065)warmFilm('transition');if(p>.79&&p<.82)warmFilm('impossible');if(p>.94&&p<.95)warmFilm('spare');mistSource=null;canvas.style.opacity=plates.size?'1':'0';for(const el of shots)el.style.opacity=0;$('#foreground').style.opacity=0;ctx.fillStyle='#101b1d';ctx.fillRect(0,0,w,h);frameStats={frame:-1,cached:0,film:''};
  const get=n=>plates.get(n),hero=get('hero-poppy'),cafe=get('hero-cafe'),q=p/.23;
  const portrait=w/h<1,ending=plateOpacity('love-morning',smooth(progress(p,.95,portrait?.982:.966)));
  const littleAlpha=plateOpacity('little-things',smooth(progress(p,.242,portrait?.280:.273)));
@@ -150,8 +151,8 @@ function render(){
   if(p<.84)wipe(room,progress(p,.82,.84),'diagonal',1,filmFocus(.72));else draw(room,1,1,filmFocus(.72));
   show('impossible-copy',windowed(p,.83,.848,.890,.896));
  }
- if(p>=.95){if(still)depthPlate('love-morning',1,ending);else{const morning=endpoints.get('spare')||endpoints.get('impossible')||film('impossible',1,get('love-morning')||get('hero-letters'));draw(p>=.966?film('stay',smooth(progress(p,.969,.986)),morning):morning,1,1,filmFocus(.72));}show('stay-copy',windowed(p,.965,.971,.984,.988));show('love-copy',smooth(progress(p,.997,1)));$('#avoid-word').style.opacity=1-smooth(progress(p,.997,.9998));}
- if(p>=.948&&p<.966)wipe(film('spare',progress(p,.952,.965),endpoints.get('impossible')||get('love-morning')),progress(p,.948,.952),'window',1,filmFocus(.72));
+ if(p>=.95){if(still)depthPlate('love-morning',1,ending);else{const morning=endpoints.get('spare')||endpoints.get('impossible')||film('impossible',1,get('love-morning')||get('hero-letters'));draw(morning,1,1,filmFocus(.72));}show('stay-copy',windowed(p,.965,.971,.984,.988));show('love-copy',smooth(progress(p,.997,1)));$('#avoid-word').style.opacity=1-smooth(progress(p,.997,.9998));}
+ if(p>=.948)wipe(film('spare',morningFilmProgress(p,scrollGeometry()),endpoints.get('impossible')||get('love-morning')),progress(p,.948,.952),'window',1,filmFocus(.72));
  const livingFrame=living.sample();if(livingFrame)wipe(livingFrame,progress(p,.988,.994),'window',1,filmFocus(.72));canvas.dataset.background=living.status;canvas.dataset.backgroundTime=living.time.toFixed(3);
  drawSceneAtmosphere(ctx,{p,w,h,mobile,still,visitor});memory.draw(ctx,canvas,mistSource);gradeCopy(ctx,w,h,p);if(!still)letterLight(ctx,w,h,p,visitor,mobile);redThread(ctx,w,h,p,visitor,mobile,still);
  tactile.update();play.draw(ctx);enhancements.draw(ctx);book.update(p>.290&&p<.305?{x:w*(mobile?.20:.56),y:h*(mobile?.58:.43),w:w*(mobile?.78:.40),h:h*.30}:null);materials.draw(ctx,{p,w,h,mobile,still,visitor,bookTurn:book.turn,tactile});drawExpansionScenes(ctx,{p,w,h,mobile,still,visitor});drawNewChapters(ctx,{p,w,h,mobile,still,visitor,plates});bloom.draw(ctx);for(const beat of expansionBeats)show(beat.id+'-copy',windowed(p,...beat.range));

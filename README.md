@@ -118,3 +118,7 @@ Production: `scripts/prepare-living-film.py`. Playback: `src/living-background.m
 Added In the margins, The familiar, and The spare cup, with 200svh each of dedicated scrolling (six additional viewport heights total). In the margins traces handwriting across an opaque sheet; The familiar develops a three-image contact strip. Both respond to pointer motion and follow scrolling automatically. Their longer titles use a smaller phone measure so the paper effects remain separate from the text.
 
 The spare cup adds a six-second OpenRouter morning-table film, with 91 scroll-controlled frames and matching framing. It enters with a feathered window reveal and holds its endpoint before Stay a little longer. The existing animated background at the finale remains. New-film generation cost: $0.9135. All existing film assets and the envelope/key pacing are preserved.
+
+## Continuous morning-shot handoff
+
+The spare cup and Stay a little longer now share one continuous shot. This removes the switch to the brighter older Stay film and prevents the new clip from stopping at the chapter boundary. `src/morning-film.mjs` maps physical scroll distance across both chapters to a monotone eased source timeline, giving the visible steam/light motion most of the distance and gently settling at the final frame. The original Stay asset remains on disk. The later living-background finale continues as before.

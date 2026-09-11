@@ -339,3 +339,11 @@ Validation:
 - 68 film/held-endpoint checks, letter interaction and reduced motion pass. Continuous delayed-frame drawer traversal has no blank frames, maximum decoded step 3, and stable resize at mobile/desktop sizes.
 - Animated finale still advances without scrolling, loops silently, pauses/resumes with the menu, resets on departure, and respects reduced motion at three sizes.
 - Expanded navigation, offline-film fallback, reduced motion and all 28 no-JavaScript chapters pass. Browser automation uses Chromium.
+
+### September 11 — remove the lighting jump and abrupt stop after The spare cup
+
+The boundary at .966 switched from spare-cup-film's endpoint to the separately generated, brighter first frame of stay-longer-film. Their average RGB values differed by approximately 4.78 red, 2.82 green and 1.72 blue levels. The first clip also reached its final frame before that switch.
+
+Both chapters now use the same continuous spare-cup-film sequence through .986. A monotone cubic timing curve uses physical scroll distance, eliminating speed changes caused by different chapter spacers. The visible source motion spans both sections and eases into a held endpoint. No dissolve or exposure overlay was added. The old Stay asset is retained on disk, and the existing live background still takes over at the later finale.
+
+Validation: 29 unit tests and build pass. At four mobile/intermediate/landscape/desktop sizes, delayed-frame traversal stays on the same film with no frame resets or blanks, maximum decoded step 3, and correct forward/reverse endpoint holds. Tight samples around .966 show mean canvas differences of 0.010–0.033%, rather than a switch between differently exposed sources. These measurements include natural movement and do not imply pixel-identical successive frames. Living-background autoplay, looping, reverse handoff, menu pause/resume, reduced motion and fallback pass at three sizes. The revised mobile boundary screenshot was visually reviewed. No layout or chapter-length changes.
