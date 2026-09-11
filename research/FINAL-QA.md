@@ -288,3 +288,22 @@ Validation:
 - Drawer continuous traversal with delayed frames passes at mobile/desktop sizes (largest decoded step 3 / 2); resize preserves position. Book keyboard, dragging and cleanup pass.
 - Integrated effects and photograph keyboard controls pass at five sizes, with zero idle draws away from the looping ending.
 - New film contact sheets, added chapters, and finale visually reviewed at mobile/desktop sizes. Browser automation uses Chromium, not the embedded browser.
+
+### September 11 — longer pacing and scene atmosphere
+
+Expanded the five newest chapter spacers from 650svh to 1,100svh: +4.5 viewport heights overall. Their generated films now unfold through more physical scrolling. No new film files were generated or altered. Existing envelope/key and other original chapter durations remain unchanged. The finale continues indefinitely with an 18-second gather/hold/release cycle, including a three-second full bloom.
+
+Added five scroll-driven material/light animations beneath foreground effects: café steam, circular paper embossing, elliptical puddle ripples, feathered passing train light, and moving morning leaf shadows. Each has smooth chapter entrance/exit envelopes, pointer response, reversible motion, and no independent timer. Still mode disables these layers. Mobile steam placement was adjusted after screenshot review.
+
+The idle audit exposed a pre-existing mobile frame-cache thrash: prefetch skipped the ±3 neighbors and requested ±4 frames, while distance-based eviction retained ±3 and repeatedly discarded the requested frames. Contiguous prefetch now agrees with eviction and is capped to the configured cache size. A regression test reproduces the previously endless fetch pattern.
+
+Validation completed during this pass:
+- 25 unit tests and production build pass.
+- 246 layout checkpoints across six mobile, intermediate, landscape and desktop sizes: no collisions, clipping or horizontal overflow.
+- Finale runs beyond the new 18-second cycle, pauses outside the ending, and respects reduced motion on mobile and desktop.
+- Offline films, reduced motion and all 25 no-JavaScript chapters pass.
+- Ten delayed-frame new-film checks pass forward/reverse after the cache fix; stationary films hold and cache limits are retained.
+- After the cache fix, all 68 film/held-endpoint checks pass again, including letter interaction and reduced motion.
+- All five extended chapters settle to zero idle draws after pointer interaction on mobile and desktop. Their dedicated scroll measurement is 11 viewport heights; the reduced-motion ending remains reachable.
+- Screenshots of the new atmosphere layers reviewed at mobile and desktop sizes. Browser automation uses Chromium.
+- Continuous delayed-frame drawer traversal remains stable after the cache fix: maximum decoded step 2 on mobile / 3 on desktop, no blank frames, and resize preserves story position.

@@ -98,3 +98,9 @@ Added The pause, Small proof, Almost home, Between trains, and Again. Three new 
 New integrated effects include a folding keepsake, touch-responsive station markers, reflected street lights, and a projected petal bloom. At the ending, petals gather, rest, and drift apart in an indefinite 11-second cycle. It starts automatically, responds to pointer/touch, pauses outside the ending, and is disabled in still/reduced-motion mode. The compact still timeline clears cinematic spacers so every chapter remains reachable.
 
 Generation job specifications and sanitized cost/status records are in `research/five-chapters-video-jobs.json` and the three corresponding `video-*.json` files. Total reported generation cost: $2.7405. Raw polling records remain ignored. New browser checks: `scripts/qa-finale.mjs` and `scripts/qa-new-film-loading.mjs`.
+
+## Longer chapters and atmosphere within the scenes
+
+The five newest chapters now share 1,100svh of dedicated space (previously 650svh), adding 4.5 viewport heights to the story while preserving the original chapter, envelope, and key intervals. Their existing generated films unfold more slowly through the added space. The final petal loop now takes 18 seconds, including a three-second bloom hold.
+
+`src/scene-atmosphere.mjs` adds café steam, a developing embossed impression, puddle ripples, passing train-window light, and soft morning leaf shadows. These draw beneath the foreground objects and copy, respond to scroll/pointer movement, reverse with scrolling, and disable in still mode. No additional footage was generated for this pass.

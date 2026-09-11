@@ -7,7 +7,9 @@ export class FrameSequence {
  request(index){
   index=Math.round(clamp(index,0,this.count-1));this.target=index;
   for(const [i,controller] of this.pending)if(Math.abs(i-index)>8){controller.abort();this.pending.delete(i)}
-  const order=[index,index+1,index-1,index+2,index-2,index+4,index-4];
+  // Prefetch the nearest contiguous frames so eviction and loading agree.
+  // Skipping ±3 made the two ±4 frames evict each other forever in an eight-frame cache.
+  const order=[index,index+1,index-1,index+2,index-2,index+3,index-3].slice(0,this.limit);
   for(const i of order){if(i<0||i>=this.count||this.frames.has(i)||this.pending.has(i)||this.failed.has(i)||this.pending.size>=4)continue;
    const controller=new AbortController();this.pending.set(i,controller);
    fetch(`${this.base}/${String(i).padStart(3,'0')}.webp`,{signal:controller.signal})

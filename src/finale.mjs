@@ -1,8 +1,8 @@
 import {clamp,smooth,mix} from './timeline.mjs';
-export const finaleDuration=11000;
+export const finaleDuration=18000;
 export function finalePhase(elapsed){
  const t=((elapsed%finaleDuration)+finaleDuration)%finaleDuration;
- return t<4600?t/4600:t<6000?1:t<10600?1-(t-6000)/4600:0;
+ return t<7000?t/7000:t<10000?1:t<17000?1-(t-10000)/7000:0;
 }
 export function finalePoint(i,count,t,w,h,wind=0){
  const a=i*2.399963,r=Math.sqrt((i+.5)/count),g=smooth(t),turn=a+(1-g)*Math.PI*5;

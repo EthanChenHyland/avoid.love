@@ -28,3 +28,9 @@ test('opening returns to the shared source frame before the next film begins',()
  assert.ok(firstAct(.29).opening<1e-12);assert.equal(Math.round(firstAct(.29).opening*90),0);
  for(const q of [.289,.29,.291])assert.equal(Math.round(firstAct(q).opening*90),0);
 });
+
+test('a settled mobile cache does not repeatedly fetch frames that eviction discards',()=>{
+ const fetch=globalThis.fetch,requests=[];globalThis.fetch=(url)=>{requests.push(url);return new Promise(()=>{})};
+ const s=new FrameSequence({base:'/frames',count:91,limit:8});
+ try{for(let i=53;i<=60;i++)s.frames.set(i,{close(){}});for(let n=0;n<120;n++){s.request(56);s.evict()}assert.deepEqual(requests,[]);assert.equal(s.frames.size,8)}finally{s.dispose();globalThis.fetch=fetch}
+});
