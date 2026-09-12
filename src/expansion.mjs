@@ -6,4 +6,5 @@ export const expansionBeats=[...newChapters,
  {id:'platform',name:'Between trains',at:.712,range:[.704,.708,.715,.720],scroll:[.704,.720,200],title:'One stop.<br><em>Too far.</em>',caption:'You counted the spaces between.'},
  {id:'again',name:'Again',at:.992,range:[.988,.991,.994,.997],scroll:[.988,.997,260],title:'The beginning.<br><em>Again.</em>',caption:'Some things find their way back.'},
 ];
-export const expansionScrollTotal=expansionBeats.reduce((sum,b)=>sum+b.scroll[2],0);
+export const expansionScrollBeats=[...expansionBeats,{scroll:[.997,1,180]}];
+export const expansionScrollTotal=expansionScrollBeats.reduce((sum,b)=>sum+b.scroll[2],0);

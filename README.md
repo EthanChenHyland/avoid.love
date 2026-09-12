@@ -128,3 +128,7 @@ The spare cup and Stay a little longer now share one continuous shot. This remov
 The morning sequence now uses `morning-steady-film`, replacing a source shot with a baked-in lighting reset. The same 91-frame shot continues through “Nowhere else” and eases to its endpoint. The 18-second native background loop begins and ends on that exported endpoint, with cosine forward/reverse motion. Native playback waits for a presented video frame before replacing the canvas fallback. Original media remain on disk.
 
 `qa-steady-source.py` checks adjacent source frames and loop edges; `qa-ending-color.mjs` checks browser-rendered endpoint color; the continuous-morning and living-background browser checks cover forward/reverse travel, mobile, looping and fallbacks.
+
+## Longer, continuous finale
+
+The final avoid → love transition now has 180svh of dedicated scrolling, with the word reveal completed before avoid disappears. Replay is offered only at the final endpoint. The petal finale uses an uninterrupted 18-second gather/release cycle, retains visible petals during release, and fades its scene presence reversibly when scrolling back. Nine earlier scene ranges now have scroll-driven petal, ink, rain-light and gold-light processions; mobile uses fewer particles and reduced motion disables them.

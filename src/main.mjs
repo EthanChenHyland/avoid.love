@@ -1,3 +1,4 @@
+import {drawChapterProcession} from './chapter-procession.mjs';
 import {morningFilmProgress} from './morning-film.mjs';
 import {drawNewChapters} from './three-chapters.mjs';
 import {drawSceneAtmosphere} from './scene-atmosphere.mjs';
@@ -151,19 +152,19 @@ function render(){
   if(p<.84)wipe(room,progress(p,.82,.84),'diagonal',1,filmFocus(.72));else draw(room,1,1,filmFocus(.72));
   show('impossible-copy',windowed(p,.83,.848,.890,.896));
  }
- if(p>=.95){if(still)depthPlate('love-morning',1,ending);else{const morning=endpoints.get('spare')||endpoints.get('impossible')||film('impossible',1,get('love-morning')||get('hero-letters'));draw(morning,1,1,filmFocus(.72));}show('stay-copy',windowed(p,.965,.971,.984,.988));show('love-copy',smooth(progress(p,.997,1)));$('#avoid-word').style.opacity=1-smooth(progress(p,.997,.9998));}
+ if(p>=.95){if(still)depthPlate('love-morning',1,ending);else{const morning=endpoints.get('spare')||endpoints.get('impossible')||film('impossible',1,get('love-morning')||get('hero-letters'));draw(morning,1,1,filmFocus(.72));}show('stay-copy',windowed(p,.965,.971,.984,.988));show('love-copy',smooth(progress(p,.9965,.998)));$('#avoid-word').style.opacity=1-smooth(progress(p,.998,.99985));}
  if(p>=.948)wipe(film('spare',morningFilmProgress(p,scrollGeometry()),endpoints.get('impossible')||get('love-morning')),progress(p,.948,.952),'window',1,filmFocus(.72));
  const livingFrame=living.sample();if(livingFrame)wipe(livingFrame,progress(p,.988,.994),'window',1,filmFocus(.72));canvas.dataset.backgroundReady=String(Boolean(livingFrame));canvas.dataset.background=living.status;canvas.dataset.backgroundTime=living.time.toFixed(3);
  drawSceneAtmosphere(ctx,{p,w,h,mobile,still,visitor});memory.draw(ctx,canvas,mistSource);gradeCopy(ctx,w,h,p);if(!still)letterLight(ctx,w,h,p,visitor,mobile);redThread(ctx,w,h,p,visitor,mobile,still);
- tactile.update();play.draw(ctx);enhancements.draw(ctx);book.update(p>.290&&p<.305?{x:w*(mobile?.20:.56),y:h*(mobile?.58:.43),w:w*(mobile?.78:.40),h:h*.30}:null);materials.draw(ctx,{p,w,h,mobile,still,visitor,bookTurn:book.turn,tactile});drawExpansionScenes(ctx,{p,w,h,mobile,still,visitor});drawNewChapters(ctx,{p,w,h,mobile,still,visitor,plates});bloom.draw(ctx);for(const beat of expansionBeats)show(beat.id+'-copy',windowed(p,...beat.range));
+ tactile.update();play.draw(ctx);enhancements.draw(ctx);book.update(p>.290&&p<.305?{x:w*(mobile?.20:.56),y:h*(mobile?.58:.43),w:w*(mobile?.78:.40),h:h*.30}:null);materials.draw(ctx,{p,w,h,mobile,still,visitor,bookTurn:book.turn,tactile});drawExpansionScenes(ctx,{p,w,h,mobile,still,visitor});drawNewChapters(ctx,{p,w,h,mobile,still,visitor,plates});drawChapterProcession(ctx,{p,w,h,mobile,still,visitor});bloom.draw(ctx);for(const beat of expansionBeats)show(beat.id+'-copy',windowed(p,...beat.range));
  show('hours-copy',windowed(p,.205,.212,.220,.225));show('detour-copy',windowed(p,.614,.621,.641,.649));show('light-copy',windowed(p,.917,.925,.940,.947));show('pressed-copy',windowed(p,.285,.292,.303,.309));show('blue-copy',windowed(p,.390,.399,.414,.421));show('space-copy',windowed(p,.720,.728,.744,.751));show('unsaid-copy',windowed(p,.514,.520,.524,.530));show('address-copy',windowed(p,.530,.534,.543,.548));show('kept-copy',windowed(p,.782,.788,.814,.822));
  canvas.dataset.rendition=portrait?'portrait-film':'landscape-film';canvas.dataset.visitor=visitor.presence.toFixed(3);canvas.dataset.depth=String(!still&&depthAmount(p)>0);
  document.documentElement.style.setProperty('--mast-shade',String(1-smooth(progress(p,.95,.98))));const light=p>.963;document.body.classList.toggle('on-light',light);$('.stage').style.setProperty('--stage-shade',String(1-ending));
  const beat=[...narrative].reverse().find(c=>c.at<=p+.002)||narrative[0];$('#chapter-label').textContent=beat.name;canvas.dataset.beat=beat.id;for(const a of nav.querySelectorAll('a'))a.setAttribute('aria-current',String(a.hash==='#'+beat.id));
  letterObject.hidden=!(p>.475&&p<.53);if(letterObject.hidden&&letterPinned){letterPinned=false;holding=false;letterObject.setAttribute('aria-pressed','false')}
  const interaction=[4,7].includes(active);holdButton.hidden=true;holdButton.textContent=active===7?'Hold to put it away':'Hold the thought';
- $('#next-beat').innerHTML=p>.985?'Once more <span aria-hidden="true">↺</span>':p<.05?'Scroll a little closer <span aria-hidden="true">↓</span>':'Keep going <span aria-hidden="true">↓</span>';
- $('#next-beat').setAttribute('aria-label',p>.985?'Replay the story':'Continue the story');$('#progress-fill').style.transform=`scaleX(${p})`;
+ $('#next-beat').innerHTML=p>.99985?'Once more <span aria-hidden="true">↺</span>':p<.05?'Scroll a little closer <span aria-hidden="true">↓</span>':'Keep going <span aria-hidden="true">↓</span>';
+ $('#next-beat').setAttribute('aria-label',p>.99985?'Replay the story':'Continue the story');$('#progress-fill').style.transform=`scaleX(${p})`;
  canvas.dataset.progress=p.toFixed(4);canvas.dataset.chapter=chapters[active].id;canvas.dataset.frame=frameStats.frame;canvas.dataset.cached=[...sequences.values()].reduce((n,s)=>n+s.frames.size,0);canvas.dataset.film=frameStats.film;
  samples.push(performance.now()-started);if(samples.length>180)samples.shift();canvas.dataset.drawMs=Math.max(...samples).toFixed(2);canvas.dataset.errors=[...errors].join(',');
 }
@@ -197,7 +198,7 @@ listen(toggle,'click',()=>menu(nav.hidden));listen($('#chapters-close'),'click',
 listen(nav,'keydown',e=>{if(e.key==='Escape')menu(false);if(e.key==='Tab'){const items=[...nav.querySelectorAll('a,button')];if(e.shiftKey&&document.activeElement===items[0]){e.preventDefault();items.at(-1).focus()}else if(!e.shiftKey&&document.activeElement===items.at(-1)){e.preventDefault();items[0].focus()}}});
 for(const a of nav.querySelectorAll('a'))listen(a,'click',e=>{e.preventDefault();menu(false);const c=narrative.find(c=>'#'+c.id===a.hash);if(c){history.replaceState(null,'',a.hash);jump(c.at)}});
 listen($('#still-toggle'),'click',()=>{const fraction=p;still=!still;setupMotion();jump(fraction)});
-listen($('#next-beat'),'click',()=>jump(p>.985?0:(narrative.find(c=>c.at>p+.02)?.at??1)));
+listen($('#next-beat'),'click',()=>jump(p>.99985?0:(narrative.find(c=>c.at>p+.02)?.at??1)));
 const setHold=value=>{holding=value;holdButton.setAttribute('aria-pressed',String(value));letterObject.setAttribute('aria-pressed',String(value));invalidate()};
 listen(letterObject,'click',()=>{letterPinned=!letterPinned;setHold(letterPinned);letterObject.setAttribute('aria-label',letterPinned?'Let the letter fold away':'Keep the letter open')});
 listen(holdButton,'pointerdown',e=>{holdButton.setPointerCapture(e.pointerId);setHold(true)});listen(holdButton,'pointerup',()=>setHold(false));listen(holdButton,'pointercancel',()=>setHold(false));listen(holdButton,'lostpointercapture',()=>setHold(false));listen(holdButton,'keydown',e=>{if([' ','Enter'].includes(e.key)){e.preventDefault();setHold(true)}});listen(holdButton,'keyup',e=>{if([' ','Enter'].includes(e.key))setHold(false)});listen(holdButton,'blur',()=>setHold(false));
