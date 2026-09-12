@@ -382,3 +382,11 @@ Doubled the finale's dedicated scroll allocation from 180svh to 360svh. The fina
 ### Avoid interval doubled again
 
 Increased the dedicated final interval from 360svh to 720svh as requested. Earlier chapter allocations and animation playback rates remain unchanged. All 31 tests and the production build pass; forward/reverse text, replay timing and the enlarged scroll interval pass at four viewport sizes.
+
+### GitHub publication and Cloudflare deployment
+
+Published the public repository at https://github.com/EthanChenHyland/avoid.love with description, homepage and eight topics. Refreshed the README and retained its previous development history in DEVELOPMENT-NOTES.md. Current files and historical small Git blobs passed credential-pattern scanning before push.
+
+Deployed the static build to Cloudflare Workers as avoid-love, version 0fb31bcb-385c-4184-9d2e-70cedb9a0077. Cloudflare reports the custom domain avoid.love enabled; authoritative DNS and the 1.1.1.1 resolver return its Cloudflare addresses. Preview: https://avoid-love.avoid-love-v4.workers.dev/.
+
+31 tests, production build and Wrangler dry run pass. Published preview checks at 390×844 and 1280×720 return HTTP 200, load the manifest, and show the live ending background advancing without page errors. Local verification of the custom domain encountered an untrusted certificate issued by VU Cybersecurity; certificate checks were not disabled. End-to-end custom-domain HTTPS therefore remains unverified from this network. Deployments are currently manual via npm run deploy; GitHub-triggered Cloudflare builds are not configured.

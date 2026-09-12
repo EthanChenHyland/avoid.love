@@ -4,6 +4,8 @@ A cinematic, interactive love story told through 28 chapters. Scroll through sca
 
 **Website:** [avoid.love](https://avoid.love/)
 
+**Cloudflare preview:** [avoid-love.avoid-love-v4.workers.dev](https://avoid-love.avoid-love-v4.workers.dev/)
+
 ![A glimpse of avoid.love](public/og.jpg)
 
 ## The experience
