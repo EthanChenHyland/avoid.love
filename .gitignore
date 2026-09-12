@@ -6,3 +6,6 @@ dist/
 art-source/
 qa/
 .venv/
+
+.wrangler/
+.dev.vars*
