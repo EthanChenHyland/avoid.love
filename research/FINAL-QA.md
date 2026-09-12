@@ -398,3 +398,7 @@ On September 11 at 22:14 CDT the local network resolver's negative DNS cache exp
 ### Longer You put it away and Not quite gone sections
 
 Added 120svh to the .755–.782 trying interval and increased the visible drawer motion's dedicated allocation from 210svh to 330svh. Both sections gain 1.2 screen heights without changing the key rotation interval or final avoid interval. 31 tests and the build pass. Mobile/desktop forward and reverse traversal checks pass; delayed-frame drawer traversal reports maximum decoded step 2, no blanks and stable resizing. Measured trying interval: 1.93 mobile / 2.20 desktop screen heights; drawer motion: 3.70 / 3.86 screen heights.
+
+### Longer first Us picture
+
+Added 60svh only to .56–.5708, where the first Us train photograph is fully revealed before the iris transition begins. The iris timing, following film, and other chapter allocations are unchanged. 31 tests and build pass. Mobile/desktop traversal and return to the first picture pass with no page errors; the fully revealed first picture now spans approximately 0.89 / 1.00 screen heights.
