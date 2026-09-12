@@ -21,7 +21,7 @@ test('finale continues beyond its first cycle, pauses outside the ending and res
  state.still=false;state.p=.98;f.draw(c);assert.equal(f.moving,false);
 });
 test('additional chapter extensions preserve round trips and original drawer timing',()=>{
- assert.equal(expansionBeats.length,8);assert.equal(expansionScrollTotal,1880);
+ assert.equal(expansionBeats.length,8);assert.equal(expansionScrollTotal,2060);
  const prior=[30000,1700,440,1400,360,960],next=[35200,...prior.slice(1),5200];
  for(let i=0;i<=1000;i++){const p=i/1000;assert.ok(Math.abs(scrollToStory(storyToScroll(p,...next),...next)-p)<1e-9)}
  const delta=args=>storyToScroll(.804,...args)-storyToScroll(.789,...args);assert.ok(Math.abs(delta(prior)-delta(next))<1e-8);
@@ -29,8 +29,8 @@ test('additional chapter extensions preserve round trips and original drawer tim
 
 test('finale has no timed hold and the final scroll extension is isolated',()=>{
  for(let t=100;t<18000;t+=100)assert.notEqual(finalePhase(t),finalePhase(t+50));
- const next=[51440,1700,440,1400,360,960,15040];
+ const next=[52880,1700,440,1400,360,960,16480];
  const base=next[0]-next.slice(1).reduce((a,b)=>a+b,0);
- assert.ok(Math.abs(storyToScroll(.997,...next)-(.997*base+next.slice(1).reduce((a,b)=>a+b,0)-1440))<1e-8);
- const span=storyToScroll(1,...next)-storyToScroll(.997,...next);assert.ok(span>1440);
+ assert.ok(Math.abs(storyToScroll(.997,...next)-(.997*base+next.slice(1).reduce((a,b)=>a+b,0)-2880))<1e-8);
+ const span=storyToScroll(1,...next)-storyToScroll(.997,...next);assert.ok(span>2880);
 });
