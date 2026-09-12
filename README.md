@@ -122,3 +122,9 @@ The spare cup adds a six-second OpenRouter morning-table film, with 91 scroll-co
 ## Continuous morning-shot handoff
 
 The spare cup and Stay a little longer now share one continuous shot. This removes the switch to the brighter older Stay film and prevents the new clip from stopping at the chapter boundary. `src/morning-film.mjs` maps physical scroll distance across both chapters to a monotone eased source timeline, giving the visible steam/light motion most of the distance and gently settling at the final frame. The original Stay asset remains on disk. The later living-background finale continues as before.
+
+## Steady ending footage
+
+The morning sequence now uses `morning-steady-film`, replacing a source shot with a baked-in lighting reset. The same 91-frame shot continues through “Nowhere else” and eases to its endpoint. The 18-second native background loop begins and ends on that exported endpoint, with cosine forward/reverse motion. Native playback waits for a presented video frame before replacing the canvas fallback. Original media remain on disk.
+
+`qa-steady-source.py` checks adjacent source frames and loop edges; `qa-ending-color.mjs` checks browser-rendered endpoint color; the continuous-morning and living-background browser checks cover forward/reverse travel, mobile, looping and fallbacks.

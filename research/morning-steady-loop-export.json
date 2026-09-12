@@ -1,0 +1,10 @@
+{
+  "source": "morning-steady-film",
+  "duration": 18,
+  "fps": 24,
+  "frames": 432,
+  "firstSourceFrame": 90,
+  "lastSourceFrame": 90,
+  "maximumSourceFrameStep": 1,
+  "retiming": "cosine forward/reverse; same frame at seam; zero-speed turns"
+}

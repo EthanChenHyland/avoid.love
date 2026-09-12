@@ -9,7 +9,7 @@ for(const [width,height] of [[390,844],[844,390],[1280,720]]){
   if(id==='margins'&&await page.locator('#letter-object').isVisible())throw Error('Old letter target overlaps the new chapter');
   report.push({width,height,id});
  }
- await page.route('**/frames/spare-cup-film/**',async r=>{await new Promise(r=>setTimeout(r,160));await r.continue().catch(()=>{})});
+ await page.route('**/frames/morning-steady-film/**',async r=>{await new Promise(r=>setTimeout(r,160));await r.continue().catch(()=>{})});
  for(const at of [.94,.95,.957,.965,.969,.957,.95,.94]){await scrollToChapter(page,at);await page.waitForFunction(at=>Math.abs(+document.querySelector('#world').dataset.progress-at)<.0002,at);await page.waitForTimeout(600);const d=await page.locator('#world').evaluate(c=>({...c.dataset}));if(+d.cached>48)throw Error('Film cache exceeded budget');if(at===.957&&d.film!=='spare')throw Error('New footage not integrated');}
  await page.emulateMedia({reducedMotion:'reduce'});await page.waitForTimeout(400);for(const at of [.457,.905,.957,1]){await scrollToChapter(page,at);await page.waitForFunction(at=>Math.abs(+document.querySelector('#world').dataset.progress-at)<.0002,at)}
  if(errors.length)throw Error(errors.join());await page.close();

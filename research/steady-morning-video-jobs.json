@@ -1,0 +1,12 @@
+[
+  {
+    "name": "morning-steady-film",
+    "model": "bytedance/seedance-2.0",
+    "duration": 6,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "generate_audio": false,
+    "first": "morning-loop-reference.png",
+    "prompt": "A single photorealistic continuous locked-camera shot of this exact morning cafe table. Preserve the supplied composition, objects, crop and CONSTANT exposure and lighting for the entire duration. Both cups, saucers, glass vase, poppy stem, table, chair, envelope and window remain fixed. Only the existing attached poppy petals move gently in a light breeze throughout the shot, and faint translucent coffee vapor drifts slowly. The vapor is diffuse and barely visible, NEVER thick white curls, ribbons, smoke or flames. No changes in sunlight, no moving light patches, no pulsing light or bright reflections, no shadow jumps. NO cuts, resets, dissolves, camera motion, abrupt ending, new objects, people, hands, text, seals or ribbons. End naturally in the current motion, do not return or snap to the initial reference. Keep exactly the same lighting and photographic realism on every frame, with small continuous natural motion only."
+  }
+]

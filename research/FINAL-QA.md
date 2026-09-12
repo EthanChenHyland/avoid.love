@@ -347,3 +347,18 @@ The boundary at .966 switched from spare-cup-film's endpoint to the separately g
 Both chapters now use the same continuous spare-cup-film sequence through .986. A monotone cubic timing curve uses physical scroll distance, eliminating speed changes caused by different chapter spacers. The visible source motion spans both sections and eases into a held endpoint. No dissolve or exposure overlay was added. The old Stay asset is retained on disk, and the existing live background still takes over at the later finale.
 
 Validation: 29 unit tests and build pass. At four mobile/intermediate/landscape/desktop sizes, delayed-frame traversal stays on the same film with no frame resets or blanks, maximum decoded step 3, and correct forward/reverse endpoint holds. Tight samples around .966 show mean canvas differences of 0.010–0.033%, rather than a switch between differently exposed sources. These measurements include natural movement and do not imply pixel-identical successive frames. Living-background autoplay, looping, reverse handoff, menu pause/resume, reduced motion and fallback pass at three sizes. The revised mobile boundary screenshot was visually reviewed. No layout or chapter-length changes.
+
+### September 11 — source reset and native first-frame correction at the ending
+
+The earlier boundary audit missed a hard lighting/steam reset inside spare-cup-film near source frame 53. Replaced the active manifest source with newly generated morning-steady-film (OpenRouter reported cost $0.9135), using a first-frame reference without a forced return to that reference. Original media are retained. The shared physical-scroll timeline now uses a simple smooth endpoint easing across both morning chapters. No chapter lengths changed.
+
+The native background now derives from the same exported scroll images, starting and ending at frame 90. Its 18-second cosine loop has stationary turns. PIL RGB intermediates and explicit BT709 encoding avoid mismatched conversion paths. Native canvas sampling additionally waits for requestVideoFrameCallback after loading or seeking; loadeddata alone could expose an unpresented black frame. Browsers without that API use advancing playback as their readiness signal.
+
+Validation:
+- 29 unit tests and production build pass.
+- New source maximum adjacent mean RGB change: 0.488%; maximum mean brightness step: 0.271%. These measurements are regression bounds, not a claim of identical frames.
+- Encoded loop seam differences: 0.170% desktop, 0.231% mobile.
+- Chromium comparison of the first presented native frame against the exported endpoint: 0.261% desktop, 0.729% mobile, with average channel offsets below 0.18 of 255. Comparison draws both at presentation size before reducing for measurement, avoiding different single-step thumbnail sampling of video and images.
+- Continuous forward/reverse traversal across four viewports (390×844, 639×734, 844×390, 1280×720): no blanks or resets, maximum decoded step 2. Boundary canvas differences 0.010–0.078%.
+- Presented background readiness, stationary autoplay, loop wrap, reverse handoff/reset, menu pause/resume, reduced motion and missing-video fallback pass at three viewport sizes. No page errors.
+- Mobile finale screenshot reviewed. Automated browser checks use Chromium; they do not constitute an actual iOS Safari device test.

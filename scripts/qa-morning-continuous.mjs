@@ -1,7 +1,7 @@
 import {chromium} from 'playwright';import {scrollToChapter} from './qa-scroll.mjs';import {storyToScroll} from '../src/scroll-map.mjs';import fs from 'node:fs/promises';
 const b=await chromium.launch({channel:'chrome'}),report=[];await fs.mkdir('qa/morning-continuous',{recursive:true});
 for(const [width,height] of [[390,844],[639,734],[844,390],[1280,720]]){
- const p=await b.newPage({viewport:{width,height}}),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.route('**/frames/spare-cup-film/**',async r=>{await new Promise(r=>setTimeout(r,70));await r.continue().catch(()=>{})});await p.goto('http://127.0.0.1:4188/');
+ const p=await b.newPage({viewport:{width,height}}),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.route('**/frames/morning-steady-film/**',async r=>{await new Promise(r=>setTimeout(r,70));await r.continue().catch(()=>{})});await p.goto('http://127.0.0.1:4188/');
  const go=async at=>{await scrollToChapter(p,at);await p.waitForFunction(at=>Math.abs(+document.querySelector('#world').dataset.progress-at)<.0001,at);await p.waitForTimeout(650)};
  const pixels=()=>p.locator('#world').evaluate(c=>{const s=document.createElement('canvas');s.width=160;s.height=100;const x=s.getContext('2d');x.drawImage(c,0,0,160,100);return [...x.getImageData(0,0,160,100).data]});
  await go(.96599);const a=await pixels();await go(.96601);const z=await pixels();const delta=a.reduce((s,v,i)=>s+(i%4===3?0:Math.abs(v-z[i])),0)/(a.length*.75*255);if(delta>.005)throw Error(`Exposure jump ${width}: ${delta}`);

@@ -79,8 +79,8 @@
   "spare": {
     "count": 91,
     "fps": 15,
-    "desktop": "/frames/spare-cup-film/desktop",
-    "mobile": "/frames/spare-cup-film/mobile",
-    "video": "/films/spare-cup-film.mp4"
+    "desktop": "/frames/morning-steady-film/desktop",
+    "mobile": "/frames/morning-steady-film/mobile",
+    "video": "/films/morning-steady-film.mp4"
   }
 }
