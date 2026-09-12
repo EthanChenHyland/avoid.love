@@ -394,3 +394,7 @@ Deployed the static build to Cloudflare Workers as avoid-love, version 0fb31bcb-
 ### Custom-domain DNS refresh verified
 
 On September 11 at 22:14 CDT the local network resolver's negative DNS cache expired and began returning avoid.love's Cloudflare addresses. A fresh Chromium session then loaded https://avoid.love/ with normal certificate validation. Published checks passed at 390×844 and 1280×720: HTTP 200, manifest fetch, advancing background video, and no page errors. The QA manifest request now uses the browser's fetch path, avoiding a separate Node DNS cache. Some existing application/system sessions may still retain the earlier failed lookup; refreshing or reopening those sessions may be required. No DNS server settings or certificate validation settings were changed.
+
+### Longer You put it away and Not quite gone sections
+
+Added 120svh to the .755–.782 trying interval and increased the visible drawer motion's dedicated allocation from 210svh to 330svh. Both sections gain 1.2 screen heights without changing the key rotation interval or final avoid interval. 31 tests and the build pass. Mobile/desktop forward and reverse traversal checks pass; delayed-frame drawer traversal reports maximum decoded step 2, no blanks and stable resizing. Measured trying interval: 1.93 mobile / 2.20 desktop screen heights; drawer motion: 3.70 / 3.86 screen heights.
