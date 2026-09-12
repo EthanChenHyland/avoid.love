@@ -378,3 +378,7 @@ Final build and revised heading/petal checks pass. The new fully readable avoid 
 ### Longer avoid interval
 
 Doubled the finale's dedicated scroll allocation from 180svh to 360svh. The final avoid reveal and disappearance now occupy roughly twice the physical scrolling distance, while the background and petal loop retain their playback speed. Earlier chapter allocations are unchanged. All 31 unit tests, production build, and four-size forward/reverse ending checks pass, including readable avoid text, delayed replay, and at least 3.5 viewport heights in the final interval.
+
+### Avoid interval doubled again
+
+Increased the dedicated final interval from 360svh to 720svh as requested. Earlier chapter allocations and animation playback rates remain unchanged. All 31 tests and the production build pass; forward/reverse text, replay timing and the enlarged scroll interval pass at four viewport sizes.

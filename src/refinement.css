@@ -127,9 +127,9 @@ html[data-still=true] .stage *{transition:none!important}
 .address-scroll-room{position:absolute;visibility:hidden;pointer-events:none;height:120svh;width:1px}
 @media(max-width:700px){.scroll-track{height:calc(3355svh + var(--key-room))}}
 
-.expansion-scroll-room{position:absolute;visibility:hidden;pointer-events:none;height:2060svh;width:1px}
-.scroll-track{height:calc(6415svh + var(--key-room))}
-@media(max-width:700px){.scroll-track{height:calc(5415svh + var(--key-room))}}
+.expansion-scroll-room{position:absolute;visibility:hidden;pointer-events:none;height:2420svh;width:1px}
+.scroll-track{height:calc(6775svh + var(--key-room))}
+@media(max-width:700px){.scroll-track{height:calc(5775svh + var(--key-room))}}
 /* The compact still timeline must not retain cinematic spacers larger than itself. */
 html[data-still=true] .scroll-track :is(.kept-scroll-room,.key-scroll-room,.stay-scroll-room,.clock-scroll-room,.address-scroll-room,.expansion-scroll-room){height:0}
 /* An expanded chapter list scrolls from its first link instead of centering above the viewport. */

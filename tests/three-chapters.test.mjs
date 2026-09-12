@@ -1,9 +1,9 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {newChapters,drawNewChapters} from '../src/three-chapters.mjs';import {expansionBeats,expansionScrollTotal} from '../src/expansion.mjs';import {storyToScroll,scrollToStory} from '../src/scroll-map.mjs';import {narrative} from '../src/story.mjs';
 test('28 unique chapters include three isolated new scroll intervals without changing the older allocations',()=>{
- assert.equal(narrative.length,28);assert.equal(new Set(narrative.map(b=>b.id)).size,28);assert.equal(expansionScrollTotal,2060);
+ assert.equal(narrative.length,28);assert.equal(new Set(narrative.map(b=>b.id)).size,28);assert.equal(expansionScrollTotal,2420);
  const ordered=[...expansionBeats].sort((a,b)=>a.scroll[0]-b.scroll[0]);for(let i=1;i<ordered.length;i++)assert.ok(ordered[i-1].scroll[1]<=ordered[i].scroll[0]);
- const args=[52880,1700,440,1400,360,960,16480],base=52880-1700-440-1400-360-960-16480;
+ const args=[55760,1700,440,1400,360,960,19360],base=55760-1700-440-1400-360-960-19360;
  for(const beat of expansionBeats){const [a,b,weight]=beat.scroll;assert.ok(Math.abs(storyToScroll(b,...args)-storyToScroll(a,...args)-((b-a)*base+weight*8))<1e-8);assert.ok(Math.abs(scrollToStory(storyToScroll(beat.at,...args),...args)-beat.at)<1e-9)}
 });
 test('new chapter effects preserve canvas state, finite geometry, and static paper in still mode',()=>{

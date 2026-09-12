@@ -131,4 +131,4 @@ The morning sequence now uses `morning-steady-film`, replacing a source shot wit
 
 ## Longer, continuous finale
 
-The final avoid → love transition now has 360svh of dedicated scrolling, with the word reveal completed before avoid disappears. Replay is offered only at the final endpoint. The petal finale uses an uninterrupted 18-second gather/release cycle, retains visible petals during release, and fades its scene presence reversibly when scrolling back. Nine earlier scene ranges now have scroll-driven petal, ink, rain-light and gold-light processions; mobile uses fewer particles and reduced motion disables them.
+The final avoid → love transition now has 720svh of dedicated scrolling, with the word reveal completed before avoid disappears. Replay is offered only at the final endpoint. The petal finale uses an uninterrupted 18-second gather/release cycle, retains visible petals during release, and fades its scene presence reversibly when scrolling back. Nine earlier scene ranges now have scroll-driven petal, ink, rain-light and gold-light processions; mobile uses fewer particles and reduced motion disables them.
